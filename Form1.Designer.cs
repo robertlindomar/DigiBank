@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnConfiguracoes = new System.Windows.Forms.Button();
+            this.btnCartoes = new System.Windows.Forms.Button();
             this.btnTransacoes = new System.Windows.Forms.Button();
             this.btnDashboard = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.painelPrincipal = new System.Windows.Forms.Panel();
+            this.btnTerminalPOS = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -43,85 +43,61 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.White;
-            this.panel1.Controls.Add(this.button1);
-            this.panel1.Controls.Add(this.button3);
-            this.panel1.Controls.Add(this.button2);
+            this.panel1.Controls.Add(this.btnTerminalPOS);
+            this.panel1.Controls.Add(this.btnConfiguracoes);
+            this.panel1.Controls.Add(this.btnCartoes);
             this.panel1.Controls.Add(this.btnTransacoes);
             this.panel1.Controls.Add(this.btnDashboard);
             this.panel1.Controls.Add(this.pictureBox1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(347, 859);
+            this.panel1.Size = new System.Drawing.Size(260, 698);
             this.panel1.TabIndex = 0;
             // 
-            // button1
+            // btnConfiguracoes
             // 
-            this.button1.BackColor = System.Drawing.Color.White;
-            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(250)))), ((int)(((byte)(251)))));
-            this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(250)))), ((int)(((byte)(251)))));
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Image = global::DigiBank.Properties.Resources.definicoes;
-            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(31, 425);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.button1.Name = "button1";
-            this.button1.Padding = new System.Windows.Forms.Padding(16, 0, 0, 0);
-            this.button1.Size = new System.Drawing.Size(293, 74);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "   Configurações";
-            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.button1.UseVisualStyleBackColor = false;
+            this.btnConfiguracoes.BackColor = System.Drawing.Color.White;
+            this.btnConfiguracoes.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btnConfiguracoes.FlatAppearance.BorderSize = 0;
+            this.btnConfiguracoes.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(250)))), ((int)(((byte)(251)))));
+            this.btnConfiguracoes.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(250)))), ((int)(((byte)(251)))));
+            this.btnConfiguracoes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnConfiguracoes.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnConfiguracoes.Image = global::DigiBank.Properties.Resources.definicoes;
+            this.btnConfiguracoes.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnConfiguracoes.Location = new System.Drawing.Point(23, 345);
+            this.btnConfiguracoes.Name = "btnConfiguracoes";
+            this.btnConfiguracoes.Padding = new System.Windows.Forms.Padding(12, 0, 0, 0);
+            this.btnConfiguracoes.Size = new System.Drawing.Size(220, 60);
+            this.btnConfiguracoes.TabIndex = 5;
+            this.btnConfiguracoes.Text = "   Configurações";
+            this.btnConfiguracoes.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnConfiguracoes.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnConfiguracoes.UseVisualStyleBackColor = false;
+            this.btnConfiguracoes.Click += new System.EventHandler(this.btnConfiguracoes_Click);
             // 
-            // button3
+            // btnCartoes
             // 
-            this.button3.BackColor = System.Drawing.Color.White;
-            this.button3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.button3.FlatAppearance.BorderSize = 0;
-            this.button3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(250)))), ((int)(((byte)(251)))));
-            this.button3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(250)))), ((int)(((byte)(251)))));
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.Image = global::DigiBank.Properties.Resources.botao_movel;
-            this.button3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button3.Location = new System.Drawing.Point(31, 343);
-            this.button3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.button3.Name = "button3";
-            this.button3.Padding = new System.Windows.Forms.Padding(16, 0, 0, 0);
-            this.button3.Size = new System.Drawing.Size(293, 74);
-            this.button3.TabIndex = 4;
-            this.button3.Text = "   Terminal POS";
-            this.button3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button3.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.button3.UseVisualStyleBackColor = false;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // button2
-            // 
-            this.button2.BackColor = System.Drawing.Color.White;
-            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(250)))), ((int)(((byte)(251)))));
-            this.button2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(250)))), ((int)(((byte)(251)))));
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Image = global::DigiBank.Properties.Resources.cartao_de_credito;
-            this.button2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button2.Location = new System.Drawing.Point(31, 274);
-            this.button2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.button2.Name = "button2";
-            this.button2.Padding = new System.Windows.Forms.Padding(16, 0, 0, 0);
-            this.button2.Size = new System.Drawing.Size(293, 74);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "   Cartões";
-            this.button2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.button2.UseVisualStyleBackColor = false;
+            this.btnCartoes.BackColor = System.Drawing.Color.White;
+            this.btnCartoes.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btnCartoes.FlatAppearance.BorderSize = 0;
+            this.btnCartoes.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(250)))), ((int)(((byte)(251)))));
+            this.btnCartoes.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(250)))), ((int)(((byte)(251)))));
+            this.btnCartoes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCartoes.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCartoes.Image = global::DigiBank.Properties.Resources.cartao_de_credito;
+            this.btnCartoes.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCartoes.Location = new System.Drawing.Point(23, 223);
+            this.btnCartoes.Name = "btnCartoes";
+            this.btnCartoes.Padding = new System.Windows.Forms.Padding(12, 0, 0, 0);
+            this.btnCartoes.Size = new System.Drawing.Size(220, 60);
+            this.btnCartoes.TabIndex = 3;
+            this.btnCartoes.Text = "   Cartões";
+            this.btnCartoes.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCartoes.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnCartoes.UseVisualStyleBackColor = false;
+            this.btnCartoes.Click += new System.EventHandler(this.btnCartoes_Click);
             // 
             // btnTransacoes
             // 
@@ -134,16 +110,16 @@
             this.btnTransacoes.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTransacoes.Image = global::DigiBank.Properties.Resources.tempo_passado;
             this.btnTransacoes.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnTransacoes.Location = new System.Drawing.Point(31, 206);
-            this.btnTransacoes.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnTransacoes.Location = new System.Drawing.Point(23, 167);
             this.btnTransacoes.Name = "btnTransacoes";
-            this.btnTransacoes.Padding = new System.Windows.Forms.Padding(16, 0, 0, 0);
-            this.btnTransacoes.Size = new System.Drawing.Size(293, 74);
+            this.btnTransacoes.Padding = new System.Windows.Forms.Padding(12, 0, 0, 0);
+            this.btnTransacoes.Size = new System.Drawing.Size(220, 60);
             this.btnTransacoes.TabIndex = 2;
             this.btnTransacoes.Text = "   Transações";
             this.btnTransacoes.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnTransacoes.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnTransacoes.UseVisualStyleBackColor = false;
+            this.btnTransacoes.Click += new System.EventHandler(this.btnTransacoes_Click);
             // 
             // btnDashboard
             // 
@@ -156,11 +132,10 @@
             this.btnDashboard.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDashboard.Image = global::DigiBank.Properties.Resources.casa__2_;
             this.btnDashboard.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnDashboard.Location = new System.Drawing.Point(31, 137);
-            this.btnDashboard.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnDashboard.Location = new System.Drawing.Point(23, 111);
             this.btnDashboard.Name = "btnDashboard";
-            this.btnDashboard.Padding = new System.Windows.Forms.Padding(16, 0, 0, 0);
-            this.btnDashboard.Size = new System.Drawing.Size(293, 74);
+            this.btnDashboard.Padding = new System.Windows.Forms.Padding(12, 0, 0, 0);
+            this.btnDashboard.Size = new System.Drawing.Size(220, 60);
             this.btnDashboard.TabIndex = 1;
             this.btnDashboard.Text = "   Dashboard";
             this.btnDashboard.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -173,9 +148,8 @@
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.pictureBox1.Image = global::DigiBank.Properties.Resources.logoooDigibank;
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(347, 98);
+            this.pictureBox1.Size = new System.Drawing.Size(260, 80);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
@@ -183,22 +157,43 @@
             // painelPrincipal
             // 
             this.painelPrincipal.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.painelPrincipal.Location = new System.Drawing.Point(347, 0);
-            this.painelPrincipal.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.painelPrincipal.Location = new System.Drawing.Point(260, 0);
             this.painelPrincipal.Name = "painelPrincipal";
-            this.painelPrincipal.Size = new System.Drawing.Size(957, 859);
+            this.painelPrincipal.Size = new System.Drawing.Size(718, 698);
             this.painelPrincipal.TabIndex = 1;
             this.painelPrincipal.Paint += new System.Windows.Forms.PaintEventHandler(this.painelPrincipal_Paint);
             // 
+            // btnTerminalPOS
+            // 
+            this.btnTerminalPOS.BackColor = System.Drawing.Color.White;
+            this.btnTerminalPOS.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btnTerminalPOS.FlatAppearance.BorderSize = 0;
+            this.btnTerminalPOS.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(250)))), ((int)(((byte)(251)))));
+            this.btnTerminalPOS.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(250)))), ((int)(((byte)(251)))));
+            this.btnTerminalPOS.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTerminalPOS.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTerminalPOS.Image = global::DigiBank.Properties.Resources.botao_movel;
+            this.btnTerminalPOS.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnTerminalPOS.Location = new System.Drawing.Point(23, 279);
+            this.btnTerminalPOS.Name = "btnTerminalPOS";
+            this.btnTerminalPOS.Padding = new System.Windows.Forms.Padding(12, 0, 0, 0);
+            this.btnTerminalPOS.Size = new System.Drawing.Size(220, 60);
+            this.btnTerminalPOS.TabIndex = 6;
+            this.btnTerminalPOS.Text = "   Terminal POS";
+            this.btnTerminalPOS.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnTerminalPOS.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnTerminalPOS.UseVisualStyleBackColor = false;
+            this.btnTerminalPOS.Click += new System.EventHandler(this.btnTerminalPOS_Click);
+            // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(250)))), ((int)(((byte)(251)))));
-            this.ClientSize = new System.Drawing.Size(1304, 859);
+            this.ClientSize = new System.Drawing.Size(978, 698);
             this.Controls.Add(this.painelPrincipal);
             this.Controls.Add(this.panel1);
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -213,11 +208,11 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button btnDashboard;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnCartoes;
         private System.Windows.Forms.Button btnTransacoes;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnConfiguracoes;
         private System.Windows.Forms.Panel painelPrincipal;
+        private System.Windows.Forms.Button btnTerminalPOS;
     }
 }
 

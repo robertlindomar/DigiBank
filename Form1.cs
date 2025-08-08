@@ -41,14 +41,8 @@ namespace DigiBank
 
         private void btnDashboard_Click(object sender, EventArgs e)
         {
-            // --- Reseta a aparência de todos os botões do menu ---
-            ResetarEstiloBotoes();
+            SelecionarBotao(btnDashboard);
 
-            // --- Aplica estilo de "selecionado" no Dashboard ---
-            btnDashboard.BackColor = Color.LightBlue;
-            btnDashboard.ForeColor = Color.Blue;
-
-            // --- Carrega o Dashboard ---
             painelPrincipal.Controls.Clear();
 
             DashBoard telaDashboard = new DashBoard
@@ -57,27 +51,108 @@ namespace DigiBank
                 FormBorderStyle = FormBorderStyle.None,
                 Dock = DockStyle.Fill
             };
-
             painelPrincipal.Controls.Add(telaDashboard);
             telaDashboard.Show();
         }
-
-        private void ResetarEstiloBotoes()
+        private void btnTransacoes_Click(object sender, EventArgs e)
         {
-            // Aqui você coloca todos os botões do seu menu
-            List<Button> botoesMenu = new List<Button> { btnDashboard, /* btnOutro, btnMais... */ };
+            SelecionarBotao(btnTransacoes);
 
-            foreach (var botao in botoesMenu)
-            {
-                botao.BackColor = SystemColors.Control; // Cor padrão
-                botao.ForeColor = Color.Black;          // Texto preto
-            }
+            painelPrincipal.Controls.Clear();
+            
+            //Transacoes tela = new Transacoes
+            //{
+            //    TopLevel = false,
+            //    FormBorderStyle = FormBorderStyle.None,
+            //    Dock = DockStyle.Fill
+            //};
+            //painelPrincipal.Controls.Add(tela);
+            //tela.Show();
         }
+
+        private void btnCartoes_Click(object sender, EventArgs e)
+        {
+            SelecionarBotao(btnCartoes);
+
+            painelPrincipal.Controls.Clear();
+
+            //Cartoes tela = new Cartoes
+            //{
+            //    TopLevel = false,
+            //    FormBorderStyle = FormBorderStyle.None,
+            //    Dock = DockStyle.Fill
+            //};
+            //painelPrincipal.Controls.Add(tela);
+            //tela.Show();
+        }
+
+        private void btnTerminalPOS_Click(object sender, EventArgs e)
+        {
+            SelecionarBotao(btnTerminalPOS);
+
+            painelPrincipal.Controls.Clear();
+
+            //TerminalPOS tela = new TerminalPOS
+            //{
+            //    TopLevel = false,
+            //    FormBorderStyle = FormBorderStyle.None,
+            //    Dock = DockStyle.Fill
+            //};
+            //painelPrincipal.Controls.Add(tela);
+            //tela.Show();
+        }
+
+        private void btnConfiguracoes_Click(object sender, EventArgs e)
+        {
+            SelecionarBotao(btnConfiguracoes);
+
+            painelPrincipal.Controls.Clear();
+
+            //Configuracoes tela = new Configuracoes
+            //{
+            //    TopLevel = false,
+            //    FormBorderStyle = FormBorderStyle.None,
+            //    Dock = DockStyle.Fill
+            //};
+            //painelPrincipal.Controls.Add(tela);
+            //tela.Show();
+        }
+        
 
 
         private void painelPrincipal_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void ResetarEstiloBotoes()
+        {
+            // Lista com todos os botões do menu
+            List<Button> botoesMenu = new List<Button>
+            {
+                btnDashboard,
+                btnTransacoes,
+                btnCartoes,
+                btnTerminalPOS,
+                btnConfiguracoes
+            };
+
+            foreach (var botao in botoesMenu)
+            {
+                botao.BackColor = Color.White;
+                botao.ForeColor = Color.Black;
+                botao.FlatAppearance.BorderSize = 0;
+            }
+        }
+
+        private void SelecionarBotao(Button botao)
+        {
+            // Resetar todos
+            ResetarEstiloBotoes();
+
+            // Estilo de selecionado
+            botao.BackColor = Color.FromArgb(239, 246, 255);
+            botao.ForeColor = Color.FromArgb(57, 82, 251);
         }
     }
 }
