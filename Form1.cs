@@ -41,15 +41,42 @@ namespace DigiBank
 
         private void btnDashboard_Click(object sender, EventArgs e)
         {
-            painelPrincipal.Controls.Clear(); // Limpa o painel
+            // --- Reseta a aparência de todos os botões do menu ---
+            ResetarEstiloBotoes();
 
-            DashBoard telaDashboard = new DashBoard();
-            telaDashboard.TopLevel = false; // 🔹 Faz o form não ser janela principal
-            telaDashboard.FormBorderStyle = FormBorderStyle.None; // 🔹 Remove bordas
-            telaDashboard.Dock = DockStyle.Fill; // 🔹 Faz ocupar todo o painel
+            // --- Aplica estilo de "selecionado" no Dashboard ---
+            btnDashboard.BackColor = Color.LightBlue;
+            btnDashboard.ForeColor = Color.Blue;
 
-            painelPrincipal.Controls.Add(telaDashboard); // Adiciona no painel
-            telaDashboard.Show(); // Mostra o form
+            // --- Carrega o Dashboard ---
+            painelPrincipal.Controls.Clear();
+
+            DashBoard telaDashboard = new DashBoard
+            {
+                TopLevel = false,
+                FormBorderStyle = FormBorderStyle.None,
+                Dock = DockStyle.Fill
+            };
+
+            painelPrincipal.Controls.Add(telaDashboard);
+            telaDashboard.Show();
+        }
+
+        private void ResetarEstiloBotoes()
+        {
+            // Aqui você coloca todos os botões do seu menu
+            List<Button> botoesMenu = new List<Button> { btnDashboard, /* btnOutro, btnMais... */ };
+
+            foreach (var botao in botoesMenu)
+            {
+                botao.BackColor = SystemColors.Control; // Cor padrão
+                botao.ForeColor = Color.Black;          // Texto preto
+            }
+        }
+
+
+        private void painelPrincipal_Paint(object sender, PaintEventArgs e)
+        {
 
         }
     }

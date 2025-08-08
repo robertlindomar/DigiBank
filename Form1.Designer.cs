@@ -51,8 +51,9 @@
             this.panel1.Controls.Add(this.pictureBox1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(260, 698);
+            this.panel1.Size = new System.Drawing.Size(347, 859);
             this.panel1.TabIndex = 0;
             // 
             // button1
@@ -66,10 +67,11 @@
             this.button1.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.Image = global::DigiBank.Properties.Resources.definicoes;
             this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(23, 345);
+            this.button1.Location = new System.Drawing.Point(31, 425);
+            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button1.Name = "button1";
-            this.button1.Padding = new System.Windows.Forms.Padding(12, 0, 0, 0);
-            this.button1.Size = new System.Drawing.Size(220, 60);
+            this.button1.Padding = new System.Windows.Forms.Padding(16, 0, 0, 0);
+            this.button1.Size = new System.Drawing.Size(293, 74);
             this.button1.TabIndex = 5;
             this.button1.Text = "   Configurações";
             this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -87,10 +89,11 @@
             this.button3.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button3.Image = global::DigiBank.Properties.Resources.botao_movel;
             this.button3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button3.Location = new System.Drawing.Point(23, 279);
+            this.button3.Location = new System.Drawing.Point(31, 343);
+            this.button3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button3.Name = "button3";
-            this.button3.Padding = new System.Windows.Forms.Padding(12, 0, 0, 0);
-            this.button3.Size = new System.Drawing.Size(220, 60);
+            this.button3.Padding = new System.Windows.Forms.Padding(16, 0, 0, 0);
+            this.button3.Size = new System.Drawing.Size(293, 74);
             this.button3.TabIndex = 4;
             this.button3.Text = "   Terminal POS";
             this.button3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -109,10 +112,11 @@
             this.button2.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button2.Image = global::DigiBank.Properties.Resources.cartao_de_credito;
             this.button2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button2.Location = new System.Drawing.Point(23, 223);
+            this.button2.Location = new System.Drawing.Point(31, 274);
+            this.button2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button2.Name = "button2";
-            this.button2.Padding = new System.Windows.Forms.Padding(12, 0, 0, 0);
-            this.button2.Size = new System.Drawing.Size(220, 60);
+            this.button2.Padding = new System.Windows.Forms.Padding(16, 0, 0, 0);
+            this.button2.Size = new System.Drawing.Size(293, 74);
             this.button2.TabIndex = 3;
             this.button2.Text = "   Cartões";
             this.button2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -130,10 +134,11 @@
             this.btnTransacoes.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTransacoes.Image = global::DigiBank.Properties.Resources.tempo_passado;
             this.btnTransacoes.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnTransacoes.Location = new System.Drawing.Point(23, 167);
+            this.btnTransacoes.Location = new System.Drawing.Point(31, 206);
+            this.btnTransacoes.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnTransacoes.Name = "btnTransacoes";
-            this.btnTransacoes.Padding = new System.Windows.Forms.Padding(12, 0, 0, 0);
-            this.btnTransacoes.Size = new System.Drawing.Size(220, 60);
+            this.btnTransacoes.Padding = new System.Windows.Forms.Padding(16, 0, 0, 0);
+            this.btnTransacoes.Size = new System.Drawing.Size(293, 74);
             this.btnTransacoes.TabIndex = 2;
             this.btnTransacoes.Text = "   Transações";
             this.btnTransacoes.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -151,10 +156,11 @@
             this.btnDashboard.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDashboard.Image = global::DigiBank.Properties.Resources.casa__2_;
             this.btnDashboard.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnDashboard.Location = new System.Drawing.Point(23, 111);
+            this.btnDashboard.Location = new System.Drawing.Point(31, 137);
+            this.btnDashboard.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnDashboard.Name = "btnDashboard";
-            this.btnDashboard.Padding = new System.Windows.Forms.Padding(12, 0, 0, 0);
-            this.btnDashboard.Size = new System.Drawing.Size(220, 60);
+            this.btnDashboard.Padding = new System.Windows.Forms.Padding(16, 0, 0, 0);
+            this.btnDashboard.Size = new System.Drawing.Size(293, 74);
             this.btnDashboard.TabIndex = 1;
             this.btnDashboard.Text = "   Dashboard";
             this.btnDashboard.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -167,8 +173,9 @@
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.pictureBox1.Image = global::DigiBank.Properties.Resources.logoooDigibank;
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(260, 80);
+            this.pictureBox1.Size = new System.Drawing.Size(347, 98);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
@@ -176,20 +183,22 @@
             // painelPrincipal
             // 
             this.painelPrincipal.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.painelPrincipal.Location = new System.Drawing.Point(260, 0);
+            this.painelPrincipal.Location = new System.Drawing.Point(347, 0);
+            this.painelPrincipal.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.painelPrincipal.Name = "painelPrincipal";
-            this.painelPrincipal.Size = new System.Drawing.Size(718, 698);
+            this.painelPrincipal.Size = new System.Drawing.Size(957, 859);
             this.painelPrincipal.TabIndex = 1;
+            this.painelPrincipal.Paint += new System.Windows.Forms.PaintEventHandler(this.painelPrincipal_Paint);
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(250)))), ((int)(((byte)(251)))));
-            this.ClientSize = new System.Drawing.Size(978, 698);
+            this.ClientSize = new System.Drawing.Size(1304, 859);
             this.Controls.Add(this.painelPrincipal);
             this.Controls.Add(this.panel1);
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);

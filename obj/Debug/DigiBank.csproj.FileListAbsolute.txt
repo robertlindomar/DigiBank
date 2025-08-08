@@ -87,3 +87,4 @@ C:\Users\Robert Lindomar\Desktop\C#\DigiBank\obj\Debug\DigiBank.csproj.Up2Date
 C:\Users\Robert Lindomar\Desktop\C#\DigiBank\obj\Debug\DigiBank.exe
 C:\Users\Robert Lindomar\Desktop\C#\DigiBank\obj\Debug\DigiBank.pdb
 C:\Users\Robert Lindomar\Desktop\C#\DigiBank\obj\Debug\DigiBank.views.DashBoard.resources
+C:\Users\robertlindomar\Desktop\trabalho c#\DigiBank\obj\Debug\DigiBank.views.DashBoard.resources
