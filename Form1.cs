@@ -2,6 +2,7 @@
 using DigiBank.models;
 using DigiBank.repositories;
 using DigiBank.services;
+using DigiBank.views;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,19 +18,15 @@ namespace DigiBank
     public partial class Form1 : Form
     {
 
-        private readonly ClienteController clienteController;
         public Form1()
         {
             InitializeComponent();
-            clienteController = new ClienteController();
-            CarregarClientes();
+            
         }
 
         private void CarregarClientes()
         {
-            List<Cliente> lista = clienteController.BuscarTodos(); // ou sua função
-
-            dataGridView1.DataSource = lista;
+            
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -37,29 +34,22 @@ namespace DigiBank
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void button3_Click(object sender, EventArgs e)
         {
-            Cliente novoCliente = new Cliente();
 
-            if (textNome.Text != null && textCPF.Text != null)
-            {
-                novoCliente.Nome = textNome.Text;
-                novoCliente.Cpf = textCPF.Text;
-
-
-                clienteController.criar(novoCliente);
-
-
-
-
-                MessageBox.Show("Usuario Cadastrado com Sucesso ");
-            }
         }
 
-        
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void btnDashboard_Click(object sender, EventArgs e)
         {
+            painelPrincipal.Controls.Clear(); // Limpa o painel
+
+            DashBoard telaDashboard = new DashBoard();
+            telaDashboard.TopLevel = false; // 🔹 Faz o form não ser janela principal
+            telaDashboard.FormBorderStyle = FormBorderStyle.None; // 🔹 Remove bordas
+            telaDashboard.Dock = DockStyle.Fill; // 🔹 Faz ocupar todo o painel
+
+            painelPrincipal.Controls.Add(telaDashboard); // Adiciona no painel
+            telaDashboard.Show(); // Mostra o form
 
         }
     }

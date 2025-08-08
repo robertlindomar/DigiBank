@@ -123,6 +123,12 @@
     <Compile Include="services\ContaService.cs" />
     <Compile Include="controllers\TransacaoController.cs" />
     <Compile Include="services\TransacaoService.cs" />
+    <Compile Include="views\DashBoard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="views\DashBoard.Designer.cs">
+      <DependentUpon>DashBoard.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -134,7 +140,11 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="views\DashBoard.resx">
+      <DependentUpon>DashBoard.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -149,8 +159,25 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="views\" />
+    <Content Include="DB\banco.sql" />
+    <None Include="Resources\carteira %281%29.png" />
+    <None Include="Resources\carteira.png" />
+    <None Include="Resources\moedas.png" />
+    <None Include="Resources\dolar.png" />
+    <None Include="Resources\definicoes.png" />
+    <None Include="Resources\botao-movel.png" />
+    <None Include="Resources\cartao-de-credito.png" />
+    <None Include="Resources\tempo-passado.png" />
+    <None Include="Resources\casa %282%29.png" />
+    <None Include="Resources\casa %281%29.png" />
+    <None Include="Resources\casa.png" />
+    <None Include="Resources\logoooDigibank.png" />
+    <None Include="Resources\DigiBank-Logo1.png" />
+    <None Include="Resources\logo-DigiBank-Atual.png" />
+    <None Include="Resources\ChatGPT Image 8 de ago. de 2025, 14_02_36.png" />
+    <None Include="Resources\DigiBank-Logo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
