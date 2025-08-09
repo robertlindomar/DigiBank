@@ -1,14 +1,22 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Robert Lindomar\\Desktop\\C#\\DigiBank\\",
+  "WorkspaceRootPath": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A391FB90-A041-4297-BF7F-B8B68C3631C9}|DigiBank.csproj|c:\\users\\robert lindomar\\desktop\\c#\\digibank\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A391FB90-A041-4297-BF7F-B8B68C3631C9}|DigiBank.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A391FB90-A041-4297-BF7F-B8B68C3631C9}|DigiBank.csproj|c:\\users\\robertlindomar\\desktop\\trabalho c#\\digibank\\views\\dashboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{A391FB90-A041-4297-BF7F-B8B68C3631C9}|DigiBank.csproj|solutionrelative:views\\dashboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A391FB90-A041-4297-BF7F-B8B68C3631C9}|DigiBank.csproj|C:\\Users\\Robert Lindomar\\Desktop\\C#\\DigiBank\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{A391FB90-A041-4297-BF7F-B8B68C3631C9}|DigiBank.csproj|C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\dashboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A391FB90-A041-4297-BF7F-B8B68C3631C9}|DigiBank.csproj|solutionrelative:views\\dashboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A391FB90-A041-4297-BF7F-B8B68C3631C9}|DigiBank.csproj|C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{A391FB90-A041-4297-BF7F-B8B68C3631C9}|DigiBank.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A391FB90-A041-4297-BF7F-B8B68C3631C9}|DigiBank.csproj|C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A391FB90-A041-4297-BF7F-B8B68C3631C9}|DigiBank.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,32 +26,55 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Form1.cs",
-              "DocumentMoniker": "C:\\Users\\Robert Lindomar\\Desktop\\C#\\DigiBank\\Form1.cs",
-              "RelativeDocumentMoniker": "Form1.cs",
-              "ToolTip": "C:\\Users\\Robert Lindomar\\Desktop\\C#\\DigiBank\\Form1.cs",
-              "RelativeToolTip": "Form1.cs",
-              "ViewState": "AgIAAG8AAAAAAAAAAAAwwIYAAAAbAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "DashBoard.cs",
+              "DocumentMoniker": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\DashBoard.cs",
+              "RelativeDocumentMoniker": "views\\DashBoard.cs",
+              "ToolTip": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\DashBoard.cs",
+              "RelativeToolTip": "views\\DashBoard.cs",
+              "ViewState": "AgIAAB8AAAAAAAAAAAAowDQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-08T18:23:32.974Z",
+              "WhenOpened": "2025-08-08T22:22:29.36Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Form1.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\Robert Lindomar\\Desktop\\C#\\DigiBank\\Form1.cs",
+              "DocumentIndex": 0,
+              "Title": "DashBoard.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\DashBoard.cs",
+              "RelativeDocumentMoniker": "views\\DashBoard.cs",
+              "ToolTip": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\DashBoard.cs [Design]",
+              "RelativeToolTip": "views\\DashBoard.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-08T22:22:18.172Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Form1.cs",
+              "DocumentMoniker": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\Form1.cs",
               "RelativeDocumentMoniker": "Form1.cs",
-              "ToolTip": "C:\\Users\\Robert Lindomar\\Desktop\\C#\\DigiBank\\Form1.cs [Design]",
+              "ToolTip": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\Form1.cs",
+              "RelativeToolTip": "Form1.cs",
+              "ViewState": "AgIAAG8AAAAAAAAAAAAwwIYAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-08T18:23:32.974Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Form1.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\Form1.cs",
+              "RelativeDocumentMoniker": "Form1.cs",
+              "ToolTip": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\Form1.cs [Design]",
               "RelativeToolTip": "Form1.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-06T22:45:14.938Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2025-08-06T22:45:14.938Z"
             }
           ]
         }
