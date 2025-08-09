@@ -34,14 +34,12 @@ C:\Users\robertlindomar\Desktop\trabalho c#\DigiBank\bin\Debug\System.Numerics.V
 C:\Users\robertlindomar\Desktop\trabalho c#\DigiBank\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
 C:\Users\robertlindomar\Desktop\trabalho c#\DigiBank\bin\Debug\System.Threading.Tasks.Extensions.xml
 C:\Users\robertlindomar\Desktop\trabalho c#\DigiBank\obj\Debug\DigiBank.csproj.AssemblyReference.cache
-C:\Users\robertlindomar\Desktop\trabalho c#\DigiBank\obj\Debug\DigiBank.Form1.resources
 C:\Users\robertlindomar\Desktop\trabalho c#\DigiBank\obj\Debug\DigiBank.Properties.Resources.resources
 C:\Users\robertlindomar\Desktop\trabalho c#\DigiBank\obj\Debug\DigiBank.csproj.GenerateResource.cache
 C:\Users\robertlindomar\Desktop\trabalho c#\DigiBank\obj\Debug\DigiBank.csproj.CoreCompileInputs.cache
 C:\Users\robertlindomar\Desktop\trabalho c#\DigiBank\obj\Debug\DigiBank.csproj.Up2Date
 C:\Users\robertlindomar\Desktop\trabalho c#\DigiBank\obj\Debug\DigiBank.exe
 C:\Users\robertlindomar\Desktop\trabalho c#\DigiBank\obj\Debug\DigiBank.pdb
-C:\Users\robertlindomar\Desktop\trabalho c#\DigiBank\obj\Debug\DigiBank.exe.config
 C:\Users\Robert Lindomar\Desktop\C#\DigiBank\bin\Debug\DigiBank.exe.config
 C:\Users\Robert Lindomar\Desktop\C#\DigiBank\bin\Debug\DigiBank.exe
 C:\Users\Robert Lindomar\Desktop\C#\DigiBank\bin\Debug\DigiBank.pdb
@@ -88,3 +86,5 @@ C:\Users\Robert Lindomar\Desktop\C#\DigiBank\obj\Debug\DigiBank.exe
 C:\Users\Robert Lindomar\Desktop\C#\DigiBank\obj\Debug\DigiBank.pdb
 C:\Users\Robert Lindomar\Desktop\C#\DigiBank\obj\Debug\DigiBank.views.DashBoard.resources
 C:\Users\robertlindomar\Desktop\trabalho c#\DigiBank\obj\Debug\DigiBank.views.DashBoard.resources
+C:\Users\robertlindomar\Desktop\trabalho c#\DigiBank\obj\Debug\DigiBank.Main.resources
+C:\Users\robertlindomar\Desktop\trabalho c#\DigiBank\obj\Debug\DigiBank.exe.config
