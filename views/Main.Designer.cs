@@ -29,13 +29,14 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnTerminalPOS = new System.Windows.Forms.Button();
             this.btnConfiguracoes = new System.Windows.Forms.Button();
             this.btnCartoes = new System.Windows.Forms.Button();
             this.btnTransacoes = new System.Windows.Forms.Button();
             this.btnDashboard = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.painelPrincipal = new System.Windows.Forms.Panel();
-            this.btnTerminalPOS = new System.Windows.Forms.Button();
+            this.labelUsuarioLogado = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -43,6 +44,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.White;
+            this.panel1.Controls.Add(this.labelUsuarioLogado);
             this.panel1.Controls.Add(this.btnTerminalPOS);
             this.panel1.Controls.Add(this.btnConfiguracoes);
             this.panel1.Controls.Add(this.btnCartoes);
@@ -54,6 +56,28 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(260, 698);
             this.panel1.TabIndex = 0;
+            // 
+            // btnTerminalPOS
+            // 
+            this.btnTerminalPOS.BackColor = System.Drawing.Color.White;
+            this.btnTerminalPOS.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btnTerminalPOS.FlatAppearance.BorderSize = 0;
+            this.btnTerminalPOS.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(250)))), ((int)(((byte)(251)))));
+            this.btnTerminalPOS.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(250)))), ((int)(((byte)(251)))));
+            this.btnTerminalPOS.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTerminalPOS.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTerminalPOS.Image = global::DigiBank.Properties.Resources.botao_movel;
+            this.btnTerminalPOS.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnTerminalPOS.Location = new System.Drawing.Point(23, 279);
+            this.btnTerminalPOS.Name = "btnTerminalPOS";
+            this.btnTerminalPOS.Padding = new System.Windows.Forms.Padding(12, 0, 0, 0);
+            this.btnTerminalPOS.Size = new System.Drawing.Size(220, 60);
+            this.btnTerminalPOS.TabIndex = 6;
+            this.btnTerminalPOS.Text = "   Terminal POS";
+            this.btnTerminalPOS.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnTerminalPOS.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnTerminalPOS.UseVisualStyleBackColor = false;
+            this.btnTerminalPOS.Click += new System.EventHandler(this.btnTerminalPOS_Click);
             // 
             // btnConfiguracoes
             // 
@@ -163,29 +187,16 @@
             this.painelPrincipal.TabIndex = 1;
             this.painelPrincipal.Paint += new System.Windows.Forms.PaintEventHandler(this.painelPrincipal_Paint);
             // 
-            // btnTerminalPOS
+            // labelUsuarioLogado
             // 
-            this.btnTerminalPOS.BackColor = System.Drawing.Color.White;
-            this.btnTerminalPOS.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.btnTerminalPOS.FlatAppearance.BorderSize = 0;
-            this.btnTerminalPOS.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(250)))), ((int)(((byte)(251)))));
-            this.btnTerminalPOS.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(250)))), ((int)(((byte)(251)))));
-            this.btnTerminalPOS.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTerminalPOS.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTerminalPOS.Image = global::DigiBank.Properties.Resources.botao_movel;
-            this.btnTerminalPOS.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnTerminalPOS.Location = new System.Drawing.Point(23, 279);
-            this.btnTerminalPOS.Name = "btnTerminalPOS";
-            this.btnTerminalPOS.Padding = new System.Windows.Forms.Padding(12, 0, 0, 0);
-            this.btnTerminalPOS.Size = new System.Drawing.Size(220, 60);
-            this.btnTerminalPOS.TabIndex = 6;
-            this.btnTerminalPOS.Text = "   Terminal POS";
-            this.btnTerminalPOS.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnTerminalPOS.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnTerminalPOS.UseVisualStyleBackColor = false;
-            this.btnTerminalPOS.Click += new System.EventHandler(this.btnTerminalPOS_Click);
+            this.labelUsuarioLogado.AutoSize = true;
+            this.labelUsuarioLogado.Location = new System.Drawing.Point(111, 457);
+            this.labelUsuarioLogado.Name = "labelUsuarioLogado";
+            this.labelUsuarioLogado.Size = new System.Drawing.Size(35, 13);
+            this.labelUsuarioLogado.TabIndex = 7;
+            this.labelUsuarioLogado.Text = "label1";
             // 
-            // Form1
+            // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -193,11 +204,13 @@
             this.ClientSize = new System.Drawing.Size(978, 698);
             this.Controls.Add(this.painelPrincipal);
             this.Controls.Add(this.panel1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.Name = "Form1";
+            this.Margin = new System.Windows.Forms.Padding(2);
+            this.MinimumSize = new System.Drawing.Size(994, 737);
+            this.Name = "Main";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
@@ -211,8 +224,9 @@
         private System.Windows.Forms.Button btnCartoes;
         private System.Windows.Forms.Button btnTransacoes;
         private System.Windows.Forms.Button btnConfiguracoes;
-        private System.Windows.Forms.Panel painelPrincipal;
         private System.Windows.Forms.Button btnTerminalPOS;
+        private System.Windows.Forms.Panel painelPrincipal;
+        private System.Windows.Forms.Label labelUsuarioLogado;
     }
 }
 

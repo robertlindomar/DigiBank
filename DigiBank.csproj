@@ -99,10 +99,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="configs\Database.cs" />
-    <Compile Include="Main.cs">
+    <Compile Include="controllers\UsuarioController.cs" />
+    <Compile Include="models\Usuario.cs" />
+    <Compile Include="repositories\UsuarioRepository.cs" />
+    <Compile Include="services\UsuarioService.cs" />
+    <Compile Include="views\Login.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Main.Designer.cs">
+    <Compile Include="views\Login.Designer.cs">
+      <DependentUpon>Login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="views\Main.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="views\Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
     <Compile Include="models\CartaoNfc.cs" />
@@ -129,7 +139,10 @@
     <Compile Include="views\DashBoard.Designer.cs">
       <DependentUpon>DashBoard.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Main.resx">
+    <EmbeddedResource Include="views\Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="views\Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

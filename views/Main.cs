@@ -17,11 +17,21 @@ namespace DigiBank
 {
     public partial class Main : Form
     {
+        public Main() {
+            InitializeComponent();
 
-        public Main()
+            labelUsuarioLogado.Text = "DESENVOLVEDOR !";
+        }
+        public Main(Usuario usuarioLogado)
         {
             InitializeComponent();
+            if(usuarioLogado != null)
+            {
+                labelUsuarioLogado.Text = $"Usuário: {usuarioLogado.Login}";
+            }
             
+
+
         }
 
         private void CarregarClientes()

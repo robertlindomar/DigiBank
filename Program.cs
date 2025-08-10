@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DigiBank.views;
 
 namespace DigiBank
 {
@@ -13,10 +14,11 @@ namespace DigiBank
         /// </summary>
         [STAThread]
         static void Main()
-        {
+        {   
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Main());
+                //Application.Run(new Main());
+                Application.Run(new Login());
         }
     }
 }
