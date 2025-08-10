@@ -3,7 +3,7 @@
   "WorkspaceRootPath": "C:\\Users\\Robert Lindomar\\Desktop\\C#\\DigiBank\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A391FB90-A041-4297-BF7F-B8B68C3631C9}|DigiBank.csproj|C:\\Users\\Robert Lindomar\\Desktop\\C#\\DigiBank\\views\\login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{A391FB90-A041-4297-BF7F-B8B68C3631C9}|DigiBank.csproj|c:\\users\\robert lindomar\\desktop\\c#\\digibank\\views\\login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{A391FB90-A041-4297-BF7F-B8B68C3631C9}|DigiBank.csproj|solutionrelative:views\\login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
@@ -14,7 +14,7 @@
       "AbsoluteMoniker": "D:0:0:{00000000-0000-0000-0000-000000000000}|\u003CSolution\u003E|DigiBank||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A391FB90-A041-4297-BF7F-B8B68C3631C9}|DigiBank.csproj|c:\\users\\robert lindomar\\desktop\\c#\\digibank\\views\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{A391FB90-A041-4297-BF7F-B8B68C3631C9}|DigiBank.csproj|C:\\Users\\Robert Lindomar\\Desktop\\C#\\DigiBank\\views\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A391FB90-A041-4297-BF7F-B8B68C3631C9}|DigiBank.csproj|solutionrelative:views\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -24,9 +24,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{A391FB90-A041-4297-BF7F-B8B68C3631C9}|DigiBank.csproj|C:\\Users\\Robert Lindomar\\Desktop\\C#\\DigiBank\\views\\dashboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{A391FB90-A041-4297-BF7F-B8B68C3631C9}|DigiBank.csproj|solutionrelative:views\\dashboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A391FB90-A041-4297-BF7F-B8B68C3631C9}|DigiBank.csproj|c:\\users\\robert lindomar\\desktop\\c#\\digibank\\||{B270807C-D8C6-49EB-8EBE-8E8D566637A1}|6185191f-1008-4fb2-a715-3a4e4f27e610"
     }
   ],
   "DocumentGroupContainers": [
@@ -47,8 +44,7 @@
               "ToolTip": "C:\\Users\\Robert Lindomar\\Desktop\\C#\\DigiBank\\DigiBank.csproj",
               "RelativeToolTip": "DigiBank.csproj",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2025-08-10T06:35:46.202Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-10T06:35:46.202Z"
             },
             {
               "$type": "Document",
@@ -56,8 +52,8 @@
               "Title": "Login.cs",
               "DocumentMoniker": "C:\\Users\\Robert Lindomar\\Desktop\\C#\\DigiBank\\views\\Login.cs",
               "RelativeDocumentMoniker": "views\\Login.cs",
-              "ToolTip": "C:\\Users\\Robert Lindomar\\Desktop\\C#\\DigiBank\\views\\Login.cs*",
-              "RelativeToolTip": "views\\Login.cs*",
+              "ToolTip": "C:\\Users\\Robert Lindomar\\Desktop\\C#\\DigiBank\\views\\Login.cs",
+              "RelativeToolTip": "views\\Login.cs",
               "ViewState": "AgIAAE4AAAAAAAAAAAASwFwAAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-10T06:26:16.14Z",
@@ -69,8 +65,8 @@
               "Title": "Login.cs [Design]",
               "DocumentMoniker": "C:\\Users\\Robert Lindomar\\Desktop\\C#\\DigiBank\\views\\Login.cs",
               "RelativeDocumentMoniker": "views\\Login.cs",
-              "ToolTip": "C:\\Users\\Robert Lindomar\\Desktop\\C#\\DigiBank\\views\\Login.cs [Design]*",
-              "RelativeToolTip": "views\\Login.cs [Design]*",
+              "ToolTip": "C:\\Users\\Robert Lindomar\\Desktop\\C#\\DigiBank\\views\\Login.cs [Design]",
+              "RelativeToolTip": "views\\Login.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-10T06:25:33.881Z",
               "EditorCaption": " [Design]"
@@ -85,8 +81,7 @@
               "RelativeToolTip": "views\\Main.cs",
               "ViewState": "AgIAAAgAAAAAAAAAAADgvxAAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-10T06:19:54.28Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-10T06:19:54.28Z"
             },
             {
               "$type": "Document",

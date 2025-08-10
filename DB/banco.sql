@@ -27,7 +27,7 @@ CREATE TABLE usuario (
     id INT AUTO_INCREMENT PRIMARY KEY,
     cliente_id INT NOT NULL,
     login VARCHAR(50) NOT NULL UNIQUE,
-    senha_hash VARCHAR(255) NOT NULL,
+    senha VARCHAR(255) NOT NULL,
     ativo BOOLEAN DEFAULT TRUE,
     data_criacao DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (cliente_id) REFERENCES cliente(id)
