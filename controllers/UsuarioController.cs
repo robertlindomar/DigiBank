@@ -25,17 +25,17 @@ namespace DigiBank.controllers
 
         public Usuario Login(string email, string senha)
         {
-            if (string.IsNullOrEmpty(email))
-            {
-                throw new ArgumentException("O e-mail não pode ser vazio.", nameof(email));
-            }
-
-            if (string.IsNullOrEmpty(senha))
-            {
-                throw new ArgumentException("A senha não pode ser vazia.", nameof(senha));
-            }
-
+           
             return usuarioService.AutenticarUsuario(email, senha);
+        }
+
+        // Novo método para login via UID do cartão NFC
+        public Usuario LoginPorUID(string uid)
+        {
+            if (string.IsNullOrEmpty(uid))
+                throw new ArgumentException("O UID não pode ser vazio.", nameof(uid));
+
+            return usuarioService.AutenticarPorUID(uid);
         }
 
     }

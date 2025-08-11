@@ -20,14 +20,14 @@ namespace DigiBank
         public Main() {
             InitializeComponent();
 
-            labelUsuarioLogado.Text = "DESENVOLVEDOR !";
+            labelUsuarioLogado.Text = "DESENVOLVEDOR";
         }
         public Main(Usuario usuarioLogado)
         {
             InitializeComponent();
             if(usuarioLogado != null)
             {
-                labelUsuarioLogado.Text = $"Usuário: {usuarioLogado.Login}";
+                labelUsuarioLogado.Text = $"CONTA: {usuarioLogado.Login}";
             }
             
 

@@ -22,10 +22,16 @@ namespace DigiBank.services
             return usuarioRepository.Criar(usuario);
         }
 
-
-        public Usuario AutenticarUsuario(string email, string senha)
+        // Autenticação tradicional (login + senha)
+        public Usuario AutenticarUsuario(string login, string senha)
         {
-            return usuarioRepository.Login(email, senha);
+            return usuarioRepository.Login(login, senha);
+        }
+
+        // Autenticação via UID do cartão NFC
+        public Usuario AutenticarPorUID(string uid)
+        {
+            return usuarioRepository.LoginPorUID(uid);
         }
     }
 }

@@ -14,13 +14,14 @@ namespace DigiBank.models
         public string Senha { get; set; }
         public bool Ativo { get; set; }
         public DateTime DataCriacao { get; set; }
+        public string Tipo { get; set; }
 
 
         public Usuario()
         {
         }
 
-        public Usuario(int id, int clienteId, string login, string senha, bool ativo, DateTime dataCriacao)
+        public Usuario(int id, int clienteId, string login, string senha, bool ativo, DateTime dataCriacao, string tipo)
         {
             Id = id;
             ClienteId = clienteId;
@@ -28,6 +29,7 @@ namespace DigiBank.models
             Senha = senha;
             Ativo = ativo;
             DataCriacao = dataCriacao;
+            Tipo = tipo;
         }
     }
 }

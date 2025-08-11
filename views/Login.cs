@@ -15,48 +15,119 @@ namespace DigiBank.views
     public partial class Login : Form
     {
         UsuarioController usuarioController = new UsuarioController();
+        private string bufferUID = "";
+        private bool bloqueioLeitura = false;
         public Login()
         {
             InitializeComponent();
+            lblError.Text = "";
+
+            // Para capturar as teclas digitadas
+            this.KeyPreview = true;
+
+            
+
+
+
 
         }
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (bloqueioLeitura)
+                return base.ProcessCmdKey(ref msg, keyData);
 
+            if (keyData == Keys.Enter)
+            {
+                string uidLido = bufferUID.Trim();
+                bufferUID = "";
+
+                if (!string.IsNullOrEmpty(uidLido))
+                {
+                    try
+                    {
+                        var usuario = usuarioController.LoginPorUID(uidLido);
+                        if (usuario != null)
+                        {
+                            bloqueioLeitura = true;
+                            
+                            Main telaDashboard = new Main(usuario);
+                            telaDashboard.FormClosed += (s, args) =>
+                            {
+                                bloqueioLeitura = false;
+                                this.Show();
+                            };
+                            telaDashboard.Show();
+                            this.Hide();
+                            lblError.Text = "";
+                        }
+                        else
+                        {
+                            lblError.Text = "UID inválido!";
+                            bufferUID = "";
+
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        lblError.Text = $"Erro no login por UID: {ex.Message}";
+                        bufferUID = "";
+
+                        
+                    }
+                }
+                return true; // tecla processada
+            }
+            else
+            {
+                // Acumula os caracteres no buffer apenas para caracteres imprimíveis
+                if (!char.IsControl((char)keyData))
+                {
+                    bufferUID += (char)keyData;
+                }
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
 
 
         private void btnEntrar_Click(object sender, EventArgs e)
         {
-            string email = textLogin.Text;
-            string senha = textSenha.Text;
+            string email = txtLogin.Text;
+            string senha = txtSenha.Text;
 
             if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(senha))
             {
-                MessageBox.Show("Por favor, preencha todos os campos.");
+                bufferUID = "Por favor, preencha todos os campos.";
+
                 return;
             }
             try
             {
+
                 var usuario = usuarioController.Login(email, senha);
                 if (usuario != null)
                 {
-                    MessageBox.Show("Login realizado com sucesso!");
+
+                    
 
                     Main telaDashboard = new Main(usuario);
+                    telaDashboard.FormClosed += (s, args) => this.Show();
 
                     telaDashboard.Show();
                     this.Hide(); // Esconde a tela de login
-
+                    bufferUID = "";
                 }
                 else
                 {
-                    MessageBox.Show("Usuário ou senha inválidos.");
+                    bufferUID = "Usuário ou senha inválidos.";
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ocorreu um erro ao tentar fazer login: {ex.Message}");
+                bufferUID = $"Ocorreu um erro ao tentar fazer login: {ex.Message}";
             }
-
         }
+    
 
 
 
@@ -93,7 +164,7 @@ namespace DigiBank.views
             Main telaDashboard = new Main();
 
             telaDashboard.Show();
-            this.Hide(); // Esconde a tela de login
+            this.Hide();
         }
     }
 }

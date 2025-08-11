@@ -13,118 +13,146 @@ namespace DigiBank.repositories
 {
     public class ClienteRepository
     {
-
-        private readonly Database conn = new Database();
-        private readonly MySqlConnection conexao;
-        public ClienteRepository()
-        {
-            conexao = conn.GetConnection();
-        }
-
-
-
         public int Criar(Cliente cliente)
         {
-            string sql = "INSERT INTO cliente (nome, cpf) VALUES (@nome, @cpf)";
-            MySqlCommand cmd = new MySqlCommand(sql, conexao);
-            cmd.Parameters.AddWithValue("@nome", cliente.Nome);
-            cmd.Parameters.AddWithValue("@cpf", cliente.Cpf);
-            cmd.ExecuteNonQuery();
+            using (var db = new Database())
+            {
+                var conexao = db.OpenConnection();
+                string sql = "INSERT INTO cliente (nome, cpf) VALUES (@nome, @cpf)";
 
+                using (MySqlCommand cmd = new MySqlCommand(sql, conexao))
+                {
+                    cmd.Parameters.AddWithValue("@nome", cliente.Nome);
+                    cmd.Parameters.AddWithValue("@cpf", cliente.Cpf);
 
-            return (int)cmd.LastInsertedId;
+                    cmd.ExecuteNonQuery();
+                    int id = (int)cmd.LastInsertedId;
+                    db.CloseConnection();
+                    return id;
+                }
+            }
         }
 
         public List<Cliente> BuscarTodos()
         {
-            List<Cliente> clientes = new List<Cliente>();
-            string sql = "SELECT * FROM cliente";
-            MySqlCommand cmd = new MySqlCommand(sql, conexao);
-            using (MySqlDataReader reader = cmd.ExecuteReader())
+            var clientes = new List<Cliente>();
+            using (var db = new Database())
             {
-                while (reader.Read())
+                var conexao = db.OpenConnection();
+                string sql = "SELECT * FROM cliente";
+
+                using (MySqlCommand cmd = new MySqlCommand(sql, conexao))
+                using (MySqlDataReader reader = cmd.ExecuteReader())
                 {
-                    Cliente cliente = new Cliente
+                    while (reader.Read())
                     {
-                        Id = reader.GetInt32("id"),
-                        Nome = reader.GetString("nome"),
-                        Cpf = reader.GetString("cpf"),
-                        DataCriacao = reader.GetDateTime("data_criacao")
-                    };
-                    clientes.Add(cliente);
+                        clientes.Add(new Cliente
+                        {
+                            Id = reader.GetInt32("id"),
+                            Nome = reader.GetString("nome"),
+                            Cpf = reader.GetString("cpf"),
+                            DataCriacao = reader.GetDateTime("data_criacao")
+                        });
+                    }
                 }
+                db.CloseConnection();
             }
             return clientes;
         }
 
         public Cliente BuscarPorId(int id)
         {
-            string sql = "SELECT * FROM cliente WHERE id = @id";
-            MySqlCommand cmd = new MySqlCommand(sql, conexao);
-            cmd.Parameters.AddWithValue("@id", id);
-            using (MySqlDataReader reader = cmd.ExecuteReader())
+            using (var db = new Database())
             {
-                if (reader.Read())
+                var conexao = db.OpenConnection();
+                string sql = "SELECT * FROM cliente WHERE id = @id";
+
+                using (MySqlCommand cmd = new MySqlCommand(sql, conexao))
                 {
-                    return new Cliente
+                    cmd.Parameters.AddWithValue("@id", id);
+
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
-                        Id = reader.GetInt32("id"),
-                        Nome = reader.GetString("nome"),
-                        Cpf = reader.GetString("cpf"),
-                        DataCriacao = reader.GetDateTime("data_criacao")
-                    };
+                        if (reader.Read())
+                        {
+                            return new Cliente
+                            {
+                                Id = reader.GetInt32("id"),
+                                Nome = reader.GetString("nome"),
+                                Cpf = reader.GetString("cpf"),
+                                DataCriacao = reader.GetDateTime("data_criacao")
+                            };
+                        }
+                    }
                 }
+                db.CloseConnection();
             }
             return null;
         }
 
         public void Atualizar(Cliente cliente)
         {
-            string sql = "UPDATE cliente SET nome = @nome, cpf = @cpf WHERE id = @id";
-            MySqlCommand cmd = new MySqlCommand(sql, conexao);
-            cmd.Parameters.AddWithValue("@nome", cliente.Nome);
-            cmd.Parameters.AddWithValue("@cpf", cliente.Cpf);
-            cmd.Parameters.AddWithValue("@id", cliente.Id);
-            cmd.ExecuteNonQuery();
+            using (var db = new Database())
+            {
+                var conexao = db.OpenConnection();
+                string sql = "UPDATE cliente SET nome = @nome, cpf = @cpf WHERE id = @id";
+
+                using (MySqlCommand cmd = new MySqlCommand(sql, conexao))
+                {
+                    cmd.Parameters.AddWithValue("@nome", cliente.Nome);
+                    cmd.Parameters.AddWithValue("@cpf", cliente.Cpf);
+                    cmd.Parameters.AddWithValue("@id", cliente.Id);
+
+                    cmd.ExecuteNonQuery();
+                }
+                db.CloseConnection();
+            }
         }
-
-
 
         public void Deletar(int id)
         {
-            string sql = "DELETE FROM cliente WHERE id = @id";
-            MySqlCommand cmd = new MySqlCommand(sql, conexao);
-            cmd.Parameters.AddWithValue("@id", id);
-            cmd.ExecuteNonQuery();
+            using (var db = new Database())
+            {
+                var conexao = db.OpenConnection();
+                string sql = "DELETE FROM cliente WHERE id = @id";
+
+                using (MySqlCommand cmd = new MySqlCommand(sql, conexao))
+                {
+                    cmd.Parameters.AddWithValue("@id", id);
+                    cmd.ExecuteNonQuery();
+                }
+                db.CloseConnection();
+            }
         }
 
         public Cliente BuscarPorCpf(string cpf)
         {
-            string sql = "SELECT * FROM cliente WHERE cpf = @cpf";
-
-            using (MySqlCommand cmd = new MySqlCommand(sql, conexao))
+            using (var db = new Database())
             {
-                cmd.Parameters.AddWithValue("@cpf", cpf);
+                var conexao = db.OpenConnection();
+                string sql = "SELECT * FROM cliente WHERE cpf = @cpf";
 
-                using (MySqlDataReader reader = cmd.ExecuteReader())
+                using (MySqlCommand cmd = new MySqlCommand(sql, conexao))
                 {
-                    if (reader.Read())
+                    cmd.Parameters.AddWithValue("@cpf", cpf);
+
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
-                        return new Cliente
+                        if (reader.Read())
                         {
-                            Id = reader.GetInt32("id"),
-                            Nome = reader.GetString("nome"),
-                            Cpf = reader.GetString("cpf"),
-                            DataCriacao = reader.GetDateTime("data_criacao")
-                        };
+                            return new Cliente
+                            {
+                                Id = reader.GetInt32("id"),
+                                Nome = reader.GetString("nome"),
+                                Cpf = reader.GetString("cpf"),
+                                DataCriacao = reader.GetDateTime("data_criacao")
+                            };
+                        }
                     }
                 }
+                db.CloseConnection();
             }
-
             return null;
         }
-
-
-
     }
 }
