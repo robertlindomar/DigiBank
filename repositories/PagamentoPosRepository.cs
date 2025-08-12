@@ -13,8 +13,8 @@ namespace DigiBank.repositories
             using (var db = new Database())
             {
                 var conexao = db.OpenConnection();
-                string sql = @"INSERT INTO pagamento_pos (terminal_id, cartao_id, valor, data_hora, status, descricao) 
-                              VALUES (@terminalId, @cartaoId, @valor, @dataHora, @status, @descricao)";
+                string sql = @"INSERT INTO pagamento_pos (terminal_id, cartao_id, valor, data_hora, data_pagamento, status, descricao) 
+                              VALUES (@terminalId, @cartaoId, @valor, @dataHora, @dataPagamento, @status, @descricao)";
 
                 using (MySqlCommand cmd = new MySqlCommand(sql, conexao))
                 {
@@ -22,6 +22,7 @@ namespace DigiBank.repositories
                     cmd.Parameters.AddWithValue("@cartaoId", pagamento.CartaoId);
                     cmd.Parameters.AddWithValue("@valor", pagamento.Valor);
                     cmd.Parameters.AddWithValue("@dataHora", pagamento.DataHora);
+                    cmd.Parameters.AddWithValue("@dataPagamento", pagamento.DataPagamento);
                     cmd.Parameters.AddWithValue("@status", pagamento.Status);
                     cmd.Parameters.AddWithValue("@descricao", pagamento.Descricao);
 
@@ -296,6 +297,7 @@ namespace DigiBank.repositories
                 CartaoId = reader["cartao_id"] == DBNull.Value ? (int?)null : Convert.ToInt32(reader["cartao_id"]),
                 Valor = Convert.ToDecimal(reader["valor"]),
                 DataHora = Convert.ToDateTime(reader["data_hora"]),
+                DataPagamento = Convert.ToDateTime(reader["data_pagamento"]),
                 Status = reader["status"].ToString(),
                 Descricao = reader["descricao"] == DBNull.Value ? null : reader["descricao"].ToString()
             };

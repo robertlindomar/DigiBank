@@ -81,50 +81,40 @@ namespace DigiBank.views
 
             try
             {
+                Console.WriteLine("=== CARREGANDO TERMINAIS ===");
+
                 // Buscar terminais do banco
                 var terminais = _terminalController.BuscarTodos();
+                Console.WriteLine($"Resultado da busca: {terminais?.Count ?? 0} terminais encontrados");
+
                 if (terminais != null && terminais.Any())
                 {
                     _listaTerminais.AddRange(terminais);
-                    Console.WriteLine($"Terminais carregados: {_listaTerminais.Count} terminais");
+                    Console.WriteLine($"✅ Terminais carregados: {_listaTerminais.Count} terminais reais");
+
+                    // Mostrar detalhes dos terminais
+                    foreach (var terminal in _listaTerminais)
+                    {
+                        Console.WriteLine($"  - Terminal: {terminal.Nome} ({terminal.NomeLoja}) - Ativo: {terminal.Ativo}");
+                    }
                 }
                 else
                 {
-                    Console.WriteLine("Nenhum terminal encontrado, criando exemplos...");
-                    CriarTerminaisExemplo();
+                    Console.WriteLine("❌ Nenhum terminal encontrado no banco de dados");
+                    MessageBox.Show("Nenhum terminal encontrado. Crie um terminal primeiro.", "Aviso",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Erro ao carregar terminais: {ex.Message}");
-                CriarTerminaisExemplo();
+                Console.WriteLine($"❌ Erro ao carregar terminais: {ex.Message}");
+                Console.WriteLine($"Stack trace: {ex.StackTrace}");
+                MessageBox.Show($"Erro ao carregar terminais: {ex.Message}", "Erro",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private void CriarTerminaisExemplo()
-        {
-            var terminaisExemplo = new List<DigiBank.models.TerminalPos>
-            {
-                new DigiBank.models.TerminalPos
-                {
-                    Id = 1,
-                    Nome = "Terminal Principal",
-                    Localizacao = "Loja Centro",
-                    Uid = "POS001",
-                    Ativo = true
-                },
-                new DigiBank.models.TerminalPos
-                {
-                    Id = 2,
-                    Nome = "Terminal Backup",
-                    Localizacao = "Loja Shopping",
-                    Uid = "POS002",
-                    Ativo = false
-                }
-            };
 
-            _listaTerminais.AddRange(terminaisExemplo);
-        }
 
         private void CarregarPagamentosRecentes()
         {
@@ -143,65 +133,22 @@ namespace DigiBank.views
                         .ToList();
 
                     _listaPagamentos.AddRange(pagamentosRecentes);
-                    Console.WriteLine($"Pagamentos carregados: {_listaPagamentos.Count} pagamentos recentes");
+                    Console.WriteLine($"Pagamentos carregados: {_listaPagamentos.Count} pagamentos recentes reais");
                 }
                 else
                 {
-                    Console.WriteLine("Nenhum pagamento encontrado, criando exemplos...");
-                    CriarPagamentosExemplo();
+                    Console.WriteLine("Nenhum pagamento encontrado no banco de dados");
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Erro ao carregar pagamentos: {ex.Message}");
-                CriarPagamentosExemplo();
+                MessageBox.Show($"Erro ao carregar pagamentos: {ex.Message}", "Erro",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private void CriarPagamentosExemplo()
-        {
-            var pagamentosExemplo = new List<PagamentoPos>
-            {
-                new PagamentoPos
-                {
-                    Id = 1,
-                    Valor = 45.90m,
-                    CartaoId = 1,
-                    TerminalId = 1,
-                    Status = "aprovado",
-                    DataPagamento = DateTime.Parse("2024-01-15 14:30")
-                },
-                new PagamentoPos
-                {
-                    Id = 2,
-                    Valor = 120.50m,
-                    CartaoId = 3,
-                    TerminalId = 1,
-                    Status = "aprovado",
-                    DataPagamento = DateTime.Parse("2024-01-15 12:15")
-                },
-                new PagamentoPos
-                {
-                    Id = 3,
-                    Valor = 25.00m,
-                    CartaoId = 1,
-                    TerminalId = 1,
-                    Status = "recusado",
-                    DataPagamento = DateTime.Parse("2024-01-15 10:45")
-                },
-                new PagamentoPos
-                {
-                    Id = 4,
-                    Valor = 78.30m,
-                    CartaoId = 2,
-                    TerminalId = 1,
-                    Status = "pin_incorreto",
-                    DataPagamento = DateTime.Parse("2024-01-14 16:20")
-                }
-            };
 
-            _listaPagamentos.AddRange(pagamentosExemplo);
-        }
 
         private void CarregarCartoes()
         {
@@ -209,36 +156,37 @@ namespace DigiBank.views
 
             try
             {
+                Console.WriteLine("=== CARREGANDO CARTÕES ===");
+
                 // Buscar TODOS os cartões ativos do banco (de todos os usuários)
                 var cartoes = _cartaoController.BuscarTodos();
+                Console.WriteLine($"Resultado da busca: {cartoes?.Count ?? 0} cartões encontrados");
+
                 if (cartoes != null && cartoes.Any())
                 {
                     var cartoesAtivos = cartoes.Where(c => c.Ativo).ToList();
                     _listaCartoes.AddRange(cartoesAtivos);
-                    Console.WriteLine($"Cartões carregados: {_listaCartoes.Count} cartões ativos (de todos os usuários)");
+                    Console.WriteLine($"✅ Cartões carregados: {_listaCartoes.Count} cartões ativos (de todos os usuários)");
+
+                    // Mostrar detalhes dos cartões
+                    foreach (var cartao in _listaCartoes)
+                    {
+                        Console.WriteLine($"  - Cartão: {cartao.Apelido} (UID: {cartao.Uid}) - Ativo: {cartao.Ativo}");
+                    }
                 }
                 else
                 {
-                    Console.WriteLine("Nenhum cartão ativo encontrado, criando exemplos...");
-                    var cartoesExemplo = new List<CartaoNfc>
-                    {
-                        new CartaoNfc { Id = 1, Apelido = "Cartão João", Uid = "A1B2C3D4E5F6", Ativo = true, ContaId = 1 },
-                        new CartaoNfc { Id = 2, Apelido = "Cartão Maria", Uid = "G7H8I9J0K1L2", Ativo = true, ContaId = 2 },
-                        new CartaoNfc { Id = 3, Apelido = "Cartão Pedro", Uid = "M3N4O5P6Q7R8", Ativo = true, ContaId = 3 }
-                    };
-                    _listaCartoes.AddRange(cartoesExemplo);
+                    Console.WriteLine("❌ Nenhum cartão ativo encontrado no banco de dados");
+                    MessageBox.Show("Nenhum cartão ativo encontrado. Crie cartões primeiro.", "Aviso",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Erro ao carregar cartões: {ex.Message}");
-                var cartoesExemplo = new List<CartaoNfc>
-                {
-                    new CartaoNfc { Id = 1, Apelido = "Cartão João", Uid = "A1B2C3D4E5F6", Ativo = true, ContaId = 1 },
-                    new CartaoNfc { Id = 2, Apelido = "Cartão Maria", Uid = "G7H8I9J0K1L2", Ativo = true, ContaId = 2 },
-                    new CartaoNfc { Id = 3, Apelido = "Cartão Pedro", Uid = "M3N4O5P6Q7R8", Ativo = true, ContaId = 3 }
-                };
-                _listaCartoes.AddRange(cartoesExemplo);
+                Console.WriteLine($"❌ Erro ao carregar cartões: {ex.Message}");
+                Console.WriteLine($"Stack trace: {ex.StackTrace}");
+                MessageBox.Show($"Erro ao carregar cartões: {ex.Message}", "Erro",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -582,6 +530,31 @@ namespace DigiBank.views
                 return;
             }
 
+            // Verificar se há terminais e validar UID do cartão digitado
+            if (!_listaTerminais.Any(t => t.Ativo))
+            {
+                MessageBox.Show("Nenhum terminal ativo encontrado. Crie um terminal primeiro.", "Aviso",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            var uid = txtUidCartao?.Text?.Trim();
+            if (string.IsNullOrWhiteSpace(uid))
+            {
+                MessageBox.Show("Informe o UID do cartão (ex: 0848182788)", "Aviso",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Buscar cartão real pelo UID
+            var cartaoPeloUid = _cartaoController.BuscarPorUid(uid);
+            if (cartaoPeloUid == null || !cartaoPeloUid.Ativo)
+            {
+                MessageBox.Show("Cartão não encontrado ou inativo.", "Aviso",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             _processandoPagamento = true;
             btnSimularPagamento.Enabled = false;
 
@@ -593,50 +566,49 @@ namespace DigiBank.views
                 // Simular processamento (2 segundos)
                 await Task.Delay(2000);
 
-                // Simular resultado (80% de chance de sucesso)
-                var sucesso = new Random().Next(1, 101) <= 80;
-
-                if (sucesso)
+                // Processar pagamento real no backend
+                try
                 {
-                    // Sucesso
-                    AtualizarEstadoPagamento("sucesso");
-                    lblValorAprovado.Text = _valorTransacao.ToString("C2");
+                    var terminalAtivo = _listaTerminais.FirstOrDefault(t => t.Ativo);
+                    var cartaoAtivo = cartaoPeloUid;
 
-                    // Processar pagamento no backend
-                    try
+                    if (terminalAtivo != null && cartaoAtivo != null)
                     {
-                        var terminalAtivo = _listaTerminais.FirstOrDefault(t => t.Ativo);
-                        var cartaoAtivo = _listaCartoes.FirstOrDefault(c => c.Ativo);
+                        Console.WriteLine($"Processando pagamento: R$ {_valorTransacao:F2}");
+                        Console.WriteLine($"Terminal: {terminalAtivo.Nome} (ID: {terminalAtivo.Id})");
+                        Console.WriteLine($"Cartão: {cartaoAtivo.Apelido} (ID: {cartaoAtivo.Id}) UID: {cartaoAtivo.Uid}");
 
-                        if (terminalAtivo != null && cartaoAtivo != null)
-                        {
-                            var pagamentoId = _pagamentoController.ProcessarPagamento(
-                                terminalAtivo.Id,
-                                cartaoAtivo.Id,
-                                _valorTransacao,
-                                $"Pagamento via Terminal {terminalAtivo.Nome}"
-                            );
+                        var pagamentoId = _pagamentoController.ProcessarPagamento(
+                            terminalAtivo.Id,
+                            cartaoAtivo.Id,
+                            _valorTransacao,
+                            $"Pagamento via {terminalAtivo.NomeLoja}"
+                        );
 
-                            Console.WriteLine($"Pagamento processado com sucesso! ID: {pagamentoId}");
+                        Console.WriteLine($"✅ Pagamento processado com sucesso! ID: {pagamentoId}");
 
-                            // Recarregar pagamentos recentes
-                            CarregarPagamentosRecentes();
-                            AtualizarEstatisticas();
-                        }
-                        else
-                        {
-                            Console.WriteLine("Terminal ou cartão ativo não encontrado");
-                        }
+                        // Sucesso
+                        AtualizarEstadoPagamento("sucesso");
+                        lblValorAprovado.Text = _valorTransacao.ToString("C2");
+
+                        // Recarregar dados
+                        CarregarPagamentosRecentes();
+                        AtualizarEstatisticas();
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        Console.WriteLine($"Erro ao processar pagamento no backend: {ex.Message}");
+                        throw new Exception("Terminal ou cartão ativo não encontrado");
                     }
                 }
-                else
+                catch (Exception ex)
                 {
+                    Console.WriteLine($"❌ Erro ao processar pagamento: {ex.Message}");
+
                     // Erro
                     AtualizarEstadoPagamento("erro");
+
+                    MessageBox.Show($"Pagamento recusado: {ex.Message}", "Erro",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
                 // Voltar ao estado inicial após 3 segundos

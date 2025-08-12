@@ -25,7 +25,7 @@ namespace DigiBank.services
             try
             {
                 ValidarPagamento(novoPagamento);
-                
+
                 // Verificar se o terminal existe (se fornecido)
                 if (novoPagamento.TerminalId.HasValue && !_terminalService.ExisteTerminal(novoPagamento.TerminalId.Value))
                 {
@@ -110,9 +110,9 @@ namespace DigiBank.services
                 if (string.IsNullOrWhiteSpace(status))
                     throw new ArgumentException("Status não pode ser vazio.");
 
-                if (!status.Equals("aprovado", StringComparison.OrdinalIgnoreCase) && 
-                    !status.Equals("recusado", StringComparison.OrdinalIgnoreCase) && 
-                    !status.Equals("pin_incorreto", StringComparison.OrdinalIgnoreCase) && 
+                if (!status.Equals("aprovado", StringComparison.OrdinalIgnoreCase) &&
+                    !status.Equals("recusado", StringComparison.OrdinalIgnoreCase) &&
+                    !status.Equals("pin_incorreto", StringComparison.OrdinalIgnoreCase) &&
                     !status.Equals("saldo_insuficiente", StringComparison.OrdinalIgnoreCase))
                 {
                     throw new ArgumentException("Status deve ser 'aprovado', 'recusado', 'pin_incorreto' ou 'saldo_insuficiente'.");
@@ -164,7 +164,7 @@ namespace DigiBank.services
             try
             {
                 ValidarPagamento(pagamento);
-                
+
                 var existente = _repository.BuscarPorId(pagamento.Id);
                 if (existente == null)
                 {
@@ -189,9 +189,9 @@ namespace DigiBank.services
                 if (string.IsNullOrWhiteSpace(novoStatus))
                     throw new ArgumentException("Novo status não pode ser vazio.");
 
-                if (!novoStatus.Equals("aprovado", StringComparison.OrdinalIgnoreCase) && 
-                    !novoStatus.Equals("recusado", StringComparison.OrdinalIgnoreCase) && 
-                    !novoStatus.Equals("pin_incorreto", StringComparison.OrdinalIgnoreCase) && 
+                if (!novoStatus.Equals("aprovado", StringComparison.OrdinalIgnoreCase) &&
+                    !novoStatus.Equals("recusado", StringComparison.OrdinalIgnoreCase) &&
+                    !novoStatus.Equals("pin_incorreto", StringComparison.OrdinalIgnoreCase) &&
                     !novoStatus.Equals("saldo_insuficiente", StringComparison.OrdinalIgnoreCase))
                 {
                     throw new ArgumentException("Status deve ser 'aprovado', 'recusado', 'pin_incorreto' ou 'saldo_insuficiente'.");
@@ -294,14 +294,14 @@ namespace DigiBank.services
                     throw new Exception("Cartão está inativo.");
                 }
 
-                // Verificar se há saldo suficiente na conta
-                var conta = _contaService.BuscarPorId(cartao.ContaId);
-                if (conta == null)
+                // Verificar se há saldo suficiente na conta do cliente
+                var contaCliente = _contaService.BuscarPorId(cartao.ContaId);
+                if (contaCliente == null)
                 {
-                    throw new Exception("Conta não encontrada.");
+                    throw new Exception("Conta do cliente não encontrada.");
                 }
 
-                if (conta.Saldo < valor)
+                if (contaCliente.Saldo < valor)
                 {
                     // Criar pagamento com status de saldo insuficiente
                     var pagamentoRecusado = new PagamentoPos
@@ -316,6 +316,13 @@ namespace DigiBank.services
                     return _repository.Criar(pagamentoRecusado);
                 }
 
+                // Verificar se a conta do terminal existe
+                var contaTerminal = _contaService.BuscarPorId(terminal.ContaId);
+                if (contaTerminal == null)
+                {
+                    throw new Exception("Conta do terminal não encontrada.");
+                }
+
                 // Processar pagamento aprovado
                 var pagamento = new PagamentoPos
                 {
@@ -323,14 +330,21 @@ namespace DigiBank.services
                     CartaoId = cartaoId,
                     Valor = valor,
                     Status = "aprovado",
-                    Descricao = descricao ?? "Pagamento aprovado"
+                    Descricao = descricao ?? $"Pagamento aprovado - {terminal.NomeLoja}"
                 };
 
                 int pagamentoId = _repository.Criar(pagamento);
 
-                // Atualizar saldo da conta
-                decimal novoSaldo = conta.Saldo - valor;
-                _contaService.AtualizarSaldo(conta.Id, novoSaldo);
+                // TRANSFERÊNCIA REAL: Debita da conta do cliente e credita na conta do terminal
+                decimal novoSaldoCliente = contaCliente.Saldo - valor;
+                decimal novoSaldoTerminal = contaTerminal.Saldo + valor;
+
+                _contaService.AtualizarSaldo(contaCliente.Id, novoSaldoCliente);
+                _contaService.AtualizarSaldo(contaTerminal.Id, novoSaldoTerminal);
+
+                Console.WriteLine($"Transferência realizada: R$ {valor:F2} da conta {contaCliente.Id} para conta {contaTerminal.Id}");
+                Console.WriteLine($"Novo saldo cliente: R$ {novoSaldoCliente:F2}");
+                Console.WriteLine($"Novo saldo terminal: R$ {novoSaldoTerminal:F2}");
 
                 return pagamentoId;
             }
@@ -351,9 +365,9 @@ namespace DigiBank.services
             if (string.IsNullOrWhiteSpace(pagamento.Status))
                 throw new ArgumentException("Status é obrigatório.");
 
-            if (!pagamento.Status.Equals("aprovado", StringComparison.OrdinalIgnoreCase) && 
-                !pagamento.Status.Equals("recusado", StringComparison.OrdinalIgnoreCase) && 
-                !pagamento.Status.Equals("pin_incorreto", StringComparison.OrdinalIgnoreCase) && 
+            if (!pagamento.Status.Equals("aprovado", StringComparison.OrdinalIgnoreCase) &&
+                !pagamento.Status.Equals("recusado", StringComparison.OrdinalIgnoreCase) &&
+                !pagamento.Status.Equals("pin_incorreto", StringComparison.OrdinalIgnoreCase) &&
                 !pagamento.Status.Equals("saldo_insuficiente", StringComparison.OrdinalIgnoreCase))
             {
                 throw new ArgumentException("Status deve ser 'aprovado', 'recusado', 'pin_incorreto' ou 'saldo_insuficiente'.");

@@ -13,15 +13,17 @@ namespace DigiBank.repositories
             using (var db = new Database())
             {
                 var conexao = db.OpenConnection();
-                string sql = @"INSERT INTO terminal_pos (nome_loja, localizacao, uid, conta_id) 
-                              VALUES (@nomeLoja, @localizacao, @uid, @contaId)";
+                string sql = @"INSERT INTO terminal_pos (nome, nome_loja, localizacao, uid, conta_id, ativo) 
+                              VALUES (@nome, @nomeLoja, @localizacao, @uid, @contaId, @ativo)";
 
                 using (MySqlCommand cmd = new MySqlCommand(sql, conexao))
                 {
+                    cmd.Parameters.AddWithValue("@nome", terminal.Nome);
                     cmd.Parameters.AddWithValue("@nomeLoja", terminal.NomeLoja);
                     cmd.Parameters.AddWithValue("@localizacao", terminal.Localizacao);
                     cmd.Parameters.AddWithValue("@uid", terminal.Uid);
                     cmd.Parameters.AddWithValue("@contaId", terminal.ContaId);
+                    cmd.Parameters.AddWithValue("@ativo", terminal.Ativo);
 
                     cmd.ExecuteNonQuery();
                     int id = (int)cmd.LastInsertedId;
@@ -155,15 +157,17 @@ namespace DigiBank.repositories
             using (var db = new Database())
             {
                 var conexao = db.OpenConnection();
-                string sql = @"UPDATE terminal_pos SET nome_loja = @nomeLoja, localizacao = @localizacao, 
-                              uid = @uid, conta_id = @contaId WHERE id = @id";
+                string sql = @"UPDATE terminal_pos SET nome = @nome, nome_loja = @nomeLoja, localizacao = @localizacao, 
+                              uid = @uid, conta_id = @contaId, ativo = @ativo WHERE id = @id";
 
                 using (MySqlCommand cmd = new MySqlCommand(sql, conexao))
                 {
+                    cmd.Parameters.AddWithValue("@nome", terminal.Nome);
                     cmd.Parameters.AddWithValue("@nomeLoja", terminal.NomeLoja);
                     cmd.Parameters.AddWithValue("@localizacao", terminal.Localizacao);
                     cmd.Parameters.AddWithValue("@uid", terminal.Uid);
                     cmd.Parameters.AddWithValue("@contaId", terminal.ContaId);
+                    cmd.Parameters.AddWithValue("@ativo", terminal.Ativo);
                     cmd.Parameters.AddWithValue("@id", terminal.Id);
 
                     cmd.ExecuteNonQuery();
@@ -210,10 +214,12 @@ namespace DigiBank.repositories
             return new TerminalPos
             {
                 Id = Convert.ToInt32(reader["id"]),
+                Nome = reader["nome"].ToString(),
                 NomeLoja = reader["nome_loja"].ToString(),
                 Localizacao = reader["localizacao"].ToString(),
                 Uid = reader["uid"].ToString(),
-                ContaId = Convert.ToInt32(reader["conta_id"])
+                ContaId = Convert.ToInt32(reader["conta_id"]),
+                Ativo = Convert.ToBoolean(reader["ativo"])
             };
         }
     }

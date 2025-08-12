@@ -61,6 +61,8 @@ namespace DigiBank.views
             this.txtValor = new System.Windows.Forms.TextBox();
             this.lblValorTransacao = new System.Windows.Forms.Label();
             this.lblTituloTerminal = new System.Windows.Forms.Label();
+            this.lblUidCartao = new System.Windows.Forms.Label();
+            this.txtUidCartao = new System.Windows.Forms.TextBox();
             this.panelPagamentosRecentes = new System.Windows.Forms.Panel();
             this.lblTituloPagamentosRecentes = new System.Windows.Forms.Label();
             this.dgvPagamentos = new System.Windows.Forms.DataGridView();
@@ -289,6 +291,8 @@ namespace DigiBank.views
             // 
             this.panelTerminal.BackColor = System.Drawing.Color.White;
             this.panelTerminal.Controls.Add(this.panelStatusPagamento);
+            this.panelTerminal.Controls.Add(this.txtUidCartao);
+            this.panelTerminal.Controls.Add(this.lblUidCartao);
             this.panelTerminal.Controls.Add(this.txtValor);
             this.panelTerminal.Controls.Add(this.lblValorTransacao);
             this.panelTerminal.Controls.Add(this.lblTituloTerminal);
@@ -303,7 +307,7 @@ namespace DigiBank.views
             this.panelStatusPagamento.Controls.Add(this.panelSucesso);
             this.panelStatusPagamento.Controls.Add(this.panelProcessando);
             this.panelStatusPagamento.Controls.Add(this.panelIdle);
-            this.panelStatusPagamento.Location = new System.Drawing.Point(24, 120);
+            this.panelStatusPagamento.Location = new System.Drawing.Point(24, 180);
             this.panelStatusPagamento.Name = "panelStatusPagamento";
             this.panelStatusPagamento.Size = new System.Drawing.Size(352, 280);
             this.panelStatusPagamento.TabIndex = 3;
@@ -416,7 +420,7 @@ namespace DigiBank.views
             this.lblInstrucao.Name = "lblInstrucao";
             this.lblInstrucao.Size = new System.Drawing.Size(250, 21);
             this.lblInstrucao.TabIndex = 0;
-            this.lblInstrucao.Text = "Digite o valor e clique para simular aproximação";
+            this.lblInstrucao.Text = "Digite valor e UID do cartão e clique para aproximar";
             // 
             // txtValor
             // 
@@ -438,6 +442,27 @@ namespace DigiBank.views
             this.lblValorTransacao.Size = new System.Drawing.Size(123, 19);
             this.lblValorTransacao.TabIndex = 1;
             this.lblValorTransacao.Text = "Valor da Transação";
+
+            // 
+            // lblUidCartao
+            // 
+            this.lblUidCartao.AutoSize = true;
+            this.lblUidCartao.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblUidCartao.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(107)))), ((int)(((byte)(114)))), ((int)(((byte)(128)))));
+            this.lblUidCartao.Location = new System.Drawing.Point(24, 120);
+            this.lblUidCartao.Name = "lblUidCartao";
+            this.lblUidCartao.Size = new System.Drawing.Size(118, 19);
+            this.lblUidCartao.TabIndex = 4;
+            this.lblUidCartao.Text = "UID do Cartão NFC";
+
+            // 
+            // txtUidCartao
+            // 
+            this.txtUidCartao.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtUidCartao.Location = new System.Drawing.Point(24, 140);
+            this.txtUidCartao.Name = "txtUidCartao";
+            this.txtUidCartao.Size = new System.Drawing.Size(352, 32);
+            this.txtUidCartao.TabIndex = 5;
             // 
             // lblTituloTerminal
             // 
@@ -562,6 +587,8 @@ namespace DigiBank.views
         private System.Windows.Forms.Label lblTituloTerminal;
         private System.Windows.Forms.Label lblValorTransacao;
         private System.Windows.Forms.TextBox txtValor;
+        private System.Windows.Forms.Label lblUidCartao;
+        private System.Windows.Forms.TextBox txtUidCartao;
         private System.Windows.Forms.Panel panelStatusPagamento;
         private System.Windows.Forms.Panel panelIdle;
         private System.Windows.Forms.Label lblInstrucao;
