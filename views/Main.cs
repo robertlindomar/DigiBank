@@ -17,17 +17,22 @@ namespace DigiBank
 {
     public partial class Main : Form
     {
+
+        Usuario usuarioLogado = new Usuario();
+        
+
         public Main() {
             InitializeComponent();
 
             labelUsuarioLogado.Text = "DESENVOLVEDOR";
         }
-        public Main(Usuario usuarioLogado)
+        public Main(Usuario usuario)
         {
             InitializeComponent();
-            if(usuarioLogado != null)
+            this.usuarioLogado = usuario;
+            if (usuario != null)
             {
-                labelUsuarioLogado.Text = $"CONTA: {usuarioLogado.Login}";
+                labelUsuarioLogado.Text = $"CONTA: {usuario.Login}";
             }
             
 
@@ -55,7 +60,7 @@ namespace DigiBank
 
             painelPrincipal.Controls.Clear();
 
-            DashBoard telaDashboard = new DashBoard
+            DashBoard telaDashboard = new DashBoard(usuarioLogado)
             {
                 TopLevel = false,
                 FormBorderStyle = FormBorderStyle.None,

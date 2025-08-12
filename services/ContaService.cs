@@ -95,6 +95,11 @@ namespace DigiBank.services
             return repository.BuscarTodas();
         }
 
+        public List<Conta> BuscarPorClienteId(int numeroConta)
+        {
+            return repository.BuscarPorClienteId(numeroConta);
+        }
+
         public void DeletarConta(int id)
         {
             if (id <= 0)

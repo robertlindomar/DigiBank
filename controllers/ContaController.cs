@@ -38,6 +38,10 @@ namespace DigiBank.controllers
             return contaService.BuscarPorId(id);
         }
 
+        public List<Conta> BuscarPorClienteId(int id)
+        {
+            return contaService.BuscarPorClienteId(id);
+        }
 
 
         public Conta BuscarContaPorNumero(string numeroConta)

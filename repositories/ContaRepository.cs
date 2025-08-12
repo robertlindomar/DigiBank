@@ -183,7 +183,7 @@ namespace DigiBank.repositories
             return new Conta
             {
                 Id = reader.GetInt32("id"),
-                NumeroConta = reader.GetString("numero"),
+                NumeroConta = reader.GetString("numero_conta"),
                 Tipo = reader.GetString("tipo"),
                 Saldo = reader.GetDecimal("saldo"),
                 Ativa = reader.GetBoolean("ativa"),

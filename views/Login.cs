@@ -45,7 +45,7 @@ namespace DigiBank.views
                 {
                     try
                     {
-                        var usuario = usuarioController.LoginPorUID(uidLido);
+                        Usuario usuario = usuarioController.LoginPorUID(uidLido);
                         if (usuario != null)
                         {
                             bloqueioLeitura = true;
@@ -75,7 +75,7 @@ namespace DigiBank.views
                         
                     }
                 }
-                return true; // tecla processada
+                return true; 
             }
             else
             {
