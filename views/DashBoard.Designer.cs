@@ -29,840 +29,495 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label29 = new System.Windows.Forms.Label();
-            this.label30 = new System.Windows.Forms.Label();
-            this.label31 = new System.Windows.Forms.Label();
-            this.button9 = new System.Windows.Forms.Button();
-            this.label23 = new System.Windows.Forms.Label();
-            this.label24 = new System.Windows.Forms.Label();
-            this.label25 = new System.Windows.Forms.Label();
-            this.button8 = new System.Windows.Forms.Button();
-            this.label19 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.btnCartoes = new System.Windows.Forms.Button();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.button7 = new System.Windows.Forms.Button();
-            this.panelTrasferenciaRecentes = new System.Windows.Forms.Panel();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.label26 = new System.Windows.Forms.Label();
-            this.label27 = new System.Windows.Forms.Label();
-            this.label28 = new System.Windows.Forms.Label();
+            this.btnNotificacao = new System.Windows.Forms.Button();
+            this.lblSubtitulo = new System.Windows.Forms.Label();
+            this.lblTitulo = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.label20 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
-            this.label22 = new System.Windows.Forms.Label();
-            this.btnVerTransacoes = new System.Windows.Forms.Button();
-            this.panel5 = new System.Windows.Forms.Panel();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.panelCartoes = new System.Windows.Forms.Panel();
-            this.button6 = new System.Windows.Forms.Button();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.panelSaldoAtual = new System.Windows.Forms.Panel();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.lblSaldo = new System.Windows.Forms.Label();
-            this.labelCorrenteOuPoupanca = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.btnPoupanca = new System.Windows.Forms.Button();
             this.btnCorrente = new System.Windows.Forms.Button();
-            this.labelBemVindo = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.panelMeusCartoes = new System.Windows.Forms.Panel();
+            this.btnAdicionarCartao = new System.Windows.Forms.Button();
+            this.panelListaCartoes = new System.Windows.Forms.FlowLayoutPanel();
+            this.lblSubtituloMeusCartoes = new System.Windows.Forms.Label();
+            this.lblTituloMeusCartoes = new System.Windows.Forms.Label();
+            this.panelTransacoes = new System.Windows.Forms.Panel();
+            this.btnVerTodasTransacoes = new System.Windows.Forms.Button();
+            this.panelListaTransacoes = new System.Windows.Forms.FlowLayoutPanel();
+            this.lblSubtituloTransacoes = new System.Windows.Forms.Label();
+            this.lblTituloTransacoes = new System.Windows.Forms.Label();
+            this.panelCartoes = new System.Windows.Forms.Panel();
+            this.btnGerenciarCartoes = new System.Windows.Forms.Button();
+            this.progressBarCartoes = new System.Windows.Forms.ProgressBar();
+            this.lblCartoesAtivos = new System.Windows.Forms.Label();
+            this.lblTotalCartoes = new System.Windows.Forms.Label();
+            this.lblTituloCartoes = new System.Windows.Forms.Label();
+            this.panelSaldo = new System.Windows.Forms.Panel();
+            this.btnSacar = new System.Windows.Forms.Button();
+            this.btnDepositar = new System.Windows.Forms.Button();
+            this.btnTransferir = new System.Windows.Forms.Button();
+            this.lblSaldo = new System.Windows.Forms.Label();
+            this.lblTipoConta = new System.Windows.Forms.Label();
+            this.lblTituloSaldo = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
-            this.panelTrasferenciaRecentes.SuspendLayout();
-            this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
-            this.panel5.SuspendLayout();
+            this.panel3.SuspendLayout();
+            this.panel4.SuspendLayout();
+            this.panelMeusCartoes.SuspendLayout();
+            this.panelTransacoes.SuspendLayout();
             this.panelCartoes.SuspendLayout();
-            this.panelSaldoAtual.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panelSaldo.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.White;
-            this.panel1.Controls.Add(this.label29);
-            this.panel1.Controls.Add(this.label30);
-            this.panel1.Controls.Add(this.label31);
-            this.panel1.Controls.Add(this.button9);
-            this.panel1.Controls.Add(this.label23);
-            this.panel1.Controls.Add(this.label24);
-            this.panel1.Controls.Add(this.label25);
-            this.panel1.Controls.Add(this.button8);
-            this.panel1.Controls.Add(this.label19);
-            this.panel1.Controls.Add(this.label17);
-            this.panel1.Controls.Add(this.label18);
-            this.panel1.Controls.Add(this.btnCartoes);
-            this.panel1.Controls.Add(this.label15);
-            this.panel1.Controls.Add(this.label16);
-            this.panel1.Controls.Add(this.button7);
-            this.panel1.Location = new System.Drawing.Point(561, 470);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4);
+            this.panel1.Controls.Add(this.btnNotificacao);
+            this.panel1.Controls.Add(this.lblSubtitulo);
+            this.panel1.Controls.Add(this.lblTitulo);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(349, 370);
-            this.panel1.TabIndex = 31;
+            this.panel1.Size = new System.Drawing.Size(950, 100);
+            this.panel1.TabIndex = 0;
             // 
-            // label29
+            // btnNotificacao
             // 
-            this.label29.AutoSize = true;
-            this.label29.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(238)))), ((int)(((byte)(239)))));
-            this.label29.Font = new System.Drawing.Font("Century Gothic", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label29.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(85)))), ((int)(((byte)(101)))));
-            this.label29.Location = new System.Drawing.Point(91, 266);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(82, 15);
-            this.label29.TabIndex = 34;
-            this.label29.Text = "UID: A2B3C5D5";
+            this.btnNotificacao.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnNotificacao.BackColor = System.Drawing.Color.White;
+            this.btnNotificacao.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(213)))), ((int)(((byte)(219)))));
+            this.btnNotificacao.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnNotificacao.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnNotificacao.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
+            this.btnNotificacao.Location = new System.Drawing.Point(870, 32);
+            this.btnNotificacao.Name = "btnNotificacao";
+            this.btnNotificacao.Size = new System.Drawing.Size(40, 40);
+            this.btnNotificacao.TabIndex = 2;
+            this.btnNotificacao.Text = "🔔";
+            this.btnNotificacao.UseVisualStyleBackColor = false;
             // 
-            // label30
+            // lblSubtitulo
             // 
-            this.label30.AutoSize = true;
-            this.label30.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(238)))), ((int)(((byte)(239)))));
-            this.label30.Font = new System.Drawing.Font("Century Gothic", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label30.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(85)))), ((int)(((byte)(101)))));
-            this.label30.Location = new System.Drawing.Point(91, 247);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(122, 17);
-            this.label30.TabIndex = 33;
-            this.label30.Text = "Conta Poupança";
+            this.lblSubtitulo.AutoSize = true;
+            this.lblSubtitulo.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSubtitulo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(107)))), ((int)(((byte)(114)))), ((int)(((byte)(128)))));
+            this.lblSubtitulo.Location = new System.Drawing.Point(33, 68);
+            this.lblSubtitulo.Name = "lblSubtitulo";
+            this.lblSubtitulo.Size = new System.Drawing.Size(150, 21);
+            this.lblSubtitulo.TabIndex = 1;
+            this.lblSubtitulo.Text = "Bem-vindo de volta!";
             // 
-            // label31
+            // lblTitulo
             // 
-            this.label31.AutoSize = true;
-            this.label31.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(238)))), ((int)(((byte)(239)))));
-            this.label31.Font = new System.Drawing.Font("Candara", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label31.ForeColor = System.Drawing.Color.Black;
-            this.label31.Location = new System.Drawing.Point(91, 220);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(196, 28);
-            this.label31.TabIndex = 32;
-            this.label31.Text = "Cartão Segundario";
-            // 
-            // button9
-            // 
-            this.button9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(238)))), ((int)(((byte)(239)))));
-            this.button9.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.button9.FlatAppearance.BorderSize = 0;
-            this.button9.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(250)))), ((int)(((byte)(251)))));
-            this.button9.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(250)))), ((int)(((byte)(251)))));
-            this.button9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button9.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button9.Image = global::DigiBank.Properties.Resources.cartao_de_credito;
-            this.button9.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button9.Location = new System.Drawing.Point(21, 222);
-            this.button9.Margin = new System.Windows.Forms.Padding(4);
-            this.button9.Name = "button9";
-            this.button9.Padding = new System.Windows.Forms.Padding(16, 0, 0, 0);
-            this.button9.Size = new System.Drawing.Size(293, 64);
-            this.button9.TabIndex = 31;
-            this.button9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button9.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.button9.UseVisualStyleBackColor = false;
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(238)))), ((int)(((byte)(239)))));
-            this.label23.Font = new System.Drawing.Font("Century Gothic", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label23.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(85)))), ((int)(((byte)(101)))));
-            this.label23.Location = new System.Drawing.Point(91, 197);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(82, 15);
-            this.label23.TabIndex = 30;
-            this.label23.Text = "UID: A2B3C5D5";
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(238)))), ((int)(((byte)(239)))));
-            this.label24.Font = new System.Drawing.Font("Century Gothic", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label24.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(85)))), ((int)(((byte)(101)))));
-            this.label24.Location = new System.Drawing.Point(91, 178);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(122, 17);
-            this.label24.TabIndex = 29;
-            this.label24.Text = "Conta Poupança";
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(238)))), ((int)(((byte)(239)))));
-            this.label25.Font = new System.Drawing.Font("Candara", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label25.ForeColor = System.Drawing.Color.Black;
-            this.label25.Location = new System.Drawing.Point(91, 151);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(196, 28);
-            this.label25.TabIndex = 28;
-            this.label25.Text = "Cartão Segundario";
-            // 
-            // button8
-            // 
-            this.button8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(238)))), ((int)(((byte)(239)))));
-            this.button8.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.button8.FlatAppearance.BorderSize = 0;
-            this.button8.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(250)))), ((int)(((byte)(251)))));
-            this.button8.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(250)))), ((int)(((byte)(251)))));
-            this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button8.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button8.Image = global::DigiBank.Properties.Resources.cartao_de_credito;
-            this.button8.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button8.Location = new System.Drawing.Point(21, 153);
-            this.button8.Margin = new System.Windows.Forms.Padding(4);
-            this.button8.Name = "button8";
-            this.button8.Padding = new System.Windows.Forms.Padding(16, 0, 0, 0);
-            this.button8.Size = new System.Drawing.Size(293, 64);
-            this.button8.TabIndex = 27;
-            this.button8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button8.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.button8.UseVisualStyleBackColor = false;
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(238)))), ((int)(((byte)(239)))));
-            this.label19.Font = new System.Drawing.Font("Century Gothic", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(85)))), ((int)(((byte)(101)))));
-            this.label19.Location = new System.Drawing.Point(91, 128);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(82, 15);
-            this.label19.TabIndex = 26;
-            this.label19.Text = "UID: A1B2C3D4";
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(238)))), ((int)(((byte)(239)))));
-            this.label17.Font = new System.Drawing.Font("Century Gothic", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(85)))), ((int)(((byte)(101)))));
-            this.label17.Location = new System.Drawing.Point(91, 110);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(111, 17);
-            this.label17.TabIndex = 25;
-            this.label17.Text = "Conta Corrente";
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(238)))), ((int)(((byte)(239)))));
-            this.label18.Font = new System.Drawing.Font("Candara", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.ForeColor = System.Drawing.Color.Black;
-            this.label18.Location = new System.Drawing.Point(91, 82);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(169, 28);
-            this.label18.TabIndex = 24;
-            this.label18.Text = "Cartão Principal";
-            // 
-            // btnCartoes
-            // 
-            this.btnCartoes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(238)))), ((int)(((byte)(239)))));
-            this.btnCartoes.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.btnCartoes.FlatAppearance.BorderSize = 0;
-            this.btnCartoes.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(250)))), ((int)(((byte)(251)))));
-            this.btnCartoes.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(250)))), ((int)(((byte)(251)))));
-            this.btnCartoes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCartoes.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCartoes.Image = global::DigiBank.Properties.Resources.cartao_de_credito;
-            this.btnCartoes.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCartoes.Location = new System.Drawing.Point(21, 84);
-            this.btnCartoes.Margin = new System.Windows.Forms.Padding(4);
-            this.btnCartoes.Name = "btnCartoes";
-            this.btnCartoes.Padding = new System.Windows.Forms.Padding(16, 0, 0, 0);
-            this.btnCartoes.Size = new System.Drawing.Size(293, 64);
-            this.btnCartoes.TabIndex = 23;
-            this.btnCartoes.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCartoes.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnCartoes.UseVisualStyleBackColor = false;
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.BackColor = System.Drawing.Color.Transparent;
-            this.label15.Font = new System.Drawing.Font("Century Gothic", 10.25F);
-            this.label15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(85)))), ((int)(((byte)(101)))));
-            this.label15.Location = new System.Drawing.Point(16, 47);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(311, 21);
-            this.label15.TabIndex = 21;
-            this.label15.Text = "Cartões vinculados às suas contas";
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.BackColor = System.Drawing.Color.Transparent;
-            this.label16.Font = new System.Drawing.Font("Candara", 15.75F, System.Drawing.FontStyle.Bold);
-            this.label16.ForeColor = System.Drawing.Color.Black;
-            this.label16.Location = new System.Drawing.Point(16, 14);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(224, 33);
-            this.label16.TabIndex = 22;
-            this.label16.Text = "Meus Cartões NFC";
-            // 
-            // button7
-            // 
-            this.button7.BackColor = System.Drawing.Color.White;
-            this.button7.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(229)))), ((int)(((byte)(229)))));
-            this.button7.FlatAppearance.MouseDownBackColor = System.Drawing.Color.WhiteSmoke;
-            this.button7.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
-            this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button7.Font = new System.Drawing.Font("Candara", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button7.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.button7.Location = new System.Drawing.Point(75, 310);
-            this.button7.Margin = new System.Windows.Forms.Padding(4);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(197, 42);
-            this.button7.TabIndex = 19;
-            this.button7.Text = "Adicionar Cartões";
-            this.button7.UseVisualStyleBackColor = false;
-            // 
-            // panelTrasferenciaRecentes
-            // 
-            this.panelTrasferenciaRecentes.BackColor = System.Drawing.Color.White;
-            this.panelTrasferenciaRecentes.Controls.Add(this.panel3);
-            this.panelTrasferenciaRecentes.Controls.Add(this.panel2);
-            this.panelTrasferenciaRecentes.Controls.Add(this.btnVerTransacoes);
-            this.panelTrasferenciaRecentes.Controls.Add(this.panel5);
-            this.panelTrasferenciaRecentes.Controls.Add(this.label10);
-            this.panelTrasferenciaRecentes.Controls.Add(this.label11);
-            this.panelTrasferenciaRecentes.Location = new System.Drawing.Point(29, 470);
-            this.panelTrasferenciaRecentes.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.panelTrasferenciaRecentes.Name = "panelTrasferenciaRecentes";
-            this.panelTrasferenciaRecentes.Size = new System.Drawing.Size(525, 370);
-            this.panelTrasferenciaRecentes.TabIndex = 30;
-            // 
-            // panel3
-            // 
-            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(238)))), ((int)(((byte)(239)))));
-            this.panel3.Controls.Add(this.label26);
-            this.panel3.Controls.Add(this.label27);
-            this.panel3.Controls.Add(this.label28);
-            this.panel3.Location = new System.Drawing.Point(28, 222);
-            this.panel3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(477, 64);
-            this.panel3.TabIndex = 22;
-            // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.BackColor = System.Drawing.Color.Transparent;
-            this.label26.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label26.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(85)))), ((int)(((byte)(101)))));
-            this.label26.Location = new System.Drawing.Point(41, 34);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(140, 21);
-            this.label26.TabIndex = 21;
-            this.label26.Text = "24-06-2025 09:35";
-            // 
-            // label27
-            // 
-            this.label27.AutoSize = true;
-            this.label27.BackColor = System.Drawing.Color.Transparent;
-            this.label27.Font = new System.Drawing.Font("Candara", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label27.ForeColor = System.Drawing.Color.Red;
-            this.label27.Location = new System.Drawing.Point(340, 18);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(124, 28);
-            this.label27.TabIndex = 20;
-            this.label27.Text = "R$ 2.000,00";
-            // 
-            // label28
-            // 
-            this.label28.AutoSize = true;
-            this.label28.BackColor = System.Drawing.Color.Transparent;
-            this.label28.Font = new System.Drawing.Font("Candara", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label28.ForeColor = System.Drawing.Color.Black;
-            this.label28.Location = new System.Drawing.Point(36, 6);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(169, 28);
-            this.label28.TabIndex = 18;
-            this.label28.Text = "Pagamento NFC";
+            this.lblTitulo.AutoSize = true;
+            this.lblTitulo.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitulo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
+            this.lblTitulo.Location = new System.Drawing.Point(33, 23);
+            this.lblTitulo.Name = "lblTitulo";
+            this.lblTitulo.Size = new System.Drawing.Size(184, 45);
+            this.lblTitulo.TabIndex = 0;
+            this.lblTitulo.Text = "Dashboard";
             // 
             // panel2
             // 
-            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(238)))), ((int)(((byte)(239)))));
-            this.panel2.Controls.Add(this.label20);
-            this.panel2.Controls.Add(this.label21);
-            this.panel2.Controls.Add(this.label22);
-            this.panel2.Location = new System.Drawing.Point(27, 153);
-            this.panel2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.panel2.BackColor = System.Drawing.Color.White;
+            this.panel2.Controls.Add(this.btnPoupanca);
+            this.panel2.Controls.Add(this.btnCorrente);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel2.Location = new System.Drawing.Point(0, 100);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(477, 64);
-            this.panel2.TabIndex = 22;
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.BackColor = System.Drawing.Color.Transparent;
-            this.label20.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label20.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(85)))), ((int)(((byte)(101)))));
-            this.label20.Location = new System.Drawing.Point(41, 34);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(140, 21);
-            this.label20.TabIndex = 21;
-            this.label20.Text = "24-06-2025 09:35";
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.BackColor = System.Drawing.Color.Transparent;
-            this.label21.Font = new System.Drawing.Font("Candara", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label21.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(166)))), ((int)(((byte)(62)))));
-            this.label21.Location = new System.Drawing.Point(340, 18);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(124, 28);
-            this.label21.TabIndex = 20;
-            this.label21.Text = "R$ 2.000,00";
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.BackColor = System.Drawing.Color.Transparent;
-            this.label22.Font = new System.Drawing.Font("Candara", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label22.ForeColor = System.Drawing.Color.Black;
-            this.label22.Location = new System.Drawing.Point(36, 6);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(228, 28);
-            this.label22.TabIndex = 18;
-            this.label22.Text = "Depósito em dinheiro";
-            // 
-            // btnVerTransacoes
-            // 
-            this.btnVerTransacoes.BackColor = System.Drawing.Color.White;
-            this.btnVerTransacoes.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(229)))), ((int)(((byte)(229)))));
-            this.btnVerTransacoes.FlatAppearance.MouseDownBackColor = System.Drawing.Color.WhiteSmoke;
-            this.btnVerTransacoes.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
-            this.btnVerTransacoes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnVerTransacoes.Font = new System.Drawing.Font("Candara", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnVerTransacoes.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btnVerTransacoes.Location = new System.Drawing.Point(75, 310);
-            this.btnVerTransacoes.Margin = new System.Windows.Forms.Padding(4);
-            this.btnVerTransacoes.Name = "btnVerTransacoes";
-            this.btnVerTransacoes.Size = new System.Drawing.Size(276, 42);
-            this.btnVerTransacoes.TabIndex = 20;
-            this.btnVerTransacoes.Text = "Ver Todas as Transações";
-            this.btnVerTransacoes.UseVisualStyleBackColor = false;
-            // 
-            // panel5
-            // 
-            this.panel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(238)))), ((int)(((byte)(239)))));
-            this.panel5.Controls.Add(this.label13);
-            this.panel5.Controls.Add(this.label14);
-            this.panel5.Controls.Add(this.label12);
-            this.panel5.Location = new System.Drawing.Point(27, 84);
-            this.panel5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(477, 64);
-            this.panel5.TabIndex = 18;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.BackColor = System.Drawing.Color.Transparent;
-            this.label13.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(85)))), ((int)(((byte)(101)))));
-            this.label13.Location = new System.Drawing.Point(41, 34);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(140, 21);
-            this.label13.TabIndex = 21;
-            this.label13.Text = "11-07-2025 14:30";
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.BackColor = System.Drawing.Color.Transparent;
-            this.label14.Font = new System.Drawing.Font("Candara", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.ForeColor = System.Drawing.Color.Red;
-            this.label14.Location = new System.Drawing.Point(340, 18);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(105, 28);
-            this.label14.TabIndex = 20;
-            this.label14.Text = "R$ 250,00";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.BackColor = System.Drawing.Color.Transparent;
-            this.label12.Font = new System.Drawing.Font("Candara", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.ForeColor = System.Drawing.Color.Black;
-            this.label12.Location = new System.Drawing.Point(36, 6);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(185, 28);
-            this.label12.TabIndex = 18;
-            this.label12.Text = "Transferência PIX";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.BackColor = System.Drawing.Color.Transparent;
-            this.label10.Font = new System.Drawing.Font("Century Gothic", 10.25F);
-            this.label10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(85)))), ((int)(((byte)(101)))));
-            this.label10.Location = new System.Drawing.Point(17, 47);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(309, 21);
-            this.label10.TabIndex = 16;
-            this.label10.Text = "Últimas movimentações da conta";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.BackColor = System.Drawing.Color.Transparent;
-            this.label11.Font = new System.Drawing.Font("Candara", 15.75F, System.Drawing.FontStyle.Bold);
-            this.label11.ForeColor = System.Drawing.Color.Black;
-            this.label11.Location = new System.Drawing.Point(15, 14);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(254, 33);
-            this.label11.TabIndex = 17;
-            this.label11.Text = "Transações Recentes";
-            // 
-            // panelCartoes
-            // 
-            this.panelCartoes.BackColor = System.Drawing.Color.White;
-            this.panelCartoes.Controls.Add(this.button6);
-            this.panelCartoes.Controls.Add(this.label8);
-            this.panelCartoes.Controls.Add(this.label9);
-            this.panelCartoes.Controls.Add(this.label6);
-            this.panelCartoes.Controls.Add(this.label7);
-            this.panelCartoes.Location = new System.Drawing.Point(676, 212);
-            this.panelCartoes.Margin = new System.Windows.Forms.Padding(4);
-            this.panelCartoes.Name = "panelCartoes";
-            this.panelCartoes.Size = new System.Drawing.Size(244, 251);
-            this.panelCartoes.TabIndex = 29;
-            // 
-            // button6
-            // 
-            this.button6.BackColor = System.Drawing.Color.White;
-            this.button6.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(229)))), ((int)(((byte)(229)))));
-            this.button6.FlatAppearance.MouseDownBackColor = System.Drawing.Color.WhiteSmoke;
-            this.button6.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
-            this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button6.Font = new System.Drawing.Font("Candara", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button6.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.button6.Location = new System.Drawing.Point(13, 190);
-            this.button6.Margin = new System.Windows.Forms.Padding(4);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(197, 42);
-            this.button6.TabIndex = 19;
-            this.button6.Text = "Gerenciar Cartões";
-            this.button6.UseVisualStyleBackColor = false;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.BackColor = System.Drawing.Color.Transparent;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F);
-            this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(85)))), ((int)(((byte)(101)))));
-            this.label8.Location = new System.Drawing.Point(47, 145);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(125, 22);
-            this.label8.TabIndex = 21;
-            this.label8.Text = "Cartões ativos";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.BackColor = System.Drawing.Color.Transparent;
-            this.label9.Font = new System.Drawing.Font("Candara", 22.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.ForeColor = System.Drawing.Color.Black;
-            this.label9.Location = new System.Drawing.Point(95, 90);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(32, 45);
-            this.label9.TabIndex = 22;
-            this.label9.Text = "1";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.BackColor = System.Drawing.Color.Transparent;
-            this.label6.Font = new System.Drawing.Font("Century Gothic", 10.25F);
-            this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(85)))), ((int)(((byte)(101)))));
-            this.label6.Location = new System.Drawing.Point(41, 53);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(137, 21);
-            this.label6.TabIndex = 19;
-            this.label6.Text = "Cartões ativos";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.BackColor = System.Drawing.Color.Transparent;
-            this.label7.Font = new System.Drawing.Font("Candara", 15.75F, System.Drawing.FontStyle.Bold);
-            this.label7.ForeColor = System.Drawing.Color.Black;
-            this.label7.Location = new System.Drawing.Point(57, 21);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(103, 33);
-            this.label7.TabIndex = 20;
-            this.label7.Text = "Cartões";
-            // 
-            // panelSaldoAtual
-            // 
-            this.panelSaldoAtual.BackColor = System.Drawing.Color.White;
-            this.panelSaldoAtual.Controls.Add(this.button5);
-            this.panelSaldoAtual.Controls.Add(this.button4);
-            this.panelSaldoAtual.Controls.Add(this.button3);
-            this.panelSaldoAtual.Controls.Add(this.lblSaldo);
-            this.panelSaldoAtual.Controls.Add(this.labelCorrenteOuPoupanca);
-            this.panelSaldoAtual.Controls.Add(this.pictureBox1);
-            this.panelSaldoAtual.Controls.Add(this.label3);
-            this.panelSaldoAtual.Location = new System.Drawing.Point(29, 212);
-            this.panelSaldoAtual.Margin = new System.Windows.Forms.Padding(4);
-            this.panelSaldoAtual.Name = "panelSaldoAtual";
-            this.panelSaldoAtual.Size = new System.Drawing.Size(639, 251);
-            this.panelSaldoAtual.TabIndex = 28;
-            // 
-            // button5
-            // 
-            this.button5.BackColor = System.Drawing.Color.White;
-            this.button5.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(229)))), ((int)(((byte)(229)))));
-            this.button5.FlatAppearance.MouseDownBackColor = System.Drawing.Color.WhiteSmoke;
-            this.button5.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
-            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button5.Font = new System.Drawing.Font("Candara", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button5.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.button5.Location = new System.Drawing.Point(323, 182);
-            this.button5.Margin = new System.Windows.Forms.Padding(4);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(144, 42);
-            this.button5.TabIndex = 18;
-            this.button5.Text = "Depositar";
-            this.button5.UseVisualStyleBackColor = false;
-            // 
-            // button4
-            // 
-            this.button4.BackColor = System.Drawing.Color.White;
-            this.button4.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(229)))), ((int)(((byte)(229)))));
-            this.button4.FlatAppearance.MouseDownBackColor = System.Drawing.Color.WhiteSmoke;
-            this.button4.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Font = new System.Drawing.Font("Candara", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.button4.Location = new System.Drawing.Point(171, 182);
-            this.button4.Margin = new System.Windows.Forms.Padding(4);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(144, 42);
-            this.button4.TabIndex = 15;
-            this.button4.Text = "Depositar";
-            this.button4.UseVisualStyleBackColor = false;
-            // 
-            // button3
-            // 
-            this.button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
-            this.button3.FlatAppearance.BorderSize = 0;
-            this.button3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(85)))), ((int)(((byte)(101)))));
-            this.button3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(85)))), ((int)(((byte)(101)))));
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Font = new System.Drawing.Font("Candara", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.ForeColor = System.Drawing.SystemColors.Control;
-            this.button3.Location = new System.Drawing.Point(19, 182);
-            this.button3.Margin = new System.Windows.Forms.Padding(4);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(144, 42);
-            this.button3.TabIndex = 15;
-            this.button3.Text = "Trasferir";
-            this.button3.UseVisualStyleBackColor = false;
-            // 
-            // lblSaldo
-            // 
-            this.lblSaldo.AutoSize = true;
-            this.lblSaldo.BackColor = System.Drawing.Color.Transparent;
-            this.lblSaldo.Font = new System.Drawing.Font("Candara", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSaldo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(166)))), ((int)(((byte)(62)))));
-            this.lblSaldo.Location = new System.Drawing.Point(7, 90);
-            this.lblSaldo.Name = "lblSaldo";
-            this.lblSaldo.Size = new System.Drawing.Size(251, 54);
-            this.lblSaldo.TabIndex = 17;
-            this.lblSaldo.Text = "R$ 15.420,50";
-            // 
-            // labelCorrenteOuPoupanca
-            // 
-            this.labelCorrenteOuPoupanca.AutoSize = true;
-            this.labelCorrenteOuPoupanca.BackColor = System.Drawing.Color.Transparent;
-            this.labelCorrenteOuPoupanca.Font = new System.Drawing.Font("Century Gothic", 10.25F);
-            this.labelCorrenteOuPoupanca.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(85)))), ((int)(((byte)(101)))));
-            this.labelCorrenteOuPoupanca.Location = new System.Drawing.Point(16, 53);
-            this.labelCorrenteOuPoupanca.Name = "labelCorrenteOuPoupanca";
-            this.labelCorrenteOuPoupanca.Size = new System.Drawing.Size(237, 21);
-            this.labelCorrenteOuPoupanca.TabIndex = 15;
-            this.labelCorrenteOuPoupanca.Text = "Conta Corrente • 12345-6";
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::DigiBank.Properties.Resources.carteira__1_;
-            this.pictureBox1.Location = new System.Drawing.Point(21, 11);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(49, 37);
-            this.pictureBox1.TabIndex = 16;
-            this.pictureBox1.TabStop = false;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.Color.Transparent;
-            this.label3.Font = new System.Drawing.Font("Candara", 15.75F, System.Drawing.FontStyle.Bold);
-            this.label3.ForeColor = System.Drawing.Color.Black;
-            this.label3.Location = new System.Drawing.Point(68, 21);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(147, 33);
-            this.label3.TabIndex = 15;
-            this.label3.Text = "Saldo Atual";
+            this.panel2.Size = new System.Drawing.Size(950, 98);
+            this.panel2.TabIndex = 1;
             // 
             // btnPoupanca
             // 
             this.btnPoupanca.BackColor = System.Drawing.Color.White;
-            this.btnPoupanca.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(229)))), ((int)(((byte)(229)))));
-            this.btnPoupanca.FlatAppearance.MouseDownBackColor = System.Drawing.Color.WhiteSmoke;
-            this.btnPoupanca.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
+            this.btnPoupanca.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(213)))), ((int)(((byte)(219)))));
             this.btnPoupanca.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPoupanca.Font = new System.Drawing.Font("Candara", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPoupanca.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btnPoupanca.Location = new System.Drawing.Point(247, 139);
-            this.btnPoupanca.Margin = new System.Windows.Forms.Padding(4);
+            this.btnPoupanca.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPoupanca.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(65)))), ((int)(((byte)(81)))));
+            this.btnPoupanca.Location = new System.Drawing.Point(200, 32);
             this.btnPoupanca.Name = "btnPoupanca";
-            this.btnPoupanca.Size = new System.Drawing.Size(196, 42);
-            this.btnPoupanca.TabIndex = 27;
+            this.btnPoupanca.Size = new System.Drawing.Size(150, 40);
+            this.btnPoupanca.TabIndex = 1;
             this.btnPoupanca.Text = "Conta Poupança";
             this.btnPoupanca.UseVisualStyleBackColor = false;
             this.btnPoupanca.Click += new System.EventHandler(this.btnPoupanca_Click);
             // 
             // btnCorrente
             // 
-            this.btnCorrente.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.btnCorrente.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(99)))), ((int)(((byte)(235)))));
             this.btnCorrente.FlatAppearance.BorderSize = 0;
-            this.btnCorrente.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(85)))), ((int)(((byte)(101)))));
-            this.btnCorrente.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(85)))), ((int)(((byte)(101)))));
             this.btnCorrente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCorrente.Font = new System.Drawing.Font("Candara", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCorrente.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnCorrente.Location = new System.Drawing.Point(29, 139);
-            this.btnCorrente.Margin = new System.Windows.Forms.Padding(4);
+            this.btnCorrente.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCorrente.ForeColor = System.Drawing.Color.White;
+            this.btnCorrente.Location = new System.Drawing.Point(32, 32);
             this.btnCorrente.Name = "btnCorrente";
-            this.btnCorrente.Size = new System.Drawing.Size(196, 42);
-            this.btnCorrente.TabIndex = 26;
+            this.btnCorrente.Size = new System.Drawing.Size(150, 40);
+            this.btnCorrente.TabIndex = 0;
             this.btnCorrente.Text = "Conta Corrente";
             this.btnCorrente.UseVisualStyleBackColor = false;
             this.btnCorrente.Click += new System.EventHandler(this.btnCorrente_Click);
             // 
-            // labelBemVindo
+            // panel3
             // 
-            this.labelBemVindo.AutoSize = true;
-            this.labelBemVindo.BackColor = System.Drawing.Color.Transparent;
-            this.labelBemVindo.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelBemVindo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(85)))), ((int)(((byte)(101)))));
-            this.labelBemVindo.Location = new System.Drawing.Point(25, 78);
-            this.labelBemVindo.Name = "labelBemVindo";
-            this.labelBemVindo.Size = new System.Drawing.Size(272, 23);
-            this.labelBemVindo.TabIndex = 25;
-            this.labelBemVindo.Text = "Bem-vindo de volta, João!";
+            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(250)))), ((int)(((byte)(251)))));
+            this.panel3.Controls.Add(this.panel4);
+            this.panel3.Controls.Add(this.panelCartoes);
+            this.panel3.Controls.Add(this.panelSaldo);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel3.Location = new System.Drawing.Point(0, 198);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(950, 502);
+            this.panel3.TabIndex = 2;
             // 
-            // label1
+            // panel4
             // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Century Gothic", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(21, 33);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(215, 44);
-            this.label1.TabIndex = 24;
-            this.label1.Text = "Dashboard";
+            this.panel4.Controls.Add(this.panelMeusCartoes);
+            this.panel4.Controls.Add(this.panelTransacoes);
+            this.panel4.Location = new System.Drawing.Point(32, 248);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(886, 260);
+            this.panel4.TabIndex = 2;
+            // 
+            // panelMeusCartoes
+            // 
+            this.panelMeusCartoes.BackColor = System.Drawing.Color.White;
+            this.panelMeusCartoes.Controls.Add(this.btnAdicionarCartao);
+            this.panelMeusCartoes.Controls.Add(this.panelListaCartoes);
+            this.panelMeusCartoes.Controls.Add(this.lblSubtituloMeusCartoes);
+            this.panelMeusCartoes.Controls.Add(this.lblTituloMeusCartoes);
+            this.panelMeusCartoes.Location = new System.Drawing.Point(456, 0);
+            this.panelMeusCartoes.Name = "panelMeusCartoes";
+            this.panelMeusCartoes.Size = new System.Drawing.Size(430, 245);
+            this.panelMeusCartoes.TabIndex = 1;
+            // 
+            // btnAdicionarCartao
+            // 
+            this.btnAdicionarCartao.BackColor = System.Drawing.Color.White;
+            this.btnAdicionarCartao.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(213)))), ((int)(((byte)(219)))));
+            this.btnAdicionarCartao.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAdicionarCartao.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAdicionarCartao.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(65)))), ((int)(((byte)(81)))));
+            this.btnAdicionarCartao.Location = new System.Drawing.Point(24, 198);
+            this.btnAdicionarCartao.Name = "btnAdicionarCartao";
+            this.btnAdicionarCartao.Size = new System.Drawing.Size(381, 32);
+            this.btnAdicionarCartao.TabIndex = 3;
+            this.btnAdicionarCartao.Text = "Adicionar Cartão";
+            this.btnAdicionarCartao.UseVisualStyleBackColor = false;
+            // 
+            // panelListaCartoes
+            // 
+            this.panelListaCartoes.AutoScroll = true;
+            this.panelListaCartoes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(250)))), ((int)(((byte)(251)))));
+            this.panelListaCartoes.Location = new System.Drawing.Point(24, 64);
+            this.panelListaCartoes.Name = "panelListaCartoes";
+            this.panelListaCartoes.Size = new System.Drawing.Size(381, 128);
+            this.panelListaCartoes.TabIndex = 2;
+            // 
+            // lblSubtituloMeusCartoes
+            // 
+            this.lblSubtituloMeusCartoes.AutoSize = true;
+            this.lblSubtituloMeusCartoes.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSubtituloMeusCartoes.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(107)))), ((int)(((byte)(114)))), ((int)(((byte)(128)))));
+            this.lblSubtituloMeusCartoes.Location = new System.Drawing.Point(24, 42);
+            this.lblSubtituloMeusCartoes.Name = "lblSubtituloMeusCartoes";
+            this.lblSubtituloMeusCartoes.Size = new System.Drawing.Size(216, 19);
+            this.lblSubtituloMeusCartoes.TabIndex = 1;
+            this.lblSubtituloMeusCartoes.Text = "Cartões vinculados às suas contas";
+            // 
+            // lblTituloMeusCartoes
+            // 
+            this.lblTituloMeusCartoes.AutoSize = true;
+            this.lblTituloMeusCartoes.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTituloMeusCartoes.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
+            this.lblTituloMeusCartoes.Location = new System.Drawing.Point(24, 17);
+            this.lblTituloMeusCartoes.Name = "lblTituloMeusCartoes";
+            this.lblTituloMeusCartoes.Size = new System.Drawing.Size(202, 25);
+            this.lblTituloMeusCartoes.TabIndex = 0;
+            this.lblTituloMeusCartoes.Text = "💳 Meus Cartões NFC";
+            // 
+            // panelTransacoes
+            // 
+            this.panelTransacoes.BackColor = System.Drawing.Color.White;
+            this.panelTransacoes.Controls.Add(this.btnVerTodasTransacoes);
+            this.panelTransacoes.Controls.Add(this.panelListaTransacoes);
+            this.panelTransacoes.Controls.Add(this.lblSubtituloTransacoes);
+            this.panelTransacoes.Controls.Add(this.lblTituloTransacoes);
+            this.panelTransacoes.Location = new System.Drawing.Point(0, 0);
+            this.panelTransacoes.Name = "panelTransacoes";
+            this.panelTransacoes.Size = new System.Drawing.Size(430, 245);
+            this.panelTransacoes.TabIndex = 0;
+            // 
+            // btnVerTodasTransacoes
+            // 
+            this.btnVerTodasTransacoes.BackColor = System.Drawing.Color.White;
+            this.btnVerTodasTransacoes.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(213)))), ((int)(((byte)(219)))));
+            this.btnVerTodasTransacoes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnVerTodasTransacoes.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnVerTodasTransacoes.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(65)))), ((int)(((byte)(81)))));
+            this.btnVerTodasTransacoes.Location = new System.Drawing.Point(24, 198);
+            this.btnVerTodasTransacoes.Name = "btnVerTodasTransacoes";
+            this.btnVerTodasTransacoes.Size = new System.Drawing.Size(381, 32);
+            this.btnVerTodasTransacoes.TabIndex = 3;
+            this.btnVerTodasTransacoes.Text = "Ver Todas as Transações";
+            this.btnVerTodasTransacoes.UseVisualStyleBackColor = false;
+            this.btnVerTodasTransacoes.Click += new System.EventHandler(this.btnVerTodasTransacoes_Click);
+            // 
+            // panelListaTransacoes
+            // 
+            this.panelListaTransacoes.AutoScroll = true;
+            this.panelListaTransacoes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(250)))), ((int)(((byte)(251)))));
+            this.panelListaTransacoes.Location = new System.Drawing.Point(24, 64);
+            this.panelListaTransacoes.Name = "panelListaTransacoes";
+            this.panelListaTransacoes.Size = new System.Drawing.Size(381, 128);
+            this.panelListaTransacoes.TabIndex = 2;
+            // 
+            // lblSubtituloTransacoes
+            // 
+            this.lblSubtituloTransacoes.AutoSize = true;
+            this.lblSubtituloTransacoes.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSubtituloTransacoes.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(107)))), ((int)(((byte)(114)))), ((int)(((byte)(128)))));
+            this.lblSubtituloTransacoes.Location = new System.Drawing.Point(24, 42);
+            this.lblSubtituloTransacoes.Name = "lblSubtituloTransacoes";
+            this.lblSubtituloTransacoes.Size = new System.Drawing.Size(212, 19);
+            this.lblSubtituloTransacoes.TabIndex = 1;
+            this.lblSubtituloTransacoes.Text = "Últimas movimentações da conta";
+            // 
+            // lblTituloTransacoes
+            // 
+            this.lblTituloTransacoes.AutoSize = true;
+            this.lblTituloTransacoes.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTituloTransacoes.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
+            this.lblTituloTransacoes.Location = new System.Drawing.Point(24, 17);
+            this.lblTituloTransacoes.Name = "lblTituloTransacoes";
+            this.lblTituloTransacoes.Size = new System.Drawing.Size(219, 25);
+            this.lblTituloTransacoes.TabIndex = 0;
+            this.lblTituloTransacoes.Text = "📊 Transações Recentes";
+            // 
+            // panelCartoes
+            // 
+            this.panelCartoes.BackColor = System.Drawing.Color.White;
+            this.panelCartoes.Controls.Add(this.btnGerenciarCartoes);
+            this.panelCartoes.Controls.Add(this.progressBarCartoes);
+            this.panelCartoes.Controls.Add(this.lblCartoesAtivos);
+            this.panelCartoes.Controls.Add(this.lblTotalCartoes);
+            this.panelCartoes.Controls.Add(this.lblTituloCartoes);
+            this.panelCartoes.Location = new System.Drawing.Point(626, 32);
+            this.panelCartoes.Name = "panelCartoes";
+            this.panelCartoes.Size = new System.Drawing.Size(296, 200);
+            this.panelCartoes.TabIndex = 1;
+            // 
+            // btnGerenciarCartoes
+            // 
+            this.btnGerenciarCartoes.BackColor = System.Drawing.Color.White;
+            this.btnGerenciarCartoes.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(213)))), ((int)(((byte)(219)))));
+            this.btnGerenciarCartoes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGerenciarCartoes.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGerenciarCartoes.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(65)))), ((int)(((byte)(81)))));
+            this.btnGerenciarCartoes.Location = new System.Drawing.Point(24, 160);
+            this.btnGerenciarCartoes.Name = "btnGerenciarCartoes";
+            this.btnGerenciarCartoes.Size = new System.Drawing.Size(264, 32);
+            this.btnGerenciarCartoes.TabIndex = 4;
+            this.btnGerenciarCartoes.Text = "Gerenciar Cartões";
+            this.btnGerenciarCartoes.UseVisualStyleBackColor = false;
+            // 
+            // progressBarCartoes
+            // 
+            this.progressBarCartoes.Location = new System.Drawing.Point(24, 140);
+            this.progressBarCartoes.Name = "progressBarCartoes";
+            this.progressBarCartoes.Size = new System.Drawing.Size(264, 8);
+            this.progressBarCartoes.TabIndex = 3;
+            // 
+            // lblCartoesAtivos
+            // 
+            this.lblCartoesAtivos.AutoSize = true;
+            this.lblCartoesAtivos.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCartoesAtivos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
+            this.lblCartoesAtivos.Location = new System.Drawing.Point(24, 90);
+            this.lblCartoesAtivos.Name = "lblCartoesAtivos";
+            this.lblCartoesAtivos.Size = new System.Drawing.Size(33, 37);
+            this.lblCartoesAtivos.TabIndex = 2;
+            this.lblCartoesAtivos.Text = "0";
+            // 
+            // lblTotalCartoes
+            // 
+            this.lblTotalCartoes.AutoSize = true;
+            this.lblTotalCartoes.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotalCartoes.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(107)))), ((int)(((byte)(114)))), ((int)(((byte)(128)))));
+            this.lblTotalCartoes.Location = new System.Drawing.Point(24, 60);
+            this.lblTotalCartoes.Name = "lblTotalCartoes";
+            this.lblTotalCartoes.Size = new System.Drawing.Size(108, 21);
+            this.lblTotalCartoes.TabIndex = 1;
+            this.lblTotalCartoes.Text = "Cartões ativos";
+            // 
+            // lblTituloCartoes
+            // 
+            this.lblTituloCartoes.AutoSize = true;
+            this.lblTituloCartoes.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTituloCartoes.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
+            this.lblTituloCartoes.Location = new System.Drawing.Point(24, 24);
+            this.lblTituloCartoes.Name = "lblTituloCartoes";
+            this.lblTituloCartoes.Size = new System.Drawing.Size(149, 25);
+            this.lblTituloCartoes.TabIndex = 0;
+            this.lblTituloCartoes.Text = "💳 Cartões NFC";
+            // 
+            // panelSaldo
+            // 
+            this.panelSaldo.BackColor = System.Drawing.Color.White;
+            this.panelSaldo.Controls.Add(this.btnSacar);
+            this.panelSaldo.Controls.Add(this.btnDepositar);
+            this.panelSaldo.Controls.Add(this.btnTransferir);
+            this.panelSaldo.Controls.Add(this.lblSaldo);
+            this.panelSaldo.Controls.Add(this.lblTipoConta);
+            this.panelSaldo.Controls.Add(this.lblTituloSaldo);
+            this.panelSaldo.Location = new System.Drawing.Point(32, 32);
+            this.panelSaldo.Name = "panelSaldo";
+            this.panelSaldo.Size = new System.Drawing.Size(570, 200);
+            this.panelSaldo.TabIndex = 0;
+            // 
+            // btnSacar
+            // 
+            this.btnSacar.BackColor = System.Drawing.Color.White;
+            this.btnSacar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(213)))), ((int)(((byte)(219)))));
+            this.btnSacar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSacar.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSacar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(65)))), ((int)(((byte)(81)))));
+            this.btnSacar.Location = new System.Drawing.Point(256, 160);
+            this.btnSacar.Name = "btnSacar";
+            this.btnSacar.Size = new System.Drawing.Size(100, 32);
+            this.btnSacar.TabIndex = 5;
+            this.btnSacar.Text = "Sacar";
+            this.btnSacar.UseVisualStyleBackColor = false;
+            // 
+            // btnDepositar
+            // 
+            this.btnDepositar.BackColor = System.Drawing.Color.White;
+            this.btnDepositar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(213)))), ((int)(((byte)(219)))));
+            this.btnDepositar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDepositar.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDepositar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(65)))), ((int)(((byte)(81)))));
+            this.btnDepositar.Location = new System.Drawing.Point(140, 160);
+            this.btnDepositar.Name = "btnDepositar";
+            this.btnDepositar.Size = new System.Drawing.Size(100, 32);
+            this.btnDepositar.TabIndex = 4;
+            this.btnDepositar.Text = "Depositar";
+            this.btnDepositar.UseVisualStyleBackColor = false;
+            // 
+            // btnTransferir
+            // 
+            this.btnTransferir.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(99)))), ((int)(((byte)(235)))));
+            this.btnTransferir.FlatAppearance.BorderSize = 0;
+            this.btnTransferir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTransferir.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTransferir.ForeColor = System.Drawing.Color.White;
+            this.btnTransferir.Location = new System.Drawing.Point(24, 160);
+            this.btnTransferir.Name = "btnTransferir";
+            this.btnTransferir.Size = new System.Drawing.Size(100, 32);
+            this.btnTransferir.TabIndex = 3;
+            this.btnTransferir.Text = "Transferir";
+            this.btnTransferir.UseVisualStyleBackColor = false;
+            // 
+            // lblSaldo
+            // 
+            this.lblSaldo.AutoSize = true;
+            this.lblSaldo.Font = new System.Drawing.Font("Segoe UI", 32F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSaldo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(197)))), ((int)(((byte)(94)))));
+            this.lblSaldo.Location = new System.Drawing.Point(24, 90);
+            this.lblSaldo.Name = "lblSaldo";
+            this.lblSaldo.Size = new System.Drawing.Size(177, 59);
+            this.lblSaldo.TabIndex = 2;
+            this.lblSaldo.Text = "R$ 0,00";
+            // 
+            // lblTipoConta
+            // 
+            this.lblTipoConta.AutoSize = true;
+            this.lblTipoConta.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTipoConta.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(107)))), ((int)(((byte)(114)))), ((int)(((byte)(128)))));
+            this.lblTipoConta.Location = new System.Drawing.Point(24, 60);
+            this.lblTipoConta.Name = "lblTipoConta";
+            this.lblTipoConta.Size = new System.Drawing.Size(191, 21);
+            this.lblTipoConta.TabIndex = 1;
+            this.lblTipoConta.Text = "Conta Corrente • 12345-6";
+            // 
+            // lblTituloSaldo
+            // 
+            this.lblTituloSaldo.AutoSize = true;
+            this.lblTituloSaldo.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTituloSaldo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
+            this.lblTituloSaldo.Location = new System.Drawing.Point(24, 24);
+            this.lblTituloSaldo.Name = "lblTituloSaldo";
+            this.lblTituloSaldo.Size = new System.Drawing.Size(141, 25);
+            this.lblTituloSaldo.TabIndex = 0;
+            this.lblTituloSaldo.Text = "💰 Saldo Atual";
             // 
             // DashBoard
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(936, 854);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(250)))), ((int)(((byte)(251)))));
+            this.ClientSize = new System.Drawing.Size(950, 700);
+            this.Controls.Add(this.panel3);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.panelTrasferenciaRecentes);
-            this.Controls.Add(this.panelCartoes);
-            this.Controls.Add(this.panelSaldoAtual);
-            this.Controls.Add(this.btnPoupanca);
-            this.Controls.Add(this.btnCorrente);
-            this.Controls.Add(this.labelBemVindo);
-            this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(4);
+            this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "DashBoard";
-            this.Text = "Form2";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Dashboard";
             this.Load += new System.EventHandler(this.Form2_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.panelTrasferenciaRecentes.ResumeLayout(false);
-            this.panelTrasferenciaRecentes.PerformLayout();
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
             this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
-            this.panel5.ResumeLayout(false);
-            this.panel5.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel4.ResumeLayout(false);
+            this.panelMeusCartoes.ResumeLayout(false);
+            this.panelMeusCartoes.PerformLayout();
+            this.panelTransacoes.ResumeLayout(false);
+            this.panelTransacoes.PerformLayout();
             this.panelCartoes.ResumeLayout(false);
             this.panelCartoes.PerformLayout();
-            this.panelSaldoAtual.ResumeLayout(false);
-            this.panelSaldoAtual.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panelSaldo.ResumeLayout(false);
+            this.panelSaldo.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.Button btnCartoes;
-        private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Panel panelTrasferenciaRecentes;
-        private System.Windows.Forms.Button btnVerTransacoes;
-        private System.Windows.Forms.Panel panel5;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Panel panelCartoes;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Panel panelSaldoAtual;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Label lblSaldo;
-        private System.Windows.Forms.Label labelCorrenteOuPoupanca;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lblTitulo;
+        private System.Windows.Forms.Label lblSubtitulo;
+        private System.Windows.Forms.Button btnNotificacao;
+        private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button btnPoupanca;
         private System.Windows.Forms.Button btnCorrente;
-        private System.Windows.Forms.Label labelBemVindo;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.Label label24;
-        private System.Windows.Forms.Label label25;
-        private System.Windows.Forms.Button button8;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.Label label22;
-        private System.Windows.Forms.Label label29;
-        private System.Windows.Forms.Label label30;
-        private System.Windows.Forms.Label label31;
-        private System.Windows.Forms.Button button9;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Label label26;
-        private System.Windows.Forms.Label label27;
-        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.Panel panelSaldo;
+        private System.Windows.Forms.Label lblTituloSaldo;
+        private System.Windows.Forms.Label lblTipoConta;
+        private System.Windows.Forms.Label lblSaldo;
+        private System.Windows.Forms.Button btnTransferir;
+        private System.Windows.Forms.Button btnDepositar;
+        private System.Windows.Forms.Button btnSacar;
+        private System.Windows.Forms.Panel panelCartoes;
+        private System.Windows.Forms.Label lblTituloCartoes;
+        private System.Windows.Forms.Label lblTotalCartoes;
+        private System.Windows.Forms.Label lblCartoesAtivos;
+        private System.Windows.Forms.ProgressBar progressBarCartoes;
+        private System.Windows.Forms.Button btnGerenciarCartoes;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Panel panelTransacoes;
+        private System.Windows.Forms.Label lblTituloTransacoes;
+        private System.Windows.Forms.Label lblSubtituloTransacoes;
+        private System.Windows.Forms.FlowLayoutPanel panelListaTransacoes;
+        private System.Windows.Forms.Button btnVerTodasTransacoes;
+        private System.Windows.Forms.Panel panelMeusCartoes;
+        private System.Windows.Forms.Label lblTituloMeusCartoes;
+        private System.Windows.Forms.Label lblSubtituloMeusCartoes;
+        private System.Windows.Forms.FlowLayoutPanel panelListaCartoes;
+        private System.Windows.Forms.Button btnAdicionarCartao;
     }
 }

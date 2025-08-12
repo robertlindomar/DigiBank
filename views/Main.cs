@@ -19,12 +19,12 @@ namespace DigiBank
     {
 
         Usuario usuarioLogado = new Usuario();
-        
 
-        public Main() {
+
+        public Main()
+        {
             InitializeComponent();
-
-            labelUsuarioLogado.Text = "DESENVOLVEDOR";
+            ConfigurarUsuario();
         }
         public Main(Usuario usuario)
         {
@@ -32,16 +32,51 @@ namespace DigiBank
             this.usuarioLogado = usuario;
             if (usuario != null)
             {
-                labelUsuarioLogado.Text = $"CONTA: {usuario.Login}";
+                ConfigurarUsuario();
             }
-            
 
+            // Carregar dashboard por padrão
+            btnDashboard_Click(null, null);
+        }
 
+        private void ConfigurarUsuario()
+        {
+            if (usuarioLogado != null)
+            {
+                // Configurar informações do usuário
+                lblNomeUsuario.Text = usuarioLogado.Login;
+                lblCPF.Text = $"ID: {usuarioLogado.Id}";
+
+                // Gerar iniciais do nome
+                var iniciais = GerarIniciais(usuarioLogado.Login);
+                lblIniciais.Text = iniciais;
+            }
+            else
+            {
+                lblNomeUsuario.Text = "Usuário";
+                lblCPF.Text = "CPF: Não informado";
+                lblIniciais.Text = "U";
+            }
+        }
+
+        private string GerarIniciais(string nome)
+        {
+            if (string.IsNullOrEmpty(nome))
+                return "U";
+
+            var palavras = nome.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            if (palavras.Length == 0)
+                return nome.Substring(0, 1).ToUpper();
+
+            if (palavras.Length == 1)
+                return palavras[0].Substring(0, 1).ToUpper();
+
+            return (palavras[0].Substring(0, 1) + palavras[palavras.Length - 1].Substring(0, 1)).ToUpper();
         }
 
         private void CarregarClientes()
         {
-            
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -58,7 +93,7 @@ namespace DigiBank
         {
             SelecionarBotao(btnDashboard);
 
-            painelPrincipal.Controls.Clear();
+            panelPrincipal.Controls.Clear();
 
             DashBoard telaDashboard = new DashBoard(usuarioLogado)
             {
@@ -66,46 +101,46 @@ namespace DigiBank
                 FormBorderStyle = FormBorderStyle.None,
                 Dock = DockStyle.Fill
             };
-            painelPrincipal.Controls.Add(telaDashboard);
+            panelPrincipal.Controls.Add(telaDashboard);
             telaDashboard.Show();
         }
-        private void btnTransacoes_Click(object sender, EventArgs e)
+        public void btnTransacoes_Click(object sender, EventArgs e)
         {
             SelecionarBotao(btnTransacoes);
 
-            painelPrincipal.Controls.Clear();
-            
-            //Transacoes tela = new Transacoes
-            //{
-            //    TopLevel = false,
-            //    FormBorderStyle = FormBorderStyle.None,
-            //    Dock = DockStyle.Fill
-            //};
-            //painelPrincipal.Controls.Add(tela);
-            //tela.Show();
+            panelPrincipal.Controls.Clear();
+
+            Transacoes tela = new Transacoes(usuarioLogado)
+            {
+                TopLevel = false,
+                FormBorderStyle = FormBorderStyle.None,
+                Dock = DockStyle.Fill
+            };
+            panelPrincipal.Controls.Add(tela);
+            tela.Show();
         }
 
         private void btnCartoes_Click(object sender, EventArgs e)
         {
             SelecionarBotao(btnCartoes);
 
-            painelPrincipal.Controls.Clear();
+            panelPrincipal.Controls.Clear();
 
-            //Cartoes tela = new Cartoes
-            //{
-            //    TopLevel = false,
-            //    FormBorderStyle = FormBorderStyle.None,
-            //    Dock = DockStyle.Fill
-            //};
-            //painelPrincipal.Controls.Add(tela);
-            //tela.Show();
+            Cartoes tela = new Cartoes(usuarioLogado)
+            {
+                TopLevel = false,
+                FormBorderStyle = FormBorderStyle.None,
+                Dock = DockStyle.Fill
+            };
+            panelPrincipal.Controls.Add(tela);
+            tela.Show();
         }
 
         private void btnTerminalPOS_Click(object sender, EventArgs e)
         {
             SelecionarBotao(btnTerminalPOS);
 
-            painelPrincipal.Controls.Clear();
+            panelPrincipal.Controls.Clear();
 
             //TerminalPOS tela = new TerminalPOS
             //{
@@ -113,7 +148,7 @@ namespace DigiBank
             //    FormBorderStyle = FormBorderStyle.None,
             //    Dock = DockStyle.Fill
             //};
-            //painelPrincipal.Controls.Add(tela);
+            //panelPrincipal.Controls.Add(tela);
             //tela.Show();
         }
 
@@ -121,7 +156,7 @@ namespace DigiBank
         {
             SelecionarBotao(btnConfiguracoes);
 
-            painelPrincipal.Controls.Clear();
+            panelPrincipal.Controls.Clear();
 
             //Configuracoes tela = new Configuracoes
             //{
@@ -129,16 +164,13 @@ namespace DigiBank
             //    FormBorderStyle = FormBorderStyle.None,
             //    Dock = DockStyle.Fill
             //};
-            //painelPrincipal.Controls.Add(tela);
+            //panelPrincipal.Controls.Add(tela);
             //tela.Show();
         }
-        
 
 
-        private void painelPrincipal_Paint(object sender, PaintEventArgs e)
-        {
 
-        }
+
 
         private void ResetarEstiloBotoes()
         {
@@ -167,7 +199,7 @@ namespace DigiBank
 
             // Estilo de selecionado
             botao.BackColor = Color.FromArgb(239, 246, 255);
-            botao.ForeColor = Color.FromArgb(57, 82, 251);
+            botao.ForeColor = Color.FromArgb(37, 99, 235);
         }
     }
 }
