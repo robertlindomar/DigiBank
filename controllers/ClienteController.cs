@@ -1,54 +1,125 @@
 ﻿using DigiBank.models;
-using DigiBank.repositories;
 using DigiBank.services;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DigiBank.controllers
 {
     public class ClienteController
     {
-        private readonly ClienteService service;
+        private readonly ClienteService _service;
 
         public ClienteController()
         {
-            service = new ClienteService();
+            _service = new ClienteService();
         }
 
-
-        public void criar(Cliente cliente)
+        public int Criar(Cliente cliente)
         {
-
-            service.CadastrarCliente(cliente);
+            try
+            {
+                return _service.CadastrarCliente(cliente);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erro no controller ao criar cliente: {ex.Message}");
+            }
         }
 
         public List<Cliente> BuscarTodos()
         {
-            return service.BuscarTodos();
-        }
-
-        public Cliente BuscarPorCpf(string cpf)
-        {
-            return service.BuscarPorCpf(cpf);
+            try
+            {
+                return _service.BuscarTodos();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erro no controller ao buscar clientes: {ex.Message}");
+            }
         }
 
         public Cliente BuscarPorId(int id)
         {
-            return service.BuscarPorId(id);
+            try
+            {
+                return _service.BuscarPorId(id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erro no controller ao buscar cliente por ID: {ex.Message}");
+            }
         }
 
-        public void AtualizarCliente(Cliente cliente)
+        public Cliente BuscarPorCpf(string cpf)
         {
-            service.AtualizarCliente(cliente);
+            try
+            {
+                return _service.BuscarPorCpf(cpf);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erro no controller ao buscar cliente por CPF: {ex.Message}");
+            }
         }
 
-        public void DeletarCliente(int id)
+        public List<Cliente> BuscarPorNome(string nome)
         {
-            service.DeletarCliente(id);
+            try
+            {
+                return _service.BuscarPorNome(nome);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erro no controller ao buscar clientes por nome: {ex.Message}");
+            }
         }
 
+        public void Atualizar(Cliente cliente)
+        {
+            try
+            {
+                _service.AtualizarCliente(cliente);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erro no controller ao atualizar cliente: {ex.Message}");
+            }
+        }
+
+        public void Deletar(int id)
+        {
+            try
+            {
+                _service.DeletarCliente(id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erro no controller ao deletar cliente: {ex.Message}");
+            }
+        }
+
+        public bool Existe(int id)
+        {
+            try
+            {
+                return _service.ExisteCliente(id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erro no controller ao verificar existência do cliente: {ex.Message}");
+            }
+        }
+
+        public bool ExisteCpf(string cpf)
+        {
+            try
+            {
+                return _service.ExisteCpf(cpf);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erro no controller ao verificar existência do CPF: {ex.Message}");
+            }
+        }
     }
 }

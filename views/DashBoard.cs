@@ -12,138 +12,182 @@ using System.Windows.Forms;
 
 namespace DigiBank.views
 {
-
     public partial class DashBoard : Form
     {
-        Usuario usuarioLogado = new Usuario();
+        #region Campos Privados
+        private readonly Usuario _usuarioLogado;
+        private readonly List<Conta> _listaContas;
+        private readonly ContaController _contaController;
+        private Conta _contaAtual;
+        #endregion
 
-        List<Conta> listaContaLogada = new List<Conta>();
+        #region Constantes
+        private const string TIPO_CONTA_CORRENTE = "corrente";
+        private const string TIPO_CONTA_POUPANCA = "poupanca";
+        #endregion
 
-        Cliente clienteLogado = new Cliente();
-
-        ContaController contaController = new ContaController();
-
-
-
-
-
-
+        #region Construtores
         public DashBoard()
         {
             InitializeComponent();
-            
+            _usuarioLogado = new Usuario();
+            _listaContas = new List<Conta>();
+            _contaController = new ContaController();
         }
+
         public DashBoard(Usuario usuario)
         {
             InitializeComponent();
-            CarregarClientes(usuario);
+            _usuarioLogado = usuario ?? throw new ArgumentNullException(nameof(usuario));
+            _listaContas = new List<Conta>();
+            _contaController = new ContaController();
 
+            CarregarDadosUsuario();
         }
-        private void CarregarClientes(Usuario usuario)
+        #endregion
+
+        #region Métodos Privados
+        private void CarregarDadosUsuario()
         {
-            this.usuarioLogado = usuario;
-            labelBemVindo.Text = $"Bem-vindo de volta, {usuarioLogado.Login}!";
-
-
-            listaContaLogada = contaController.BuscarPorClienteId(usuarioLogado.ClienteId);
-        }
-
-        private void CarregarPagina()
-        {
-            // Verifica se existe conta corrente
-            bool temCorrente = false;
-            bool temPoupanca = false;
-
-            foreach (Conta c in listaContaLogada)
+            try
             {
-                if (string.Equals(c.Tipo, "corrente", StringComparison.OrdinalIgnoreCase))
+                AtualizarLabelBemVindo();
+                CarregarContas();
+                ConfigurarInterface();
+                ExibirSaldoInicial();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao carregar dados: {ex.Message}", "Erro",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void AtualizarLabelBemVindo()
+        {
+            if (labelBemVindo != null)
+            {
+                labelBemVindo.Text = $"Bem-vindo de volta, {_usuarioLogado.Login}!";
+            }
+        }
+
+        private void CarregarContas()
+        {
+            _listaContas.Clear();
+            var contas = _contaController.BuscarPorClienteId(_usuarioLogado.ClienteId);
+
+            if (contas != null)
+            {
+                _listaContas.AddRange(contas);
+            }
+        }
+
+        private void ConfigurarInterface()
+        {
+            var contaCorrente = ObterContaPorTipo(TIPO_CONTA_CORRENTE);
+            var contaPoupanca = ObterContaPorTipo(TIPO_CONTA_POUPANCA);
+
+            // Configurar botões
+            ConfigurarBotaoConta(btnCorrente, contaCorrente, "Conta Corrente");
+            ConfigurarBotaoConta(btnPoupanca, contaPoupanca, "Conta Poupança");
+
+            // Definir conta inicial (prioridade: corrente > poupança)
+            _contaAtual = contaCorrente ?? contaPoupanca;
+        }
+
+        private void ConfigurarBotaoConta(Button botao, Conta conta, string tipoConta)
+        {
+            if (botao != null)
+            {
+                botao.Visible = conta != null;
+                botao.Enabled = conta != null;
+
+                if (conta != null)
                 {
-                    temCorrente = true;
-                    labelCorrenteOuPoupanca.Text = $"Conta Corrente • 12345-6";
-
-                }
-
-
-                if (string.Equals(c.Tipo, "poupanca", StringComparison.OrdinalIgnoreCase))
-                {
-                    temPoupanca = true;
-                    labelCorrenteOuPoupanca.Text = $"Conta Poupanca • 12345-6";
+                    botao.Text = $"{tipoConta} • {conta.NumeroConta}";
                 }
             }
-
-             //Mostra ou esconde os botões
-            btnCorrente.Visible = temCorrente;
-            btnPoupanca.Visible = temPoupanca;
-
-            // Se preferir só desabilitar em vez de ocultar:
-            //btnCorrente.Enabled = temCorrente;
-            //btnPoupanca.Enabled = temPoupanca;
         }
 
+        private Conta ObterContaPorTipo(string tipo)
+        {
+            return _listaContas.FirstOrDefault(c =>
+                string.Equals(c.Tipo, tipo, StringComparison.OrdinalIgnoreCase));
+        }
+
+        private void ExibirSaldoInicial()
+        {
+            if (_contaAtual != null)
+            {
+                ExibirSaldoPorTipo(_contaAtual.Tipo);
+            }
+        }
 
         private void ExibirSaldoPorTipo(string tipoDesejado)
         {
-            decimal saldoTotal = 0;
-
-            foreach (Conta c in listaContaLogada)
+            try
             {
-                if (string.Equals(c.Tipo, tipoDesejado, StringComparison.OrdinalIgnoreCase))
-                {
+                var saldoTotal = CalcularSaldoTotal(tipoDesejado);
+                AtualizarLabelSaldo(saldoTotal);
+                AtualizarLabelTipoConta(tipoDesejado);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao exibir saldo: {ex.Message}", "Erro",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
-                    saldoTotal += c.Saldo;
+        private decimal CalcularSaldoTotal(string tipoDesejado)
+        {
+            return _listaContas
+                .Where(c => string.Equals(c.Tipo, tipoDesejado, StringComparison.OrdinalIgnoreCase))
+                .Sum(c => c.Saldo);
+        }
+
+        private void AtualizarLabelSaldo(decimal saldo)
+        {
+            if (lblSaldo != null)
+            {
+                lblSaldo.Text = saldo.ToString("C");
+            }
+        }
+
+        private void AtualizarLabelTipoConta(string tipo)
+        {
+            if (labelCorrenteOuPoupanca != null)
+            {
+                var nomeTipo = string.Equals(tipo, TIPO_CONTA_CORRENTE, StringComparison.OrdinalIgnoreCase)
+                    ? "Conta Corrente"
+                    : "Conta Poupança";
+
+                var conta = ObterContaPorTipo(tipo);
+                if (conta != null)
+                {
+                    labelCorrenteOuPoupanca.Text = $"{nomeTipo} • {conta.NumeroConta}";
                 }
             }
-
-            CarregarPagina();
-            lblSaldo.Text = saldoTotal.ToString("C");
-
         }
+        #endregion
 
+        #region Event Handlers
         private void Form2_Load(object sender, EventArgs e)
         {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label8_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panel3_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void label11_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label13_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panel5_Paint(object sender, PaintEventArgs e)
-        {
-
+            // Evento de carregamento do formulário
         }
 
         private void btnCorrente_Click(object sender, EventArgs e)
         {
-            ExibirSaldoPorTipo("corrente");
-
+            ExibirSaldoPorTipo(TIPO_CONTA_CORRENTE);
         }
 
         private void btnPoupanca_Click(object sender, EventArgs e)
         {
-            ExibirSaldoPorTipo("poupança");
-
+            ExibirSaldoPorTipo(TIPO_CONTA_POUPANCA);
         }
+
+        // Event handlers vazios podem ser removidos se não forem necessários
+        // ou implementados conforme necessário
+        #endregion
     }
 }

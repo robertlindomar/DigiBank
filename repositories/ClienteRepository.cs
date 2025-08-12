@@ -3,30 +3,25 @@ using DigiBank.models;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace DigiBank.repositories
 {
     public class ClienteRepository
     {
-        public int Criar(Cliente cliente)
+        public int Criar(Cliente novoCliente)
         {
             using (var db = new Database())
             {
                 var conexao = db.OpenConnection();
-                string sql = "INSERT INTO cliente (nome, cpf) VALUES (@nome, @cpf)";
+                string sql = "INSERT INTO cliente (nome, cpf, data_criacao) VALUES (@nome, @cpf, @data_criacao); SELECT LAST_INSERT_ID();";
 
                 using (MySqlCommand cmd = new MySqlCommand(sql, conexao))
                 {
-                    cmd.Parameters.AddWithValue("@nome", cliente.Nome);
-                    cmd.Parameters.AddWithValue("@cpf", cliente.Cpf);
+                    cmd.Parameters.AddWithValue("@nome", novoCliente.Nome);
+                    cmd.Parameters.AddWithValue("@cpf", novoCliente.Cpf);
+                    cmd.Parameters.AddWithValue("@data_criacao", novoCliente.DataCriacao);
 
-                    cmd.ExecuteNonQuery();
-                    int id = (int)cmd.LastInsertedId;
+                    int id = Convert.ToInt32(cmd.ExecuteScalar());
                     db.CloseConnection();
                     return id;
                 }
@@ -39,7 +34,7 @@ namespace DigiBank.repositories
             using (var db = new Database())
             {
                 var conexao = db.OpenConnection();
-                string sql = "SELECT * FROM cliente";
+                string sql = "SELECT * FROM cliente ORDER BY nome";
 
                 using (MySqlCommand cmd = new MySqlCommand(sql, conexao))
                 using (MySqlDataReader reader = cmd.ExecuteReader())
@@ -48,10 +43,10 @@ namespace DigiBank.repositories
                     {
                         clientes.Add(new Cliente
                         {
-                            Id = reader.GetInt32("id"),
-                            Nome = reader.GetString("nome"),
-                            Cpf = reader.GetString("cpf"),
-                            DataCriacao = reader.GetDateTime("data_criacao")
+                            Id = Convert.ToInt32(reader["id"]),
+                            Nome = reader["nome"].ToString(),
+                            Cpf = reader["cpf"].ToString(),
+                            DataCriacao = Convert.ToDateTime(reader["data_criacao"])
                         });
                     }
                 }
@@ -77,10 +72,10 @@ namespace DigiBank.repositories
                         {
                             return new Cliente
                             {
-                                Id = reader.GetInt32("id"),
-                                Nome = reader.GetString("nome"),
-                                Cpf = reader.GetString("cpf"),
-                                DataCriacao = reader.GetDateTime("data_criacao")
+                                Id = Convert.ToInt32(reader["id"]),
+                                Nome = reader["nome"].ToString(),
+                                Cpf = reader["cpf"].ToString(),
+                                DataCriacao = Convert.ToDateTime(reader["data_criacao"])
                             };
                         }
                     }
@@ -142,10 +137,10 @@ namespace DigiBank.repositories
                         {
                             return new Cliente
                             {
-                                Id = reader.GetInt32("id"),
-                                Nome = reader.GetString("nome"),
-                                Cpf = reader.GetString("cpf"),
-                                DataCriacao = reader.GetDateTime("data_criacao")
+                                Id = Convert.ToInt32(reader["id"]),
+                                Nome = reader["nome"].ToString(),
+                                Cpf = reader["cpf"].ToString(),
+                                DataCriacao = Convert.ToDateTime(reader["data_criacao"])
                             };
                         }
                     }
@@ -153,6 +148,54 @@ namespace DigiBank.repositories
                 db.CloseConnection();
             }
             return null;
+        }
+
+        public List<Cliente> BuscarPorNome(string nome)
+        {
+            var clientes = new List<Cliente>();
+            using (var db = new Database())
+            {
+                var conexao = db.OpenConnection();
+                string sql = "SELECT * FROM cliente WHERE nome LIKE @nome ORDER BY nome";
+
+                using (MySqlCommand cmd = new MySqlCommand(sql, conexao))
+                {
+                    cmd.Parameters.AddWithValue("@nome", $"%{nome}%");
+
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            clientes.Add(new Cliente
+                            {
+                                Id = Convert.ToInt32(reader["id"]),
+                                Nome = reader["nome"].ToString(),
+                                Cpf = reader["cpf"].ToString(),
+                                DataCriacao = Convert.ToDateTime(reader["data_criacao"])
+                            });
+                        }
+                    }
+                }
+                db.CloseConnection();
+            }
+            return clientes;
+        }
+
+        public bool ExistePorCpf(string cpf)
+        {
+            using (var db = new Database())
+            {
+                var conexao = db.OpenConnection();
+                string sql = "SELECT COUNT(*) FROM cliente WHERE cpf = @cpf";
+
+                using (MySqlCommand cmd = new MySqlCommand(sql, conexao))
+                {
+                    cmd.Parameters.AddWithValue("@cpf", cpf);
+                    int count = Convert.ToInt32(cmd.ExecuteScalar());
+                    db.CloseConnection();
+                    return count > 0;
+                }
+            }
         }
     }
 }

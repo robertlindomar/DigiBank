@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DigiBank.models
 {
@@ -12,5 +8,14 @@ namespace DigiBank.models
         public string Nome { get; set; }
         public string Cpf { get; set; }
         public DateTime DataCriacao { get; set; }
+
+        // Propriedades de navegação (apenas relacionamentos principais)
+        // public virtual List<Conta> Contas { get; set; }
+        // public virtual Usuario Usuario { get; set; }
+
+        public Cliente()
+        {
+            DataCriacao = DateTime.Now;
+        }
     }
 }

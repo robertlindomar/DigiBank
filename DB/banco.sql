@@ -1,4 +1,4 @@
--- Criação do banco
+    -- Criacao do banco
 CREATE DATABASE IF NOT EXISTS digibank
   DEFAULT CHARACTER SET utf8mb4
   DEFAULT COLLATE utf8mb4_unicode_ci;
@@ -12,7 +12,7 @@ CREATE TABLE cliente (
     data_criacao DATETIME DEFAULT CURRENT_TIMESTAMP
 ) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Tabela de contas bancárias
+-- Tabela de contas bancarias
 CREATE TABLE conta (
     id INT AUTO_INCREMENT PRIMARY KEY,
     numero_conta VARCHAR(20) NOT NULL UNIQUE,
@@ -36,10 +36,10 @@ CREATE TABLE usuario (
     FOREIGN KEY (cliente_id) REFERENCES cliente(id) ON DELETE CASCADE
 ) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Tabela de cartão NFC
+-- Tabela de cartao NFC
 CREATE TABLE cartao (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    uid VARCHAR(50) NOT NULL UNIQUE, -- UID físico do cartão NFC
+    uid VARCHAR(50) NOT NULL UNIQUE, -- UID fisico do cartao NFC
     apelido VARCHAR(50),
     pin_hash VARCHAR(255), -- PIN criptografado
     conta_id INT NOT NULL,
@@ -48,11 +48,11 @@ CREATE TABLE cartao (
     FOREIGN KEY (conta_id) REFERENCES conta(id) ON DELETE CASCADE
 ) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Índices para busca rápida
+-- Indices para busca rapida
 CREATE INDEX idx_cartao_uid ON cartao(uid);
 CREATE INDEX idx_cliente_cpf ON cliente(cpf);
 
--- Tabela de transações
+-- Tabela de transacoes
 CREATE TABLE transacao (
     id INT AUTO_INCREMENT PRIMARY KEY,
     tipo ENUM('deposito', 'saque', 'transferencia') NOT NULL,
@@ -93,29 +93,30 @@ CREATE TABLE pagamento_pos (
 -- Inserir clientes
 INSERT INTO cliente (nome, cpf) VALUES
 ('Administrador do Sistema', '000.000.000-00'),
-('João da Silva', '111.111.111-11');
+('Joao da Silva', '111.111.111-11');
 
 -- Inserir contas
-INSERT INTO conta (numero_conta, tipo, saldo, ativa, cliente_id) VALUES
-('1001', 'corrente', 5000.00, TRUE, 1), -- Admin
-('2001', 'corrente', 1500.00, TRUE, 2); -- João
+INSERT INTO conta (numero_conta, tipo, saldo, ativa, cliente_id, data_abertura) VALUES
+(1, '1001', 'corrente', 5000.00, TRUE, 1, '2025-08-12 00:56:37'),
+(2, '2001', 'poupanca', 1500.00, TRUE, 2, '2025-08-12 00:56:37'),
+(3, '2002', 'corrente', 500.00, TRUE, 2, '2025-08-12 00:56:37');
 
--- Inserir usuários (senha simulada com hash bcrypt fictício)
+-- Inserir usuarios (senha simulada com hash bcrypt ficticio)
 -- Senha real: admin123 / usuario123
-INSERT INTO usuario (cliente_id, login, senha, ativo, tipo) VALUES
-(1, 'admin', '$2a$11$YuxkGH8h9A.o4iamn1W2GuYL4.jTAgQlDKWYi96FKP4tCHmaDEF0K', TRUE, 'admin'),
-(2, 'usuario', '$2a$11$9huKcBZOtaVboZWW8wAexu2bhFKgpCKz5fKiao8s1ggQOTaC8kdOy', TRUE, 'cliente');
+INSERT INTO usuario (cliente_id, login, senha, ativo, data_criacao, tipo) VALUES
+(1, 1, 'admin', '$2a$11$9CaOWUQHHzwgDdsgvfKMZOnBRZRvbCtE55QkfudF83tHg3SR5aYEq', 1, '2025-08-12 00:56:42', 'admin'),
+(2, 2, 'usuario', '$2a$11$QOBgl2F6TpFBsMpNLdU8AeLA5fNMWJmoxZAl/UzIv.zoHslzig5ke', 1, '2025-08-12 00:56:42', 'cliente');
 
--- Inserir cartões NFC
--- UID fictício para testes: '0848182788' (admin) e '0066581178' (João)
+-- Inserir cartoes NFC
+-- UID ficticio para testes: '0848182788' (admin) e '0066581178' (Joao)
 INSERT INTO cartao (uid, apelido, pin_hash, conta_id, ativo) VALUES
-('0848182788', 'Cartão Admin', NULL, 1, TRUE),
-('0066581178', 'Cartão João', NULL, 2, TRUE);
+('0848182788', 'Cartao Admin', NULL, 1, TRUE),
+('0066581178', 'Cartao Joao', NULL, 2, TRUE);
 
 -- Inserir um terminal POS de teste
 INSERT INTO terminal_pos (nome_loja, localizacao, uid, conta_id) VALUES
 ('Loja Teste', 'Centro', 'POS123456', 1);
 
--- Inserir uma transação de teste
+-- Inserir uma transacao de teste
 INSERT INTO transacao (tipo, valor, conta_origem_id, conta_destino_id, descricao) VALUES
-('deposito', 500.00, NULL, 2, 'Depósito inicial para João');
+('deposito', 500.00, NULL, 2, 'Deposito inicial para Joao');

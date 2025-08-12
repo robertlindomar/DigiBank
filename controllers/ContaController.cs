@@ -1,92 +1,173 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DigiBank.models;
+﻿using DigiBank.models;
 using DigiBank.services;
+using System;
+using System.Collections.Generic;
 
 namespace DigiBank.controllers
 {
     public class ContaController
     {
-        private readonly ContaService contaService;
+        private readonly ContaService _service;
 
         public ContaController()
         {
-            contaService = new ContaService();
+            _service = new ContaService();
         }
 
-        public int CriarConta(Conta novaConta)
+        public int Criar(Conta conta)
         {
-            return contaService.CriarConta(novaConta);
-        }
-
-        public List<Conta> BuscarTodasContas()
-        {
-            return contaService.BuscarTodas();
-        }
-
-
-
-        public Conta BuscarContaPorId(int id)
-        {
-            if (id <= 0)
+            try
             {
-                throw new ArgumentException("O ID da conta deve ser maior que zero.", nameof(id));
+                return _service.CriarConta(conta);
             }
-            return contaService.BuscarPorId(id);
-        }
-
-        public List<Conta> BuscarPorClienteId(int id)
-        {
-            return contaService.BuscarPorClienteId(id);
-        }
-
-
-        public Conta BuscarContaPorNumero(string numeroConta)
-        {
-            if (string.IsNullOrEmpty(numeroConta))
+            catch (Exception ex)
             {
-                throw new ArgumentException("O número da conta não pode ser vazio.", nameof(numeroConta));
+                throw new Exception($"Erro no controller ao criar conta: {ex.Message}");
             }
-            return contaService.BuscarPorNumero(numeroConta);
         }
 
-        public Conta AtualizarConta(Conta contaAtualizada)
+        public List<Conta> BuscarTodas()
         {
-            if (contaAtualizada == null)
+            try
             {
-                throw new ArgumentNullException(nameof(contaAtualizada), "A conta não pode ser nula.");
+                return _service.BuscarTodas();
             }
-
-            if (string.IsNullOrEmpty(contaAtualizada.NumeroConta))
+            catch (Exception ex)
             {
-                throw new ArgumentException("O número da conta não pode ser vazio.", nameof(contaAtualizada.NumeroConta));
+                throw new Exception($"Erro no controller ao buscar contas: {ex.Message}");
             }
-
-            if (contaAtualizada.ClienteId <= 0)
-            {
-                throw new ArgumentException("O ID do cliente deve ser maior que zero.", nameof(contaAtualizada.ClienteId));
-            }
-
-            return contaService.AtualizarConta(contaAtualizada);
         }
 
-        public void DeletarConta(int id)
+        public Conta BuscarPorId(int id)
         {
-            contaService.DeletarConta(id);
+            try
+            {
+                return _service.BuscarPorId(id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erro no controller ao buscar conta por ID: {ex.Message}");
+            }
         }
 
+        public List<Conta> BuscarPorClienteId(int clienteId)
+        {
+            try
+            {
+                return _service.BuscarPorClienteId(clienteId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erro no controller ao buscar contas do cliente: {ex.Message}");
+            }
+        }
 
+        public Conta BuscarPorNumeroConta(string numeroConta)
+        {
+            try
+            {
+                return _service.BuscarPorNumeroConta(numeroConta);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erro no controller ao buscar conta por número: {ex.Message}");
+            }
+        }
 
+        public List<Conta> BuscarPorTipo(string tipo)
+        {
+            try
+            {
+                return _service.BuscarPorTipo(tipo);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erro no controller ao buscar contas por tipo: {ex.Message}");
+            }
+        }
 
+        public void Atualizar(Conta conta)
+        {
+            try
+            {
+                _service.AtualizarConta(conta);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erro no controller ao atualizar conta: {ex.Message}");
+            }
+        }
 
+        public void AtualizarSaldo(int contaId, decimal novoSaldo)
+        {
+            try
+            {
+                _service.AtualizarSaldo(contaId, novoSaldo);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erro no controller ao atualizar saldo: {ex.Message}");
+            }
+        }
 
+        public void Deletar(int id)
+        {
+            try
+            {
+                _service.DeletarConta(id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erro no controller ao deletar conta: {ex.Message}");
+            }
+        }
 
+        public void Desativar(int id)
+        {
+            try
+            {
+                _service.DesativarConta(id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erro no controller ao desativar conta: {ex.Message}");
+            }
+        }
 
+        public bool Existe(int id)
+        {
+            try
+            {
+                return _service.ExisteConta(id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erro no controller ao verificar existência da conta: {ex.Message}");
+            }
+        }
 
+        public bool ExisteNumeroConta(string numeroConta)
+        {
+            try
+            {
+                return _service.ExisteNumeroConta(numeroConta);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erro no controller ao verificar existência do número da conta: {ex.Message}");
+            }
+        }
 
-
+        public decimal ObterSaldoTotal(int clienteId)
+        {
+            try
+            {
+                return _service.ObterSaldoTotal(clienteId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erro no controller ao obter saldo total: {ex.Message}");
+            }
+        }
     }
 }

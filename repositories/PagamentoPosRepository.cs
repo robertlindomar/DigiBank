@@ -1,4 +1,4 @@
-﻿using DigiBank.configs;
+using DigiBank.configs;
 using DigiBank.models;
 using MySql.Data.MySqlClient;
 using System;
@@ -6,24 +6,24 @@ using System.Collections.Generic;
 
 namespace DigiBank.repositories
 {
-    public class TransacaoRepository
+    public class PagamentoPosRepository
     {
-        public int Criar(Transacao transacao)
+        public int Criar(PagamentoPos pagamento)
         {
             using (var db = new Database())
             {
                 var conexao = db.OpenConnection();
-                string sql = @"INSERT INTO transacao (tipo, valor, data_transacao, conta_origem_id, conta_destino_id, descricao) 
-                              VALUES (@tipo, @valor, @dataTransacao, @contaOrigemId, @contaDestinoId, @descricao)";
+                string sql = @"INSERT INTO pagamento_pos (terminal_id, cartao_id, valor, data_hora, status, descricao) 
+                              VALUES (@terminalId, @cartaoId, @valor, @dataHora, @status, @descricao)";
 
                 using (MySqlCommand cmd = new MySqlCommand(sql, conexao))
                 {
-                    cmd.Parameters.AddWithValue("@tipo", transacao.Tipo);
-                    cmd.Parameters.AddWithValue("@valor", transacao.Valor);
-                    cmd.Parameters.AddWithValue("@dataTransacao", transacao.DataTransacao);
-                    cmd.Parameters.AddWithValue("@contaOrigemId", transacao.ContaOrigemId);
-                    cmd.Parameters.AddWithValue("@contaDestinoId", transacao.ContaDestinoId);
-                    cmd.Parameters.AddWithValue("@descricao", transacao.Descricao);
+                    cmd.Parameters.AddWithValue("@terminalId", pagamento.TerminalId);
+                    cmd.Parameters.AddWithValue("@cartaoId", pagamento.CartaoId);
+                    cmd.Parameters.AddWithValue("@valor", pagamento.Valor);
+                    cmd.Parameters.AddWithValue("@dataHora", pagamento.DataHora);
+                    cmd.Parameters.AddWithValue("@status", pagamento.Status);
+                    cmd.Parameters.AddWithValue("@descricao", pagamento.Descricao);
 
                     cmd.ExecuteNonQuery();
                     int id = (int)cmd.LastInsertedId;
@@ -33,33 +33,33 @@ namespace DigiBank.repositories
             }
         }
 
-        public List<Transacao> BuscarTodos()
+        public List<PagamentoPos> BuscarTodos()
         {
-            var transacoes = new List<Transacao>();
+            var pagamentos = new List<PagamentoPos>();
             using (var db = new Database())
             {
                 var conexao = db.OpenConnection();
-                string sql = "SELECT * FROM transacao ORDER BY data_transacao DESC";
+                string sql = "SELECT * FROM pagamento_pos ORDER BY data_hora DESC";
 
                 using (MySqlCommand cmd = new MySqlCommand(sql, conexao))
                 using (MySqlDataReader reader = cmd.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        transacoes.Add(LerTransacaoDoReader(reader));
+                        pagamentos.Add(LerPagamentoDoReader(reader));
                     }
                 }
                 db.CloseConnection();
             }
-            return transacoes;
+            return pagamentos;
         }
 
-        public Transacao BuscarPorId(int id)
+        public PagamentoPos BuscarPorId(int id)
         {
             using (var db = new Database())
             {
                 var conexao = db.OpenConnection();
-                string sql = "SELECT * FROM transacao WHERE id = @id";
+                string sql = "SELECT * FROM pagamento_pos WHERE id = @id";
 
                 using (MySqlCommand cmd = new MySqlCommand(sql, conexao))
                 {
@@ -69,7 +69,7 @@ namespace DigiBank.repositories
                     {
                         if (reader.Read())
                         {
-                            return LerTransacaoDoReader(reader);
+                            return LerPagamentoDoReader(reader);
                         }
                     }
                 }
@@ -78,93 +78,88 @@ namespace DigiBank.repositories
             return null;
         }
 
-        public List<Transacao> BuscarPorContaId(int contaId)
+        public List<PagamentoPos> BuscarPorTerminalId(int terminalId)
         {
-            var transacoes = new List<Transacao>();
+            var pagamentos = new List<PagamentoPos>();
             using (var db = new Database())
             {
                 var conexao = db.OpenConnection();
-                string sql = @"SELECT * FROM transacao 
-                              WHERE conta_origem_id = @contaId OR conta_destino_id = @contaId 
-                              ORDER BY data_transacao DESC";
+                string sql = "SELECT * FROM pagamento_pos WHERE terminal_id = @terminalId ORDER BY data_hora DESC";
 
                 using (MySqlCommand cmd = new MySqlCommand(sql, conexao))
                 {
-                    cmd.Parameters.AddWithValue("@contaId", contaId);
+                    cmd.Parameters.AddWithValue("@terminalId", terminalId);
 
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())
                         {
-                            transacoes.Add(LerTransacaoDoReader(reader));
+                            pagamentos.Add(LerPagamentoDoReader(reader));
                         }
                     }
                 }
                 db.CloseConnection();
             }
-            return transacoes;
+            return pagamentos;
         }
 
-        public List<Transacao> BuscarPorClienteId(int clienteId)
+        public List<PagamentoPos> BuscarPorCartaoId(int cartaoId)
         {
-            var transacoes = new List<Transacao>();
+            var pagamentos = new List<PagamentoPos>();
             using (var db = new Database())
             {
                 var conexao = db.OpenConnection();
-                string sql = @"SELECT t.* FROM transacao t 
-                              INNER JOIN conta c ON (t.conta_origem_id = c.id OR t.conta_destino_id = c.id) 
-                              WHERE c.cliente_id = @clienteId 
-                              ORDER BY t.data_transacao DESC";
+                string sql = "SELECT * FROM pagamento_pos WHERE cartao_id = @cartaoId ORDER BY data_hora DESC";
 
                 using (MySqlCommand cmd = new MySqlCommand(sql, conexao))
                 {
-                    cmd.Parameters.AddWithValue("@clienteId", clienteId);
+                    cmd.Parameters.AddWithValue("@cartaoId", cartaoId);
 
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())
                         {
-                            transacoes.Add(LerTransacaoDoReader(reader));
+                            pagamentos.Add(LerPagamentoDoReader(reader));
                         }
                     }
                 }
                 db.CloseConnection();
             }
-            return transacoes;
+            return pagamentos;
         }
 
-        public List<Transacao> BuscarPorTipo(string tipo)
+        public List<PagamentoPos> BuscarPorStatus(string status)
         {
-            var transacoes = new List<Transacao>();
+            var pagamentos = new List<PagamentoPos>();
             using (var db = new Database())
             {
                 var conexao = db.OpenConnection();
-                string sql = "SELECT * FROM transacao WHERE tipo = @tipo ORDER BY data_transacao DESC";
+                string sql = "SELECT * FROM pagamento_pos WHERE status = @status ORDER BY data_hora DESC";
 
                 using (MySqlCommand cmd = new MySqlCommand(sql, conexao))
                 {
-                    cmd.Parameters.AddWithValue("@tipo", tipo);
+                    cmd.Parameters.AddWithValue("@status", status);
 
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())
                         {
-                            transacoes.Add(LerTransacaoDoReader(reader));
+                            pagamentos.Add(LerPagamentoDoReader(reader));
                         }
                     }
                 }
                 db.CloseConnection();
             }
-            return transacoes;
+            return pagamentos;
         }
 
-        public List<Transacao> BuscarPorPeriodo(DateTime dataInicio, DateTime dataFim)
+        public List<PagamentoPos> BuscarPorPeriodo(DateTime dataInicio, DateTime dataFim)
         {
-            var transacoes = new List<Transacao>();
+            var pagamentos = new List<PagamentoPos>();
             using (var db = new Database())
             {
                 var conexao = db.OpenConnection();
-                string sql = "SELECT * FROM transacao WHERE data_transacao BETWEEN @dataInicio AND @dataFim ORDER BY data_transacao DESC";
+                string sql = "SELECT * FROM pagamento_pos WHERE data_hora BETWEEN @dataInicio AND @dataFim ORDER BY data_hora DESC";
 
                 using (MySqlCommand cmd = new MySqlCommand(sql, conexao))
                 {
@@ -175,22 +170,22 @@ namespace DigiBank.repositories
                     {
                         while (reader.Read())
                         {
-                            transacoes.Add(LerTransacaoDoReader(reader));
+                            pagamentos.Add(LerPagamentoDoReader(reader));
                         }
                     }
                 }
                 db.CloseConnection();
             }
-            return transacoes;
+            return pagamentos;
         }
 
-        public List<Transacao> BuscarPorValor(decimal valorMinimo, decimal valorMaximo)
+        public List<PagamentoPos> BuscarPorValor(decimal valorMinimo, decimal valorMaximo)
         {
-            var transacoes = new List<Transacao>();
+            var pagamentos = new List<PagamentoPos>();
             using (var db = new Database())
             {
                 var conexao = db.OpenConnection();
-                string sql = "SELECT * FROM transacao WHERE valor BETWEEN @valorMinimo AND @valorMaximo ORDER BY data_transacao DESC";
+                string sql = "SELECT * FROM pagamento_pos WHERE valor BETWEEN @valorMinimo AND @valorMaximo ORDER BY data_hora DESC";
 
                 using (MySqlCommand cmd = new MySqlCommand(sql, conexao))
                 {
@@ -201,33 +196,51 @@ namespace DigiBank.repositories
                     {
                         while (reader.Read())
                         {
-                            transacoes.Add(LerTransacaoDoReader(reader));
+                            pagamentos.Add(LerPagamentoDoReader(reader));
                         }
                     }
                 }
                 db.CloseConnection();
             }
-            return transacoes;
+            return pagamentos;
         }
 
-        public void Atualizar(Transacao transacao)
+        public void Atualizar(PagamentoPos pagamento)
         {
             using (var db = new Database())
             {
                 var conexao = db.OpenConnection();
-                string sql = @"UPDATE transacao SET tipo = @tipo, valor = @valor, data_transacao = @dataTransacao, 
-                              conta_origem_id = @contaOrigemId, conta_destino_id = @contaDestinoId, descricao = @descricao 
+                string sql = @"UPDATE pagamento_pos SET terminal_id = @terminalId, cartao_id = @cartaoId, 
+                              valor = @valor, data_hora = @dataHora, status = @status, descricao = @descricao 
                               WHERE id = @id";
 
                 using (MySqlCommand cmd = new MySqlCommand(sql, conexao))
                 {
-                    cmd.Parameters.AddWithValue("@tipo", transacao.Tipo);
-                    cmd.Parameters.AddWithValue("@valor", transacao.Valor);
-                    cmd.Parameters.AddWithValue("@dataTransacao", transacao.DataTransacao);
-                    cmd.Parameters.AddWithValue("@contaOrigemId", transacao.ContaOrigemId);
-                    cmd.Parameters.AddWithValue("@contaDestinoId", transacao.ContaDestinoId);
-                    cmd.Parameters.AddWithValue("@descricao", transacao.Descricao);
-                    cmd.Parameters.AddWithValue("@id", transacao.Id);
+                    cmd.Parameters.AddWithValue("@terminalId", pagamento.TerminalId);
+                    cmd.Parameters.AddWithValue("@cartaoId", pagamento.CartaoId);
+                    cmd.Parameters.AddWithValue("@valor", pagamento.Valor);
+                    cmd.Parameters.AddWithValue("@dataHora", pagamento.DataHora);
+                    cmd.Parameters.AddWithValue("@status", pagamento.Status);
+                    cmd.Parameters.AddWithValue("@descricao", pagamento.Descricao);
+                    cmd.Parameters.AddWithValue("@id", pagamento.Id);
+
+                    cmd.ExecuteNonQuery();
+                }
+                db.CloseConnection();
+            }
+        }
+
+        public void AtualizarStatus(int id, string novoStatus)
+        {
+            using (var db = new Database())
+            {
+                var conexao = db.OpenConnection();
+                string sql = "UPDATE pagamento_pos SET status = @status WHERE id = @id";
+
+                using (MySqlCommand cmd = new MySqlCommand(sql, conexao))
+                {
+                    cmd.Parameters.AddWithValue("@status", novoStatus);
+                    cmd.Parameters.AddWithValue("@id", id);
 
                     cmd.ExecuteNonQuery();
                 }
@@ -240,7 +253,7 @@ namespace DigiBank.repositories
             using (var db = new Database())
             {
                 var conexao = db.OpenConnection();
-                string sql = "DELETE FROM transacao WHERE id = @id";
+                string sql = "DELETE FROM pagamento_pos WHERE id = @id";
 
                 using (MySqlCommand cmd = new MySqlCommand(sql, conexao))
                 {
@@ -251,20 +264,22 @@ namespace DigiBank.repositories
             }
         }
 
-        public decimal ObterSaldoTotalPorConta(int contaId)
+        public decimal ObterTotalVendidoPorTerminal(int terminalId, DateTime dataInicio, DateTime dataFim)
         {
             using (var db = new Database())
             {
                 var conexao = db.OpenConnection();
-                string sql = @"SELECT 
-                                COALESCE(SUM(CASE WHEN conta_destino_id = @contaId THEN valor ELSE 0 END), 0) -
-                                COALESCE(SUM(CASE WHEN conta_origem_id = @contaId THEN valor ELSE 0 END), 0) as saldo_total
-                              FROM transacao 
-                              WHERE conta_origem_id = @contaId OR conta_destino_id = @contaId";
+                string sql = @"SELECT COALESCE(SUM(valor), 0) as total_vendido 
+                              FROM pagamento_pos 
+                              WHERE terminal_id = @terminalId AND status = 'aprovado' 
+                              AND data_hora BETWEEN @dataInicio AND @dataFim";
 
                 using (MySqlCommand cmd = new MySqlCommand(sql, conexao))
                 {
-                    cmd.Parameters.AddWithValue("@contaId", contaId);
+                    cmd.Parameters.AddWithValue("@terminalId", terminalId);
+                    cmd.Parameters.AddWithValue("@dataInicio", dataInicio);
+                    cmd.Parameters.AddWithValue("@dataFim", dataFim);
+
                     var resultado = cmd.ExecuteScalar();
                     db.CloseConnection();
                     return resultado != DBNull.Value ? Convert.ToDecimal(resultado) : 0;
@@ -272,16 +287,16 @@ namespace DigiBank.repositories
             }
         }
 
-        private Transacao LerTransacaoDoReader(MySqlDataReader reader)
+        private PagamentoPos LerPagamentoDoReader(MySqlDataReader reader)
         {
-            return new Transacao
+            return new PagamentoPos
             {
                 Id = Convert.ToInt32(reader["id"]),
-                Tipo = reader["tipo"].ToString(),
+                TerminalId = reader["terminal_id"] == DBNull.Value ? (int?)null : Convert.ToInt32(reader["terminal_id"]),
+                CartaoId = reader["cartao_id"] == DBNull.Value ? (int?)null : Convert.ToInt32(reader["cartao_id"]),
                 Valor = Convert.ToDecimal(reader["valor"]),
-                DataTransacao = Convert.ToDateTime(reader["data_transacao"]),
-                ContaOrigemId = reader["conta_origem_id"] == DBNull.Value ? (int?)null : Convert.ToInt32(reader["conta_origem_id"]),
-                ContaDestinoId = reader["conta_destino_id"] == DBNull.Value ? (int?)null : Convert.ToInt32(reader["conta_destino_id"]),
+                DataHora = Convert.ToDateTime(reader["data_hora"]),
+                Status = reader["status"].ToString(),
                 Descricao = reader["descricao"] == DBNull.Value ? null : reader["descricao"].ToString()
             };
         }
