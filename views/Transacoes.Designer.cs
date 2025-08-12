@@ -29,6 +29,7 @@ namespace DigiBank.views
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnNovaTransferencia = new System.Windows.Forms.Button();
             this.btnExportar = new System.Windows.Forms.Button();
             this.btnNotificacao = new System.Windows.Forms.Button();
             this.lblSubtitulo = new System.Windows.Forms.Label();
@@ -67,6 +68,7 @@ namespace DigiBank.views
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.White;
+            this.panel1.Controls.Add(this.btnNovaTransferencia);
             this.panel1.Controls.Add(this.btnExportar);
             this.panel1.Controls.Add(this.btnNotificacao);
             this.panel1.Controls.Add(this.lblSubtitulo);
@@ -76,6 +78,22 @@ namespace DigiBank.views
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(950, 100);
             this.panel1.TabIndex = 0;
+            // 
+            // btnNovaTransferencia
+            // 
+            this.btnNovaTransferencia.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnNovaTransferencia.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(130)))), ((int)(((byte)(246)))));
+            this.btnNovaTransferencia.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(130)))), ((int)(((byte)(246)))));
+            this.btnNovaTransferencia.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnNovaTransferencia.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnNovaTransferencia.ForeColor = System.Drawing.Color.White;
+            this.btnNovaTransferencia.Location = new System.Drawing.Point(641, 32);
+            this.btnNovaTransferencia.Name = "btnNovaTransferencia";
+            this.btnNovaTransferencia.Size = new System.Drawing.Size(100, 40);
+            this.btnNovaTransferencia.TabIndex = 4;
+            this.btnNovaTransferencia.Text = "💸 Nova Transferência";
+            this.btnNovaTransferencia.UseVisualStyleBackColor = false;
+            this.btnNovaTransferencia.Click += new System.EventHandler(this.btnNovaTransferencia_Click);
             // 
             // btnExportar
             // 
@@ -406,6 +424,7 @@ namespace DigiBank.views
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label lblTitulo;
         private System.Windows.Forms.Label lblSubtitulo;
+        private System.Windows.Forms.Button btnNovaTransferencia;
         private System.Windows.Forms.Button btnNotificacao;
         private System.Windows.Forms.Button btnExportar;
         private System.Windows.Forms.Panel panel2;

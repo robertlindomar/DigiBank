@@ -71,6 +71,11 @@ namespace DigiBank.views
             if (contas != null)
             {
                 _listaContas.AddRange(contas);
+                Console.WriteLine($"Contas carregadas: {_listaContas.Count} contas");
+            }
+            else
+            {
+                Console.WriteLine("Nenhuma conta encontrada para o usuário");
             }
         }
 
@@ -78,9 +83,32 @@ namespace DigiBank.views
         {
             _listaCartoes.Clear();
 
-            // TODO: Buscar cartões do banco
-            // Por enquanto, criar cartões de exemplo
-            CriarCartoesExemplo();
+            try
+            {
+                // Buscar cartões de todas as contas do usuário
+                foreach (var conta in _listaContas)
+                {
+                    var cartoesConta = _cartaoController.BuscarPorContaId(conta.Id);
+                    if (cartoesConta != null && cartoesConta.Any())
+                    {
+                        _listaCartoes.AddRange(cartoesConta);
+                    }
+                }
+
+                Console.WriteLine($"Cartões carregados: {_listaCartoes.Count} cartões");
+
+                // Se não houver cartões, criar exemplos
+                if (!_listaCartoes.Any())
+                {
+                    Console.WriteLine("Nenhum cartão encontrado, criando exemplos...");
+                    CriarCartoesExemplo();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro ao carregar cartões: {ex.Message}");
+                CriarCartoesExemplo();
+            }
         }
 
         private void CriarCartoesExemplo()
@@ -134,12 +162,12 @@ namespace DigiBank.views
             // Configurar colunas
             dgvCartoes.Columns.Clear();
 
-            // Coluna Nome
-            var colNome = new DataGridViewTextBoxColumn
+            // Coluna Apelido
+            var colApelido = new DataGridViewTextBoxColumn
             {
-                Name = "Nome",
+                Name = "Apelido",
                 HeaderText = "Apelido",
-                DataPropertyName = "Nome",
+                DataPropertyName = "Apelido",
                 Width = 150,
                 DefaultCellStyle = new DataGridViewCellStyle
                 {
@@ -148,12 +176,12 @@ namespace DigiBank.views
                 }
             };
 
-            // Coluna UID
-            var colUID = new DataGridViewTextBoxColumn
+            // Coluna Uid
+            var colUid = new DataGridViewTextBoxColumn
             {
-                Name = "UID",
+                Name = "Uid",
                 HeaderText = "UID",
-                DataPropertyName = "UID",
+                DataPropertyName = "Uid",
                 Width = 120,
                 DefaultCellStyle = new DataGridViewCellStyle
                 {
@@ -167,7 +195,7 @@ namespace DigiBank.views
             {
                 Name = "Conta",
                 HeaderText = "Conta",
-                DataPropertyName = "ContaId",
+                DataPropertyName = "Conta",
                 Width = 120,
                 DefaultCellStyle = new DataGridViewCellStyle
                 {
@@ -176,12 +204,12 @@ namespace DigiBank.views
                 }
             };
 
-            // Coluna Data Criação
-            var colDataCriacao = new DataGridViewTextBoxColumn
+            // Coluna Data Vinculação
+            var colDataVinculacao = new DataGridViewTextBoxColumn
             {
-                Name = "DataCriacao",
+                Name = "DataVinculacao",
                 HeaderText = "Vinculado em",
-                DataPropertyName = "DataCriacao",
+                DataPropertyName = "DataVinculacao",
                 Width = 100,
                 DefaultCellStyle = new DataGridViewCellStyle
                 {
@@ -221,7 +249,7 @@ namespace DigiBank.views
 
             dgvCartoes.Columns.AddRange(new DataGridViewColumn[]
             {
-                colNome, colUID, colConta, colDataCriacao, colUltimoUso, colStatus
+                colApelido, colUid, colConta, colDataVinculacao, colUltimoUso, colStatus
             });
 
             // Configurar estilo do cabeçalho
@@ -240,6 +268,11 @@ namespace DigiBank.views
                 var cartoesAtivos = _listaCartoes.Count(c => c.Ativo);
                 var cartoesInativos = totalCartoes - cartoesAtivos;
 
+                Console.WriteLine($"Estatísticas dos cartões:");
+                Console.WriteLine($"- Total: {totalCartoes}");
+                Console.WriteLine($"- Ativos: {cartoesAtivos}");
+                Console.WriteLine($"- Inativos: {cartoesInativos}");
+
                 // Atualizar labels
                 lblTotalCartoes.Text = totalCartoes.ToString();
                 lblCartoesAtivos.Text = cartoesAtivos.ToString();
@@ -250,6 +283,7 @@ namespace DigiBank.views
                 {
                     int percentual = (cartoesAtivos * 100) / totalCartoes;
                     progressBarCartoes.Value = percentual;
+                    Console.WriteLine($"- Percentual ativos: {percentual}%");
                 }
 
                 // Atualizar DataGridView
@@ -257,6 +291,7 @@ namespace DigiBank.views
             }
             catch (Exception ex)
             {
+                Console.WriteLine($"Erro ao atualizar estatísticas: {ex.Message}");
                 MessageBox.Show($"Erro ao atualizar estatísticas: {ex.Message}", "Erro",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -266,6 +301,8 @@ namespace DigiBank.views
         {
             try
             {
+                Console.WriteLine($"Atualizando DataGridView com {_listaCartoes.Count} cartões...");
+
                 // Criar lista de objetos anônimos para o DataGridView
                 var dadosParaGrid = _listaCartoes.Select(c =>
 {
@@ -276,10 +313,10 @@ namespace DigiBank.views
 
     return new
     {
-        Nome = c.Apelido,
-        UID = c.Uid,
-        ContaId = nomeConta,
-        DataCriacao = c.DataVinculacao,
+        Apelido = c.Apelido,
+        Uid = c.Uid,
+        Conta = nomeConta,
+        DataVinculacao = c.DataVinculacao,
         UltimoUso = "Nunca usado", // Como não existe no modelo, vamos usar um valor padrão
         Status = c.Ativo ? "Ativo" : "Inativo"
     };
@@ -307,9 +344,12 @@ namespace DigiBank.views
                         }
                     }
                 }
+
+                Console.WriteLine($"DataGridView atualizado com sucesso! {dgvCartoes.Rows.Count} linhas com cores aplicadas.");
             }
             catch (Exception ex)
             {
+                Console.WriteLine($"Erro ao atualizar DataGridView: {ex.Message}");
                 MessageBox.Show($"Erro ao atualizar DataGridView: {ex.Message}", "Erro",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }

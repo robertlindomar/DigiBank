@@ -118,7 +118,7 @@ namespace DigiBank.views
             this.lblSubtitulo.Name = "lblSubtitulo";
             this.lblSubtitulo.Size = new System.Drawing.Size(270, 21);
             this.lblSubtitulo.TabIndex = 1;
-            this.lblSubtitulo.Text = "Simule pagamentos com cartões NFC";
+            this.lblSubtitulo.Text = "Receba pagamentos de qualquer cartão NFC";
             // 
             // lblTitulo
             // 
@@ -129,7 +129,7 @@ namespace DigiBank.views
             this.lblTitulo.Name = "lblTitulo";
             this.lblTitulo.Size = new System.Drawing.Size(220, 45);
             this.lblTitulo.TabIndex = 0;
-            this.lblTitulo.Text = "Terminal POS";
+            this.lblTitulo.Text = "Maquininha POS";
             // 
             // panel2
             // 
@@ -403,7 +403,7 @@ namespace DigiBank.views
             this.btnSimularPagamento.Name = "btnSimularPagamento";
             this.btnSimularPagamento.Size = new System.Drawing.Size(304, 40);
             this.btnSimularPagamento.TabIndex = 1;
-            this.btnSimularPagamento.Text = "Simular Pagamento";
+            this.btnSimularPagamento.Text = "💳 Aproximar Cartão";
             this.btnSimularPagamento.UseVisualStyleBackColor = false;
             this.btnSimularPagamento.Click += new System.EventHandler(this.btnSimularPagamento_Click);
             // 
@@ -416,7 +416,7 @@ namespace DigiBank.views
             this.lblInstrucao.Name = "lblInstrucao";
             this.lblInstrucao.Size = new System.Drawing.Size(250, 21);
             this.lblInstrucao.TabIndex = 0;
-            this.lblInstrucao.Text = "Aproxime o cartão NFC para pagar";
+            this.lblInstrucao.Text = "Digite o valor e clique para simular aproximação";
             // 
             // txtValor
             // 
@@ -448,7 +448,7 @@ namespace DigiBank.views
             this.lblTituloTerminal.Name = "lblTituloTerminal";
             this.lblTituloTerminal.Size = new System.Drawing.Size(222, 25);
             this.lblTituloTerminal.TabIndex = 0;
-            this.lblTituloTerminal.Text = "Terminal de Pagamento";
+            this.lblTituloTerminal.Text = "Maquininha de Cartão";
             // 
             // panelPagamentosRecentes
             // 
@@ -475,8 +475,8 @@ namespace DigiBank.views
             // 
             this.dgvPagamentos.AllowUserToAddRows = false;
             this.dgvPagamentos.AllowUserToDeleteRows = false;
-            this.dgvPagamentos.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.dgvPagamentos.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvPagamentos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvPagamentos.BackgroundColor = System.Drawing.Color.White;

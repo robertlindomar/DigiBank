@@ -18,6 +18,8 @@ namespace DigiBank.views
         private readonly Usuario _usuarioLogado;
         private readonly List<Conta> _listaContas;
         private readonly ContaController _contaController;
+        private readonly TransacaoController _transacaoController;
+        private readonly CartaoController _cartaoController;
         private Conta _contaAtual;
         #endregion
 
@@ -33,6 +35,8 @@ namespace DigiBank.views
             _usuarioLogado = new Usuario();
             _listaContas = new List<Conta>();
             _contaController = new ContaController();
+            _transacaoController = new TransacaoController();
+            _cartaoController = new CartaoController();
         }
 
         public DashBoard(Usuario usuario)
@@ -41,6 +45,8 @@ namespace DigiBank.views
             _usuarioLogado = usuario ?? throw new ArgumentNullException(nameof(usuario));
             _listaContas = new List<Conta>();
             _contaController = new ContaController();
+            _transacaoController = new TransacaoController();
+            _cartaoController = new CartaoController();
 
             CarregarDadosUsuario();
         }
@@ -80,6 +86,17 @@ namespace DigiBank.views
             if (contas != null)
             {
                 _listaContas.AddRange(contas);
+
+                // Debug: Log das contas carregadas
+                Console.WriteLine($"Contas carregadas para usuário {_usuarioLogado.ClienteId}:");
+                foreach (var conta in _listaContas)
+                {
+                    Console.WriteLine($"- Conta {conta.Id}: Tipo={conta.Tipo}, Saldo={conta.Saldo:C}, Número={conta.NumeroConta}");
+                }
+            }
+            else
+            {
+                Console.WriteLine($"Nenhuma conta encontrada para o usuário {_usuarioLogado.ClienteId}");
             }
         }
 
@@ -88,12 +105,18 @@ namespace DigiBank.views
             var contaCorrente = ObterContaPorTipo(TIPO_CONTA_CORRENTE);
             var contaPoupanca = ObterContaPorTipo(TIPO_CONTA_POUPANCA);
 
+            // Debug: Log das contas encontradas
+            Console.WriteLine($"Conta Corrente encontrada: {(contaCorrente != null ? $"ID={contaCorrente.Id}, Saldo={contaCorrente.Saldo:C}" : "NÃO ENCONTRADA")}");
+            Console.WriteLine($"Conta Poupança encontrada: {(contaPoupanca != null ? $"ID={contaPoupanca.Id}, Saldo={contaPoupanca.Saldo:C}" : "NÃO ENCONTRADA")}");
+
             // Configurar botões
             ConfigurarBotaoConta(btnCorrente, contaCorrente, "Conta Corrente");
             ConfigurarBotaoConta(btnPoupanca, contaPoupanca, "Conta Poupança");
 
             // Definir conta inicial (prioridade: corrente > poupança)
             _contaAtual = contaCorrente ?? contaPoupanca;
+
+            Console.WriteLine($"Conta inicial definida: {(_contaAtual != null ? $"ID={_contaAtual.Id}, Tipo={_contaAtual.Tipo}" : "NENHUMA")}");
         }
 
         private void ConfigurarBotaoConta(Button botao, Conta conta, string tipoConta)
@@ -129,8 +152,18 @@ namespace DigiBank.views
             try
             {
                 var saldoTotal = CalcularSaldoTotal(tipoDesejado);
+
+                // Debug: Log do saldo calculado
+                Console.WriteLine($"Saldo calculado para {tipoDesejado}: {saldoTotal:C}");
+
                 AtualizarLabelSaldo(saldoTotal);
                 AtualizarLabelTipoConta(tipoDesejado);
+
+                // Atualizar cor do saldo baseado no valor
+                if (lblSaldo != null)
+                {
+                    lblSaldo.ForeColor = saldoTotal >= 0 ? Color.Green : Color.Red;
+                }
             }
             catch (Exception ex)
             {
@@ -141,9 +174,21 @@ namespace DigiBank.views
 
         private decimal CalcularSaldoTotal(string tipoDesejado)
         {
-            return _listaContas
+            var contasFiltradas = _listaContas
                 .Where(c => string.Equals(c.Tipo, tipoDesejado, StringComparison.OrdinalIgnoreCase))
-                .Sum(c => c.Saldo);
+                .ToList();
+
+            // Debug: Log das contas filtradas
+            Console.WriteLine($"Contas filtradas para tipo '{tipoDesejado}': {contasFiltradas.Count}");
+            foreach (var conta in contasFiltradas)
+            {
+                Console.WriteLine($"  - Conta {conta.Id}: Tipo='{conta.Tipo}', Saldo={conta.Saldo:C}");
+            }
+
+            var saldoTotal = contasFiltradas.Sum(c => c.Saldo);
+            Console.WriteLine($"Saldo total para '{tipoDesejado}': {saldoTotal:C}");
+
+            return saldoTotal;
         }
 
         private void AtualizarLabelSaldo(decimal saldo)
@@ -179,11 +224,31 @@ namespace DigiBank.views
 
                 // Carregar cartões NFC (apenas 2 - limite máximo)
                 CarregarCartoesNFC();
+
+                // Atualizar estatísticas gerais
+                AtualizarEstatisticasGerais();
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Erro ao atualizar estatísticas: {ex.Message}", "Erro",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void AtualizarEstatisticasGerais()
+        {
+            try
+            {
+                // lblTotalCartoes deve permanecer como mensagem fixa "Cartões ativos"
+                // Não atualizar aqui, pois é apenas um label informativo
+
+                // NÃO atualizar o saldo aqui, pois ele já é atualizado pelos métodos específicos
+                // de cada tipo de conta (btnCorrente_Click e btnPoupanca_Click)
+            }
+            catch (Exception ex)
+            {
+                // Log do erro sem interromper a interface
+                Console.WriteLine($"Erro ao atualizar estatísticas gerais: {ex.Message}");
             }
         }
 
@@ -193,60 +258,48 @@ namespace DigiBank.views
             {
                 panelListaTransacoes.Controls.Clear();
 
-                // TODO: Buscar transações recentes do banco
-                // Por enquanto, criar transações de exemplo
-                var transacoes = new[]
-                {
-                    new { Tipo = "Transferência PIX", Data = "2024-01-15 14:30", Valor = -250.00m, Cor = Color.Red },
-                    new { Tipo = "Depósito em dinheiro", Data = "2024-01-15 10:15", Valor = 1200.00m, Cor = Color.Green },
-                    new { Tipo = "Saque ATM", Data = "2024-01-14 16:45", Valor = -100.00m, Cor = Color.Red },
-                    new { Tipo = "Pagamento de conta", Data = "2024-01-13 09:20", Valor = -89.90m, Cor = Color.Red },
-                    new { Tipo = "Depósito PIX", Data = "2024-01-12 16:45", Valor = 500.00m, Cor = Color.Green }
-                };
+                // Buscar transações reais do banco
+                var transacoesReais = new List<Transacao>();
 
-                // Mostrar apenas as 2 transações mais recentes
-                var transacoesRecentes = transacoes.Take(2).ToArray();
+                // Buscar transações de todas as contas do usuário
+                foreach (var conta in _listaContas)
+                {
+                    var transacoesConta = _transacaoController.BuscarPorContaId(conta.Id);
+                    if (transacoesConta != null)
+                    {
+                        transacoesReais.AddRange(transacoesConta);
+                    }
+                }
+
+                // Ordenar por data (mais recentes primeiro) e pegar apenas as 2 primeiras
+                var transacoesRecentes = transacoesReais
+                    .OrderByDescending(t => t.DataTransacao)
+                    .Take(2)
+                    .ToList();
+
+                // Se não houver transações reais, usar dados de exemplo
+                if (!transacoesRecentes.Any())
+                {
+                    var transacoesExemplo = new[]
+                    {
+                        new { Tipo = "Transferência PIX", Data = "2024-01-15 14:30", Valor = -250.00m, Cor = Color.Red },
+                        new { Tipo = "Depósito em dinheiro", Data = "2024-01-15 10:15", Valor = 1200.00m, Cor = Color.Green }
+                    };
+
+                    foreach (var transacao in transacoesExemplo)
+                    {
+                        CriarPanelTransacao(transacao.Tipo, transacao.Data, transacao.Valor, transacao.Cor);
+                    }
+                    return;
+                }
 
                 foreach (var transacao in transacoesRecentes)
                 {
-                    var panel = new Panel
-                    {
-                        BackColor = Color.FromArgb(249, 250, 251),
-                        Size = new Size(380, 60),
-                        Margin = new Padding(0, 0, 0, 8)
-                    };
+                    var tipoTransacao = ObterNomeTipoTransacao(transacao.Tipo);
+                    var dataFormatada = transacao.DataTransacao.ToString("dd/MM/yyyy HH:mm");
+                    var cor = transacao.Valor >= 0 ? Color.Green : Color.Red;
 
-                    var lblTipo = new Label
-                    {
-                        Text = transacao.Tipo,
-                        Font = new Font("Segoe UI", 10, FontStyle.Bold),
-                        ForeColor = Color.FromArgb(17, 24, 39),
-                        Location = new Point(12, 8),
-                        AutoSize = true
-                    };
-
-                    var lblData = new Label
-                    {
-                        Text = transacao.Data,
-                        Font = new Font("Segoe UI", 8),
-                        ForeColor = Color.FromArgb(107, 114, 128),
-                        Location = new Point(12, 28),
-                        AutoSize = true
-                    };
-
-                    var lblValor = new Label
-                    {
-                        Text = transacao.Valor.ToString("C"),
-                        Font = new Font("Segoe UI", 10, FontStyle.Bold),
-                        ForeColor = transacao.Cor,
-                        Location = new Point(280, 20),
-                        AutoSize = true
-                    };
-
-                    panel.Controls.Add(lblTipo);
-                    panel.Controls.Add(lblData);
-                    panel.Controls.Add(lblValor);
-                    panelListaTransacoes.Controls.Add(panel);
+                    CriarPanelTransacao(tipoTransacao, dataFormatada, transacao.Valor, cor);
                 }
             }
             catch (Exception ex)
@@ -262,70 +315,50 @@ namespace DigiBank.views
             {
                 panelListaCartoes.Controls.Clear();
 
-                // TODO: Buscar cartões do banco
-                // Por enquanto, criar cartões de exemplo
-                var cartoes = new[]
+                // Buscar cartões reais do banco
+                var cartoesReais = new List<CartaoNfc>();
+
+                // Buscar cartões de todas as contas do usuário
+                foreach (var conta in _listaContas)
                 {
-                    new { Nome = "Cartão Principal", Conta = "Conta Corrente", UID = "A1B2C3D4", Ativo = true },
-                    new { Nome = "Cartão Backup", Conta = "Conta Poupança", UID = "E5F6G7H8", Ativo = false }
-                };
+                    var cartoesConta = _cartaoController.BuscarPorContaId(conta.Id);
+                    if (cartoesConta != null)
+                    {
+                        cartoesReais.AddRange(cartoesConta);
+                    }
+                }
 
                 // Limite máximo de 2 cartões por usuário
                 const int LIMITE_CARTOES = 2;
-                var cartoesExibidos = cartoes.Take(LIMITE_CARTOES).ToArray();
+                var cartoesExibidos = cartoesReais
+                    .OrderByDescending(c => c.DataVinculacao)
+                    .Take(LIMITE_CARTOES)
+                    .ToList();
+
+                // Se não houver cartões reais, usar dados de exemplo
+                if (!cartoesExibidos.Any())
+                {
+                    var cartoesExemplo = new[]
+                    {
+                        new { Nome = "Cartão Principal", Conta = "Conta Corrente", UID = "A1B2C3D4", Ativo = true },
+                        new { Nome = "Cartão Backup", Conta = "Conta Poupança", UID = "E5F6G7H8", Ativo = false }
+                    };
+
+                    foreach (var cartao in cartoesExemplo)
+                    {
+                        CriarPanelCartao(cartao.Nome, cartao.Conta, cartao.UID, cartao.Ativo);
+                    }
+                    return;
+                }
 
                 foreach (var cartao in cartoesExibidos)
                 {
-                    var panel = new Panel
-                    {
-                        BackColor = Color.FromArgb(249, 250, 251),
-                        Size = new Size(380, 60),
-                        Margin = new Padding(0, 0, 0, 8)
-                    };
+                    var conta = _listaContas.FirstOrDefault(c => c.Id == cartao.ContaId);
+                    var nomeConta = conta != null ?
+                        (conta.Tipo == "corrente" ? "Conta Corrente" : "Conta Poupança") :
+                        "Conta";
 
-                    var lblNome = new Label
-                    {
-                        Text = cartao.Nome,
-                        Font = new Font("Segoe UI", 10, FontStyle.Bold),
-                        ForeColor = Color.FromArgb(17, 24, 39),
-                        Location = new Point(12, 8),
-                        AutoSize = true
-                    };
-
-                    var lblConta = new Label
-                    {
-                        Text = cartao.Conta,
-                        Font = new Font("Segoe UI", 8),
-                        ForeColor = Color.FromArgb(107, 114, 128),
-                        Location = new Point(12, 28),
-                        AutoSize = true
-                    };
-
-                    var lblUID = new Label
-                    {
-                        Text = $"UID: {cartao.UID}",
-                        Font = new Font("Segoe UI", 7),
-                        ForeColor = Color.FromArgb(156, 163, 175),
-                        Location = new Point(12, 42),
-                        AutoSize = true
-                    };
-
-                    var lblStatus = new Label
-                    {
-                        Text = cartao.Ativo ? "Ativo" : "Inativo",
-                        Font = new Font("Segoe UI", 8, FontStyle.Bold),
-                        ForeColor = cartao.Ativo ? Color.FromArgb(30, 64, 175) : Color.FromArgb(107, 114, 128),
-                        BackColor = cartao.Ativo ? Color.FromArgb(219, 234, 254) : Color.FromArgb(243, 244, 246),
-                        Location = new Point(280, 20),
-                        Size = new Size(60, 20),
-                        TextAlign = ContentAlignment.MiddleCenter
-                    };
-
-                    panel.Controls.Add(lblNome);
-                    panel.Controls.Add(lblConta);
-                    panel.Controls.Add(lblUID);
-                    panel.Controls.Add(lblStatus);
-                    panelListaCartoes.Controls.Add(panel);
+                    CriarPanelCartao(cartao.Apelido, nomeConta, cartao.Uid, cartao.Ativo);
                 }
 
                 // Atualizar estatísticas dos cartões
@@ -336,7 +369,7 @@ namespace DigiBank.views
 
                 if (progressBarCartoes != null)
                 {
-                    int percentual = cartoesExibidos.Length > 0 ? (cartoesExibidos.Count(c => c.Ativo) * 100) / cartoesExibidos.Length : 0;
+                    int percentual = cartoesExibidos.Count > 0 ? (cartoesExibidos.Count(c => c.Ativo) * 100) / cartoesExibidos.Count : 0;
                     progressBarCartoes.Value = percentual;
                 }
             }
@@ -345,6 +378,121 @@ namespace DigiBank.views
                 MessageBox.Show($"Erro ao carregar cartões: {ex.Message}", "Erro",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void CriarPanelTransacao(string tipo, string data, decimal valor, Color cor)
+        {
+            var panel = new Panel
+            {
+                BackColor = Color.FromArgb(249, 250, 251),
+                Size = new Size(380, 60),
+                Margin = new Padding(0, 0, 0, 8)
+            };
+
+            var lblTipo = new Label
+            {
+                Text = tipo,
+                Font = new Font("Segoe UI", 10, FontStyle.Bold),
+                ForeColor = Color.FromArgb(17, 24, 39),
+                Location = new Point(12, 8),
+                AutoSize = true
+            };
+
+            var lblData = new Label
+            {
+                Text = data,
+                Font = new Font("Segoe UI", 8),
+                ForeColor = Color.FromArgb(107, 114, 128),
+                Location = new Point(12, 28),
+                AutoSize = true
+            };
+
+            var lblValor = new Label
+            {
+                Text = valor.ToString("C"),
+                Font = new Font("Segoe UI", 10, FontStyle.Bold),
+                ForeColor = cor,
+                Location = new Point(280, 20),
+                AutoSize = true
+            };
+
+            panel.Controls.Add(lblTipo);
+            panel.Controls.Add(lblData);
+            panel.Controls.Add(lblValor);
+            panelListaTransacoes.Controls.Add(panel);
+        }
+
+        private string ObterNomeTipoTransacao(string tipo)
+        {
+            switch (tipo?.ToLower())
+            {
+                case "deposito":
+                    return "Depósito";
+                case "saque":
+                    return "Saque";
+                case "transferencia":
+                    return "Transferência";
+                case "pix":
+                    return "Transferência PIX";
+                case "pagamento":
+                    return "Pagamento";
+                default:
+                    return tipo ?? "Transação";
+            }
+        }
+
+        private void CriarPanelCartao(string nome, string conta, string uid, bool ativo)
+        {
+            var panel = new Panel
+            {
+                BackColor = Color.FromArgb(249, 250, 251),
+                Size = new Size(380, 60),
+                Margin = new Padding(0, 0, 0, 8)
+            };
+
+            var lblNome = new Label
+            {
+                Text = nome,
+                Font = new Font("Segoe UI", 10, FontStyle.Bold),
+                ForeColor = Color.FromArgb(17, 24, 39),
+                Location = new Point(12, 8),
+                AutoSize = true
+            };
+
+            var lblConta = new Label
+            {
+                Text = conta,
+                Font = new Font("Segoe UI", 8),
+                ForeColor = Color.FromArgb(107, 114, 128),
+                Location = new Point(12, 28),
+                AutoSize = true
+            };
+
+            var lblUID = new Label
+            {
+                Text = $"UID: {uid}",
+                Font = new Font("Segoe UI", 7),
+                ForeColor = Color.FromArgb(156, 163, 175),
+                Location = new Point(12, 42),
+                AutoSize = true
+            };
+
+            var lblStatus = new Label
+            {
+                Text = ativo ? "Ativo" : "Inativo",
+                Font = new Font("Segoe UI", 8, FontStyle.Bold),
+                ForeColor = ativo ? Color.FromArgb(30, 64, 175) : Color.FromArgb(107, 114, 128),
+                BackColor = ativo ? Color.FromArgb(219, 234, 254) : Color.FromArgb(243, 244, 246),
+                Location = new Point(280, 20),
+                Size = new Size(60, 20),
+                TextAlign = ContentAlignment.MiddleCenter
+            };
+
+            panel.Controls.Add(lblNome);
+            panel.Controls.Add(lblConta);
+            panel.Controls.Add(lblUID);
+            panel.Controls.Add(lblStatus);
+            panelListaCartoes.Controls.Add(panel);
         }
         #endregion
 

@@ -335,7 +335,7 @@
             this.lblCartoesAtivos.AutoSize = true;
             this.lblCartoesAtivos.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCartoesAtivos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
-            this.lblCartoesAtivos.Location = new System.Drawing.Point(24, 90);
+            this.lblCartoesAtivos.Location = new System.Drawing.Point(82, 90);
             this.lblCartoesAtivos.Name = "lblCartoesAtivos";
             this.lblCartoesAtivos.Size = new System.Drawing.Size(33, 37);
             this.lblCartoesAtivos.TabIndex = 2;
@@ -346,7 +346,7 @@
             this.lblTotalCartoes.AutoSize = true;
             this.lblTotalCartoes.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTotalCartoes.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(107)))), ((int)(((byte)(114)))), ((int)(((byte)(128)))));
-            this.lblTotalCartoes.Location = new System.Drawing.Point(24, 60);
+            this.lblTotalCartoes.Location = new System.Drawing.Point(44, 60);
             this.lblTotalCartoes.Name = "lblTotalCartoes";
             this.lblTotalCartoes.Size = new System.Drawing.Size(108, 21);
             this.lblTotalCartoes.TabIndex = 1;
