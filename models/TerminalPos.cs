@@ -6,10 +6,12 @@ namespace DigiBank.models
     public class TerminalPos
     {
         public int Id { get; set; }
+        public string Nome { get; set; }
         public string NomeLoja { get; set; }
         public string Localizacao { get; set; }
         public string Uid { get; set; }
         public int ContaId { get; set; }
+        public bool Ativo { get; set; }
 
         // Propriedades de navegação
         public virtual Conta Conta { get; set; }

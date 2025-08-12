@@ -160,6 +160,14 @@
     <Compile Include="services\ContaService.cs" />
     <Compile Include="controllers\TransacaoController.cs" />
     <Compile Include="services\TransacaoService.cs" />
+    <Compile Include="models\TerminalPos.cs" />
+    <Compile Include="models\PagamentoPos.cs" />
+    <Compile Include="controllers\TerminalPosController.cs" />
+    <Compile Include="controllers\PagamentoPosController.cs" />
+    <Compile Include="services\TerminalPosService.cs" />
+    <Compile Include="services\PagamentoPosService.cs" />
+    <Compile Include="repositories\TerminalPosRepository.cs" />
+    <Compile Include="repositories\PagamentoPosRepository.cs" />
     <Compile Include="views\DashBoard.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -177,6 +185,12 @@
     </Compile>
     <Compile Include="views\Cartoes.Designer.cs">
       <DependentUpon>Cartoes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="views\TerminalPos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="views\TerminalPos.Designer.cs">
+      <DependentUpon>TerminalPos.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="views\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
@@ -202,6 +216,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="views\Cartoes.resx">
       <DependentUpon>Cartoes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="views\TerminalPos.resx">
+      <DependentUpon>TerminalPos.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

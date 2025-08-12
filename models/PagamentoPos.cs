@@ -9,6 +9,7 @@ namespace DigiBank.models
         public int? CartaoId { get; set; }
         public decimal Valor { get; set; }
         public DateTime DataHora { get; set; }
+        public DateTime DataPagamento { get; set; }
         public string Status { get; set; } // "aprovado", "recusado", "pin_incorreto", "saldo_insuficiente"
         public string Descricao { get; set; }
 
@@ -19,6 +20,7 @@ namespace DigiBank.models
         public PagamentoPos()
         {
             DataHora = DateTime.Now;
+            DataPagamento = DateTime.Now;
         }
     }
 }

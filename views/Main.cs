@@ -142,14 +142,14 @@ namespace DigiBank
 
             panelPrincipal.Controls.Clear();
 
-            //TerminalPOS tela = new TerminalPOS
-            //{
-            //    TopLevel = false,
-            //    FormBorderStyle = FormBorderStyle.None,
-            //    Dock = DockStyle.Fill
-            //};
-            //panelPrincipal.Controls.Add(tela);
-            //tela.Show();
+            TerminalPosForm tela = new TerminalPosForm(usuarioLogado)
+            {
+                TopLevel = false,
+                FormBorderStyle = FormBorderStyle.None,
+                Dock = DockStyle.Fill
+            };
+            panelPrincipal.Controls.Add(tela);
+            tela.Show();
         }
 
         private void btnConfiguracoes_Click(object sender, EventArgs e)
