@@ -1,13 +1,17 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Robert Lindomar\\Desktop\\C#\\DigiBank\\",
+  "WorkspaceRootPath": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A391FB90-A041-4297-BF7F-B8B68C3631C9}|DigiBank.csproj|c:\\users\\robert lindomar\\desktop\\c#\\digibank\\views\\terminalpos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{A391FB90-A041-4297-BF7F-B8B68C3631C9}|DigiBank.csproj|c:\\users\\robertlindomar\\desktop\\trabalho c#\\digibank\\views\\terminalpos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{A391FB90-A041-4297-BF7F-B8B68C3631C9}|DigiBank.csproj|solutionrelative:views\\terminalpos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A391FB90-A041-4297-BF7F-B8B68C3631C9}|DigiBank.csproj|c:\\users\\robert lindomar\\desktop\\c#\\digibank\\views\\transacoes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{A391FB90-A041-4297-BF7F-B8B68C3631C9}|DigiBank.csproj|c:\\users\\robertlindomar\\desktop\\trabalho c#\\digibank\\views\\terminalpos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A391FB90-A041-4297-BF7F-B8B68C3631C9}|DigiBank.csproj|solutionrelative:views\\terminalpos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A391FB90-A041-4297-BF7F-B8B68C3631C9}|DigiBank.csproj|c:\\users\\robertlindomar\\desktop\\trabalho c#\\digibank\\views\\transacoes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{A391FB90-A041-4297-BF7F-B8B68C3631C9}|DigiBank.csproj|solutionrelative:views\\transacoes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
@@ -23,25 +27,38 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Transacoes.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\Robert Lindomar\\Desktop\\C#\\DigiBank\\views\\Transacoes.cs",
-              "RelativeDocumentMoniker": "views\\Transacoes.cs",
-              "ToolTip": "C:\\Users\\Robert Lindomar\\Desktop\\C#\\DigiBank\\views\\Transacoes.cs [Design]",
-              "RelativeToolTip": "views\\Transacoes.cs [Design]",
+              "Title": "TerminalPos.cs",
+              "DocumentMoniker": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\TerminalPos.cs",
+              "RelativeDocumentMoniker": "views\\TerminalPos.cs",
+              "ToolTip": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\TerminalPos.cs",
+              "RelativeToolTip": "views\\TerminalPos.cs",
+              "ViewState": "AgIAADUDAAAAAAAAAAAowEIDAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-12T07:38:58.752Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2025-08-14T01:01:12.494Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "TerminalPos.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\Robert Lindomar\\Desktop\\C#\\DigiBank\\views\\TerminalPos.cs",
+              "DocumentMoniker": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\TerminalPos.cs",
               "RelativeDocumentMoniker": "views\\TerminalPos.cs",
-              "ToolTip": "C:\\Users\\Robert Lindomar\\Desktop\\C#\\DigiBank\\views\\TerminalPos.cs [Design]",
+              "ToolTip": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\TerminalPos.cs [Design]",
               "RelativeToolTip": "views\\TerminalPos.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-12T06:03:29.243Z",
+              "WhenOpened": "2025-08-14T00:57:53.823Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Transacoes.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\Transacoes.cs",
+              "RelativeDocumentMoniker": "views\\Transacoes.cs",
+              "ToolTip": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\Transacoes.cs [Design]",
+              "RelativeToolTip": "views\\Transacoes.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-12T07:38:58.752Z",
               "EditorCaption": " [Design]"
             }
           ]

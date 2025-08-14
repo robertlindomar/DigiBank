@@ -140,8 +140,8 @@ VALUES (
     );
 
 -- Opcional: pagamentos de exemplo (comentado)
--- INSERT INTO pagamento_pos (terminal_id, cartao_id, valor, data_pagamento, status, descricao) VALUES
--- (1, 2, 50.00, NOW(), 'aprovado', 'Venda teste');
+INSERT INTO pagamento_pos (terminal_id, cartao_id, valor, data_pagamento, status, descricao) VALUES
+(1, 2, 50.00, NOW(), 'aprovado', 'Venda teste');
 
 
 -- Resumo das correções:

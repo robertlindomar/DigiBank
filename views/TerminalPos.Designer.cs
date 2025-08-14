@@ -48,22 +48,22 @@ namespace DigiBank.views
             this.panel3 = new System.Windows.Forms.Panel();
             this.panelTerminal = new System.Windows.Forms.Panel();
             this.panelStatusPagamento = new System.Windows.Forms.Panel();
-            this.panelErro = new System.Windows.Forms.Panel();
-            this.lblErro = new System.Windows.Forms.Label();
-            this.panelSucesso = new System.Windows.Forms.Panel();
-            this.lblValorAprovado = new System.Windows.Forms.Label();
-            this.lblSucesso = new System.Windows.Forms.Label();
-            this.panelProcessando = new System.Windows.Forms.Panel();
-            this.lblProcessando = new System.Windows.Forms.Label();
             this.panelIdle = new System.Windows.Forms.Panel();
             this.btnSimularPagamento = new System.Windows.Forms.Button();
-            this.lblInstrucao = new System.Windows.Forms.Label();
+            this.txtUidCartao = new System.Windows.Forms.TextBox();
+            this.lblUidCartao = new System.Windows.Forms.Label();
             this.txtValor = new System.Windows.Forms.TextBox();
             this.lblValorTransacao = new System.Windows.Forms.Label();
             this.lblTituloTerminal = new System.Windows.Forms.Label();
-            this.lblUidCartao = new System.Windows.Forms.Label();
-            this.txtUidCartao = new System.Windows.Forms.TextBox();
             this.panelPagamentosRecentes = new System.Windows.Forms.Panel();
+            this.panelErro = new System.Windows.Forms.Panel();
+            this.panelSucesso = new System.Windows.Forms.Panel();
+            this.panelProcessando = new System.Windows.Forms.Panel();
+            this.lblProcessando = new System.Windows.Forms.Label();
+            this.lblValorAprovado = new System.Windows.Forms.Label();
+            this.lblSucesso = new System.Windows.Forms.Label();
+            this.lblErro = new System.Windows.Forms.Label();
+            this.lblInstrucao = new System.Windows.Forms.Label();
             this.lblTituloPagamentosRecentes = new System.Windows.Forms.Label();
             this.dgvPagamentos = new System.Windows.Forms.DataGridView();
             this.panel1.SuspendLayout();
@@ -75,11 +75,11 @@ namespace DigiBank.views
             this.panel3.SuspendLayout();
             this.panelTerminal.SuspendLayout();
             this.panelStatusPagamento.SuspendLayout();
+            this.panelIdle.SuspendLayout();
+            this.panelPagamentosRecentes.SuspendLayout();
             this.panelErro.SuspendLayout();
             this.panelSucesso.SuspendLayout();
             this.panelProcessando.SuspendLayout();
-            this.panelIdle.SuspendLayout();
-            this.panelPagamentosRecentes.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPagamentos)).BeginInit();
             this.SuspendLayout();
             // 
@@ -118,7 +118,7 @@ namespace DigiBank.views
             this.lblSubtitulo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(107)))), ((int)(((byte)(114)))), ((int)(((byte)(128)))));
             this.lblSubtitulo.Location = new System.Drawing.Point(33, 68);
             this.lblSubtitulo.Name = "lblSubtitulo";
-            this.lblSubtitulo.Size = new System.Drawing.Size(270, 21);
+            this.lblSubtitulo.Size = new System.Drawing.Size(400, 28);
             this.lblSubtitulo.TabIndex = 1;
             this.lblSubtitulo.Text = "Receba pagamentos de qualquer cartão NFC";
             // 
@@ -129,7 +129,7 @@ namespace DigiBank.views
             this.lblTitulo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
             this.lblTitulo.Location = new System.Drawing.Point(33, 23);
             this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(220, 45);
+            this.lblTitulo.Size = new System.Drawing.Size(336, 54);
             this.lblTitulo.TabIndex = 0;
             this.lblTitulo.Text = "Maquininha POS";
             // 
@@ -164,7 +164,7 @@ namespace DigiBank.views
             this.lblPagamentosAprovados.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(197)))), ((int)(((byte)(94)))));
             this.lblPagamentosAprovados.Location = new System.Drawing.Point(24, 32);
             this.lblPagamentosAprovados.Name = "lblPagamentosAprovados";
-            this.lblPagamentosAprovados.Size = new System.Drawing.Size(33, 37);
+            this.lblPagamentosAprovados.Size = new System.Drawing.Size(40, 46);
             this.lblPagamentosAprovados.TabIndex = 1;
             this.lblPagamentosAprovados.Text = "3";
             // 
@@ -175,7 +175,7 @@ namespace DigiBank.views
             this.lblTituloPagamentosAprovados.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(107)))), ((int)(((byte)(114)))), ((int)(((byte)(128)))));
             this.lblTituloPagamentosAprovados.Location = new System.Drawing.Point(24, 12);
             this.lblTituloPagamentosAprovados.Name = "lblTituloPagamentosAprovados";
-            this.lblTituloPagamentosAprovados.Size = new System.Drawing.Size(155, 19);
+            this.lblTituloPagamentosAprovados.Size = new System.Drawing.Size(190, 23);
             this.lblTituloPagamentosAprovados.TabIndex = 0;
             this.lblTituloPagamentosAprovados.Text = "Pagamentos Aprovados";
             // 
@@ -196,7 +196,7 @@ namespace DigiBank.views
             this.lblTotalPagamentos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(130)))), ((int)(((byte)(246)))));
             this.lblTotalPagamentos.Location = new System.Drawing.Point(24, 32);
             this.lblTotalPagamentos.Name = "lblTotalPagamentos";
-            this.lblTotalPagamentos.Size = new System.Drawing.Size(33, 37);
+            this.lblTotalPagamentos.Size = new System.Drawing.Size(40, 46);
             this.lblTotalPagamentos.TabIndex = 1;
             this.lblTotalPagamentos.Text = "4";
             // 
@@ -207,7 +207,7 @@ namespace DigiBank.views
             this.lblTituloTotalPagamentos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(107)))), ((int)(((byte)(114)))), ((int)(((byte)(128)))));
             this.lblTituloTotalPagamentos.Location = new System.Drawing.Point(24, 12);
             this.lblTituloTotalPagamentos.Name = "lblTituloTotalPagamentos";
-            this.lblTituloTotalPagamentos.Size = new System.Drawing.Size(118, 19);
+            this.lblTituloTotalPagamentos.Size = new System.Drawing.Size(145, 23);
             this.lblTituloTotalPagamentos.TabIndex = 0;
             this.lblTituloTotalPagamentos.Text = "Total Pagamentos";
             // 
@@ -228,7 +228,7 @@ namespace DigiBank.views
             this.lblTerminaisAtivos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(197)))), ((int)(((byte)(94)))));
             this.lblTerminaisAtivos.Location = new System.Drawing.Point(24, 32);
             this.lblTerminaisAtivos.Name = "lblTerminaisAtivos";
-            this.lblTerminaisAtivos.Size = new System.Drawing.Size(33, 37);
+            this.lblTerminaisAtivos.Size = new System.Drawing.Size(40, 46);
             this.lblTerminaisAtivos.TabIndex = 1;
             this.lblTerminaisAtivos.Text = "1";
             // 
@@ -239,7 +239,7 @@ namespace DigiBank.views
             this.lblTituloTerminaisAtivos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(107)))), ((int)(((byte)(114)))), ((int)(((byte)(128)))));
             this.lblTituloTerminaisAtivos.Location = new System.Drawing.Point(24, 12);
             this.lblTituloTerminaisAtivos.Name = "lblTituloTerminaisAtivos";
-            this.lblTituloTerminaisAtivos.Size = new System.Drawing.Size(108, 19);
+            this.lblTituloTerminaisAtivos.Size = new System.Drawing.Size(132, 23);
             this.lblTituloTerminaisAtivos.TabIndex = 0;
             this.lblTituloTerminaisAtivos.Text = "Terminais Ativos";
             // 
@@ -260,7 +260,7 @@ namespace DigiBank.views
             this.lblTotalTerminais.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
             this.lblTotalTerminais.Location = new System.Drawing.Point(24, 32);
             this.lblTotalTerminais.Name = "lblTotalTerminais";
-            this.lblTotalTerminais.Size = new System.Drawing.Size(33, 37);
+            this.lblTotalTerminais.Size = new System.Drawing.Size(40, 46);
             this.lblTotalTerminais.TabIndex = 1;
             this.lblTotalTerminais.Text = "2";
             // 
@@ -271,7 +271,7 @@ namespace DigiBank.views
             this.lblTituloTotalTerminais.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(107)))), ((int)(((byte)(114)))), ((int)(((byte)(128)))));
             this.lblTituloTotalTerminais.Location = new System.Drawing.Point(24, 12);
             this.lblTituloTotalTerminais.Name = "lblTituloTotalTerminais";
-            this.lblTituloTotalTerminais.Size = new System.Drawing.Size(99, 19);
+            this.lblTituloTotalTerminais.Size = new System.Drawing.Size(122, 23);
             this.lblTituloTotalTerminais.TabIndex = 0;
             this.lblTituloTotalTerminais.Text = "Total Terminais";
             // 
@@ -290,6 +290,9 @@ namespace DigiBank.views
             // panelTerminal
             // 
             this.panelTerminal.BackColor = System.Drawing.Color.White;
+            this.panelTerminal.Controls.Add(this.panelErro);
+            this.panelTerminal.Controls.Add(this.panelSucesso);
+            this.panelTerminal.Controls.Add(this.panelProcessando);
             this.panelTerminal.Controls.Add(this.panelStatusPagamento);
             this.panelTerminal.Controls.Add(this.txtUidCartao);
             this.panelTerminal.Controls.Add(this.lblUidCartao);
@@ -303,89 +306,11 @@ namespace DigiBank.views
             // 
             // panelStatusPagamento
             // 
-            this.panelStatusPagamento.Controls.Add(this.panelErro);
-            this.panelStatusPagamento.Controls.Add(this.panelSucesso);
-            this.panelStatusPagamento.Controls.Add(this.panelProcessando);
             this.panelStatusPagamento.Controls.Add(this.panelIdle);
             this.panelStatusPagamento.Location = new System.Drawing.Point(24, 180);
             this.panelStatusPagamento.Name = "panelStatusPagamento";
             this.panelStatusPagamento.Size = new System.Drawing.Size(352, 280);
             this.panelStatusPagamento.TabIndex = 3;
-            // 
-            // panelErro
-            // 
-            this.panelErro.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(242)))), ((int)(((byte)(242)))));
-            this.panelErro.Controls.Add(this.lblErro);
-            this.panelErro.Location = new System.Drawing.Point(0, 0);
-            this.panelErro.Name = "panelErro";
-            this.panelErro.Size = new System.Drawing.Size(352, 280);
-            this.panelErro.TabIndex = 3;
-            this.panelErro.Visible = false;
-            // 
-            // lblErro
-            // 
-            this.lblErro.AutoSize = true;
-            this.lblErro.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblErro.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
-            this.lblErro.Location = new System.Drawing.Point(100, 120);
-            this.lblErro.Name = "lblErro";
-            this.lblErro.Size = new System.Drawing.Size(231, 25);
-            this.lblErro.TabIndex = 0;
-            this.lblErro.Text = "❌ Pagamento Recusado";
-            // 
-            // panelSucesso
-            // 
-            this.panelSucesso.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(252)))), ((int)(((byte)(231)))));
-            this.panelSucesso.Controls.Add(this.lblValorAprovado);
-            this.panelSucesso.Controls.Add(this.lblSucesso);
-            this.panelSucesso.Location = new System.Drawing.Point(0, 0);
-            this.panelSucesso.Name = "panelSucesso";
-            this.panelSucesso.Size = new System.Drawing.Size(352, 280);
-            this.panelSucesso.TabIndex = 2;
-            this.panelSucesso.Visible = false;
-            // 
-            // lblValorAprovado
-            // 
-            this.lblValorAprovado.AutoSize = true;
-            this.lblValorAprovado.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblValorAprovado.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(163)))), ((int)(((byte)(74)))));
-            this.lblValorAprovado.Location = new System.Drawing.Point(120, 160);
-            this.lblValorAprovado.Name = "lblValorAprovado";
-            this.lblValorAprovado.Size = new System.Drawing.Size(91, 30);
-            this.lblValorAprovado.TabIndex = 1;
-            this.lblValorAprovado.Text = "R$ 0,00";
-            // 
-            // lblSucesso
-            // 
-            this.lblSucesso.AutoSize = true;
-            this.lblSucesso.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSucesso.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(163)))), ((int)(((byte)(74)))));
-            this.lblSucesso.Location = new System.Drawing.Point(100, 120);
-            this.lblSucesso.Name = "lblSucesso";
-            this.lblSucesso.Size = new System.Drawing.Size(241, 25);
-            this.lblSucesso.TabIndex = 0;
-            this.lblSucesso.Text = "✅ Pagamento Aprovado!";
-            // 
-            // panelProcessando
-            // 
-            this.panelProcessando.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(246)))), ((int)(((byte)(255)))));
-            this.panelProcessando.Controls.Add(this.lblProcessando);
-            this.panelProcessando.Location = new System.Drawing.Point(0, 0);
-            this.panelProcessando.Name = "panelProcessando";
-            this.panelProcessando.Size = new System.Drawing.Size(352, 280);
-            this.panelProcessando.TabIndex = 1;
-            this.panelProcessando.Visible = false;
-            // 
-            // lblProcessando
-            // 
-            this.lblProcessando.AutoSize = true;
-            this.lblProcessando.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblProcessando.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(130)))), ((int)(((byte)(246)))));
-            this.lblProcessando.Location = new System.Drawing.Point(80, 120);
-            this.lblProcessando.Name = "lblProcessando";
-            this.lblProcessando.Size = new System.Drawing.Size(274, 25);
-            this.lblProcessando.TabIndex = 0;
-            this.lblProcessando.Text = "⏳ Processando pagamento...";
             // 
             // panelIdle
             // 
@@ -393,7 +318,7 @@ namespace DigiBank.views
             this.panelIdle.Controls.Add(this.lblInstrucao);
             this.panelIdle.Location = new System.Drawing.Point(0, 0);
             this.panelIdle.Name = "panelIdle";
-            this.panelIdle.Size = new System.Drawing.Size(352, 280);
+            this.panelIdle.Size = new System.Drawing.Size(352, 245);
             this.panelIdle.TabIndex = 0;
             // 
             // btnSimularPagamento
@@ -411,23 +336,31 @@ namespace DigiBank.views
             this.btnSimularPagamento.UseVisualStyleBackColor = false;
             this.btnSimularPagamento.Click += new System.EventHandler(this.btnSimularPagamento_Click);
             // 
-            // lblInstrucao
+            // txtUidCartao
             // 
-            this.lblInstrucao.AutoSize = true;
-            this.lblInstrucao.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblInstrucao.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(107)))), ((int)(((byte)(114)))), ((int)(((byte)(128)))));
-            this.lblInstrucao.Location = new System.Drawing.Point(80, 160);
-            this.lblInstrucao.Name = "lblInstrucao";
-            this.lblInstrucao.Size = new System.Drawing.Size(250, 21);
-            this.lblInstrucao.TabIndex = 0;
-            this.lblInstrucao.Text = "Digite valor e UID do cartão e clique para aproximar";
+            this.txtUidCartao.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtUidCartao.Location = new System.Drawing.Point(24, 140);
+            this.txtUidCartao.Name = "txtUidCartao";
+            this.txtUidCartao.Size = new System.Drawing.Size(352, 39);
+            this.txtUidCartao.TabIndex = 5;
+            // 
+            // lblUidCartao
+            // 
+            this.lblUidCartao.AutoSize = true;
+            this.lblUidCartao.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblUidCartao.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(107)))), ((int)(((byte)(114)))), ((int)(((byte)(128)))));
+            this.lblUidCartao.Location = new System.Drawing.Point(24, 120);
+            this.lblUidCartao.Name = "lblUidCartao";
+            this.lblUidCartao.Size = new System.Drawing.Size(157, 23);
+            this.lblUidCartao.TabIndex = 4;
+            this.lblUidCartao.Text = "UID do Cartão NFC";
             // 
             // txtValor
             // 
             this.txtValor.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtValor.Location = new System.Drawing.Point(24, 80);
             this.txtValor.Name = "txtValor";
-            this.txtValor.Size = new System.Drawing.Size(352, 32);
+            this.txtValor.Size = new System.Drawing.Size(352, 39);
             this.txtValor.TabIndex = 2;
             this.txtValor.TextChanged += new System.EventHandler(this.txtValor_TextChanged);
             this.txtValor.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtValor_KeyPress);
@@ -439,30 +372,9 @@ namespace DigiBank.views
             this.lblValorTransacao.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(107)))), ((int)(((byte)(114)))), ((int)(((byte)(128)))));
             this.lblValorTransacao.Location = new System.Drawing.Point(24, 60);
             this.lblValorTransacao.Name = "lblValorTransacao";
-            this.lblValorTransacao.Size = new System.Drawing.Size(123, 19);
+            this.lblValorTransacao.Size = new System.Drawing.Size(154, 23);
             this.lblValorTransacao.TabIndex = 1;
             this.lblValorTransacao.Text = "Valor da Transação";
-
-            // 
-            // lblUidCartao
-            // 
-            this.lblUidCartao.AutoSize = true;
-            this.lblUidCartao.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUidCartao.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(107)))), ((int)(((byte)(114)))), ((int)(((byte)(128)))));
-            this.lblUidCartao.Location = new System.Drawing.Point(24, 120);
-            this.lblUidCartao.Name = "lblUidCartao";
-            this.lblUidCartao.Size = new System.Drawing.Size(118, 19);
-            this.lblUidCartao.TabIndex = 4;
-            this.lblUidCartao.Text = "UID do Cartão NFC";
-
-            // 
-            // txtUidCartao
-            // 
-            this.txtUidCartao.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtUidCartao.Location = new System.Drawing.Point(24, 140);
-            this.txtUidCartao.Name = "txtUidCartao";
-            this.txtUidCartao.Size = new System.Drawing.Size(352, 32);
-            this.txtUidCartao.TabIndex = 5;
             // 
             // lblTituloTerminal
             // 
@@ -471,7 +383,7 @@ namespace DigiBank.views
             this.lblTituloTerminal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
             this.lblTituloTerminal.Location = new System.Drawing.Point(24, 24);
             this.lblTituloTerminal.Name = "lblTituloTerminal";
-            this.lblTituloTerminal.Size = new System.Drawing.Size(222, 25);
+            this.lblTituloTerminal.Size = new System.Drawing.Size(269, 32);
             this.lblTituloTerminal.TabIndex = 0;
             this.lblTituloTerminal.Text = "Maquininha de Cartão";
             // 
@@ -485,6 +397,92 @@ namespace DigiBank.views
             this.panelPagamentosRecentes.Size = new System.Drawing.Size(462, 420);
             this.panelPagamentosRecentes.TabIndex = 2;
             // 
+            // panelErro
+            // 
+            this.panelErro.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(242)))), ((int)(((byte)(242)))));
+            this.panelErro.Controls.Add(this.lblErro);
+            this.panelErro.Location = new System.Drawing.Point(24, 180);
+            this.panelErro.Name = "panelErro";
+            this.panelErro.Size = new System.Drawing.Size(352, 280);
+            this.panelErro.TabIndex = 3;
+            this.panelErro.Visible = false;
+            // 
+            // panelSucesso
+            // 
+            this.panelSucesso.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(252)))), ((int)(((byte)(231)))));
+            this.panelSucesso.Controls.Add(this.lblValorAprovado);
+            this.panelSucesso.Controls.Add(this.lblSucesso);
+            this.panelSucesso.Location = new System.Drawing.Point(22, 180);
+            this.panelSucesso.Name = "panelSucesso";
+            this.panelSucesso.Size = new System.Drawing.Size(352, 242);
+            this.panelSucesso.TabIndex = 2;
+            this.panelSucesso.Visible = false;
+            // 
+            // panelProcessando
+            // 
+            this.panelProcessando.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(246)))), ((int)(((byte)(255)))));
+            this.panelProcessando.Controls.Add(this.lblProcessando);
+            this.panelProcessando.Location = new System.Drawing.Point(24, 180);
+            this.panelProcessando.Name = "panelProcessando";
+            this.panelProcessando.Size = new System.Drawing.Size(352, 237);
+            this.panelProcessando.TabIndex = 1;
+            this.panelProcessando.Visible = false;
+            // 
+            // lblProcessando
+            // 
+            this.lblProcessando.AutoSize = true;
+            this.lblProcessando.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblProcessando.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(130)))), ((int)(((byte)(246)))));
+            this.lblProcessando.Location = new System.Drawing.Point(0, 81);
+            this.lblProcessando.Name = "lblProcessando";
+            this.lblProcessando.Size = new System.Drawing.Size(358, 32);
+            this.lblProcessando.TabIndex = 0;
+            this.lblProcessando.Text = "⏳ Processando pagamento...";
+            // 
+            // lblValorAprovado
+            // 
+            this.lblValorAprovado.AutoSize = true;
+            this.lblValorAprovado.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblValorAprovado.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(163)))), ((int)(((byte)(74)))));
+            this.lblValorAprovado.Location = new System.Drawing.Point(56, 121);
+            this.lblValorAprovado.Name = "lblValorAprovado";
+            this.lblValorAprovado.Size = new System.Drawing.Size(113, 37);
+            this.lblValorAprovado.TabIndex = 1;
+            this.lblValorAprovado.Text = "R$ 0,00";
+            // 
+            // lblSucesso
+            // 
+            this.lblSucesso.AutoSize = true;
+            this.lblSucesso.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSucesso.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(163)))), ((int)(((byte)(74)))));
+            this.lblSucesso.Location = new System.Drawing.Point(36, 81);
+            this.lblSucesso.Name = "lblSucesso";
+            this.lblSucesso.Size = new System.Drawing.Size(312, 32);
+            this.lblSucesso.TabIndex = 0;
+            this.lblSucesso.Text = "✅ Pagamento Aprovado!";
+            // 
+            // lblErro
+            // 
+            this.lblErro.AutoSize = true;
+            this.lblErro.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblErro.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.lblErro.Location = new System.Drawing.Point(28, 113);
+            this.lblErro.Name = "lblErro";
+            this.lblErro.Size = new System.Drawing.Size(300, 32);
+            this.lblErro.TabIndex = 0;
+            this.lblErro.Text = "❌ Pagamento Recusado";
+            // 
+            // lblInstrucao
+            // 
+            this.lblInstrucao.AutoSize = true;
+            this.lblInstrucao.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblInstrucao.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(107)))), ((int)(((byte)(114)))), ((int)(((byte)(128)))));
+            this.lblInstrucao.Location = new System.Drawing.Point(35, 160);
+            this.lblInstrucao.Name = "lblInstrucao";
+            this.lblInstrucao.Size = new System.Drawing.Size(283, 28);
+            this.lblInstrucao.TabIndex = 0;
+            this.lblInstrucao.Text = "Digite valor e aproximar cartão";
+            // 
             // lblTituloPagamentosRecentes
             // 
             this.lblTituloPagamentosRecentes.AutoSize = true;
@@ -492,7 +490,7 @@ namespace DigiBank.views
             this.lblTituloPagamentosRecentes.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
             this.lblTituloPagamentosRecentes.Location = new System.Drawing.Point(24, 24);
             this.lblTituloPagamentosRecentes.Name = "lblTituloPagamentosRecentes";
-            this.lblTituloPagamentosRecentes.Size = new System.Drawing.Size(205, 25);
+            this.lblTituloPagamentosRecentes.Size = new System.Drawing.Size(262, 32);
             this.lblTituloPagamentosRecentes.TabIndex = 1;
             this.lblTituloPagamentosRecentes.Text = "Pagamentos Recentes";
             // 
@@ -500,8 +498,8 @@ namespace DigiBank.views
             // 
             this.dgvPagamentos.AllowUserToAddRows = false;
             this.dgvPagamentos.AllowUserToDeleteRows = false;
-            this.dgvPagamentos.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.dgvPagamentos.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvPagamentos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvPagamentos.BackgroundColor = System.Drawing.Color.White;
@@ -512,6 +510,7 @@ namespace DigiBank.views
             this.dgvPagamentos.Name = "dgvPagamentos";
             this.dgvPagamentos.ReadOnly = true;
             this.dgvPagamentos.RowHeadersVisible = false;
+            this.dgvPagamentos.RowHeadersWidth = 51;
             this.dgvPagamentos.RowTemplate.Height = 25;
             this.dgvPagamentos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvPagamentos.Size = new System.Drawing.Size(414, 340);
@@ -519,7 +518,7 @@ namespace DigiBank.views
             // 
             // TerminalPosForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(250)))), ((int)(((byte)(251)))));
             this.ClientSize = new System.Drawing.Size(950, 700);
@@ -548,16 +547,16 @@ namespace DigiBank.views
             this.panelTerminal.ResumeLayout(false);
             this.panelTerminal.PerformLayout();
             this.panelStatusPagamento.ResumeLayout(false);
+            this.panelIdle.ResumeLayout(false);
+            this.panelIdle.PerformLayout();
+            this.panelPagamentosRecentes.ResumeLayout(false);
+            this.panelPagamentosRecentes.PerformLayout();
             this.panelErro.ResumeLayout(false);
             this.panelErro.PerformLayout();
             this.panelSucesso.ResumeLayout(false);
             this.panelSucesso.PerformLayout();
             this.panelProcessando.ResumeLayout(false);
             this.panelProcessando.PerformLayout();
-            this.panelIdle.ResumeLayout(false);
-            this.panelIdle.PerformLayout();
-            this.panelPagamentosRecentes.ResumeLayout(false);
-            this.panelPagamentosRecentes.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPagamentos)).EndInit();
             this.ResumeLayout(false);
 

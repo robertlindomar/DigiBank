@@ -277,19 +277,18 @@ namespace DigiBank.views
                     .Take(2)
                     .ToList();
 
-                // Se não houver transações reais, usar dados de exemplo
+                // Se não houver transações reais, mostrar mensagem
                 if (!transacoesRecentes.Any())
                 {
-                    var transacoesExemplo = new[]
+                    var lblSemTransacoes = new Label
                     {
-                        new { Tipo = "Transferência PIX", Data = "2024-01-15 14:30", Valor = -250.00m, Cor = Color.Red },
-                        new { Tipo = "Depósito em dinheiro", Data = "2024-01-15 10:15", Valor = 1200.00m, Cor = Color.Green }
+                        Text = "Nenhuma transação encontrada",
+                        ForeColor = Color.Gray,
+                        Font = new Font("Segoe UI", 9),
+                        TextAlign = ContentAlignment.MiddleCenter,
+                        Dock = DockStyle.Fill
                     };
-
-                    foreach (var transacao in transacoesExemplo)
-                    {
-                        CriarPanelTransacao(transacao.Tipo, transacao.Data, transacao.Valor, transacao.Cor);
-                    }
+                    panelListaTransacoes.Controls.Add(lblSemTransacoes);
                     return;
                 }
 
@@ -335,19 +334,18 @@ namespace DigiBank.views
                     .Take(LIMITE_CARTOES)
                     .ToList();
 
-                // Se não houver cartões reais, usar dados de exemplo
+                // Se não houver cartões reais, mostrar mensagem
                 if (!cartoesExibidos.Any())
                 {
-                    var cartoesExemplo = new[]
+                    var lblSemCartoes = new Label
                     {
-                        new { Nome = "Cartão Principal", Conta = "Conta Corrente", UID = "A1B2C3D4", Ativo = true },
-                        new { Nome = "Cartão Backup", Conta = "Conta Poupança", UID = "E5F6G7H8", Ativo = false }
+                        Text = "Nenhum cartão encontrado",
+                        ForeColor = Color.Gray,
+                        Font = new Font("Segoe UI", 9),
+                        TextAlign = ContentAlignment.MiddleCenter,
+                        Dock = DockStyle.Fill
                     };
-
-                    foreach (var cartao in cartoesExemplo)
-                    {
-                        CriarPanelCartao(cartao.Nome, cartao.Conta, cartao.UID, cartao.Ativo);
-                    }
+                    panelListaCartoes.Controls.Add(lblSemCartoes);
                     return;
                 }
 

@@ -97,55 +97,21 @@ namespace DigiBank.views
 
                 Console.WriteLine($"Cartões carregados: {_listaCartoes.Count} cartões");
 
-                // Se não houver cartões, criar exemplos
+                // Verificar se há cartões
                 if (!_listaCartoes.Any())
                 {
-                    Console.WriteLine("Nenhum cartão encontrado, criando exemplos...");
-                    CriarCartoesExemplo();
+                    Console.WriteLine("Nenhum cartão encontrado para o usuário.");
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Erro ao carregar cartões: {ex.Message}");
-                CriarCartoesExemplo();
+                MessageBox.Show($"Erro ao carregar cartões: {ex.Message}", "Erro",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private void CriarCartoesExemplo()
-        {
-            var cartoesExemplo = new List<CartaoNfc>
-            {
-                new CartaoNfc
-                {
-                    Id = 1,
-                    Apelido = "Cartão Principal",
-                    Uid = "A1B2C3D4E5F6",
-                    Ativo = true,
-                    ContaId = 1,
-                    DataVinculacao = DateTime.Parse("2024-01-10")
-                },
-                new CartaoNfc
-                {
-                    Id = 2,
-                    Apelido = "Cartão Backup",
-                    Uid = "G7H8I9J0K1L2",
-                    Ativo = false,
-                    ContaId = 2,
-                    DataVinculacao = DateTime.Parse("2024-01-05")
-                },
-                new CartaoNfc
-                {
-                    Id = 3,
-                    Apelido = "Cartão Família",
-                    Uid = "M3N4O5P6Q7R8",
-                    Ativo = true,
-                    ContaId = 1,
-                    DataVinculacao = DateTime.Parse("2024-01-08")
-                }
-            };
 
-            _listaCartoes.AddRange(cartoesExemplo);
-        }
 
         private void ConfigurarDataGridView()
         {

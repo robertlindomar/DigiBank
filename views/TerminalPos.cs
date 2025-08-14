@@ -19,9 +19,12 @@ namespace DigiBank.views
         private readonly TerminalPosController _terminalController;
         private readonly PagamentoPosController _pagamentoController;
         private readonly CartaoController _cartaoController;
+        private readonly ContaController _contaController;
+        private readonly ClienteController _clienteController;
         private List<DigiBank.models.TerminalPos> _listaTerminais;
         private List<PagamentoPos> _listaPagamentos;
         private List<CartaoNfc> _listaCartoes;
+        private List<Conta> _listaContasUsuario;
         private decimal _valorTransacao = 0;
         private bool _processandoPagamento = false;
         #endregion
@@ -34,9 +37,12 @@ namespace DigiBank.views
             _terminalController = new TerminalPosController();
             _pagamentoController = new PagamentoPosController();
             _cartaoController = new CartaoController();
+            _contaController = new ContaController();
+            _clienteController = new ClienteController();
             _listaTerminais = new List<DigiBank.models.TerminalPos>();
             _listaPagamentos = new List<PagamentoPos>();
             _listaCartoes = new List<CartaoNfc>();
+            _listaContasUsuario = new List<Conta>();
         }
 
         public TerminalPosForm(Usuario usuario)
@@ -46,9 +52,15 @@ namespace DigiBank.views
             _terminalController = new TerminalPosController();
             _pagamentoController = new PagamentoPosController();
             _cartaoController = new CartaoController();
+            _contaController = new ContaController();
+            _clienteController = new ClienteController();
             _listaTerminais = new List<DigiBank.models.TerminalPos>();
             _listaPagamentos = new List<PagamentoPos>();
             _listaCartoes = new List<CartaoNfc>();
+            _listaContasUsuario = new List<Conta>();
+
+            // Conectar eventos
+            txtUidCartao.KeyPress += txtUidCartao_KeyPress;
 
             CarregarDados();
         }
@@ -60,7 +72,10 @@ namespace DigiBank.views
             try
             {
                 Console.WriteLine("=== Carregando dados do Terminal POS ===");
-                CarregarTerminais();
+                Console.WriteLine($"Usuário logado: {_usuarioLogado.Login} (Cliente ID: {_usuarioLogado.ClienteId})");
+
+                CarregarContasUsuario();
+                CarregarTerminaisUsuario();
                 CarregarPagamentosRecentes();
                 CarregarCartoes();
                 ConfigurarDataGridView();
@@ -75,34 +90,93 @@ namespace DigiBank.views
             }
         }
 
-        private void CarregarTerminais()
+        private void CarregarContasUsuario()
+        {
+            _listaContasUsuario.Clear();
+
+            try
+            {
+                Console.WriteLine("=== CARREGANDO CONTAS DO USUÁRIO ===");
+
+                // Buscar contas do cliente logado
+                var contas = _contaController.BuscarPorClienteId(_usuarioLogado.ClienteId);
+                Console.WriteLine($"Resultado da busca: {contas?.Count ?? 0} contas encontradas");
+
+                if (contas != null && contas.Any())
+                {
+                    _listaContasUsuario.AddRange(contas);
+                    Console.WriteLine($"✅ Contas carregadas: {_listaContasUsuario.Count} contas do usuário");
+
+                    // Mostrar detalhes das contas
+                    foreach (var conta in _listaContasUsuario)
+                    {
+                        Console.WriteLine($"  - Conta: {conta.NumeroConta} ({conta.Tipo}) - Saldo: R$ {conta.Saldo:F2}");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("❌ Nenhuma conta encontrada para o usuário logado");
+                    MessageBox.Show("Você não possui contas cadastradas. Crie uma conta primeiro.", "Aviso",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"❌ Erro ao carregar contas: {ex.Message}");
+                Console.WriteLine($"Stack trace: {ex.StackTrace}");
+                MessageBox.Show($"Erro ao carregar contas: {ex.Message}", "Erro",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void CarregarTerminaisUsuario()
         {
             _listaTerminais.Clear();
 
             try
             {
-                Console.WriteLine("=== CARREGANDO TERMINAIS ===");
+                Console.WriteLine("=== CARREGANDO TERMINAIS DO USUÁRIO ===");
 
-                // Buscar terminais do banco
-                var terminais = _terminalController.BuscarTodos();
-                Console.WriteLine($"Resultado da busca: {terminais?.Count ?? 0} terminais encontrados");
-
-                if (terminais != null && terminais.Any())
+                if (!_listaContasUsuario.Any())
                 {
-                    _listaTerminais.AddRange(terminais);
-                    Console.WriteLine($"✅ Terminais carregados: {_listaTerminais.Count} terminais reais");
+                    Console.WriteLine("❌ Usuário não possui contas para buscar terminais");
+                    AtualizarInterfaceSemContas();
+                    return;
+                }
+
+                // Buscar terminais das contas do usuário logado
+                var todosTerminais = new List<DigiBank.models.TerminalPos>();
+
+                foreach (var conta in _listaContasUsuario)
+                {
+                    var terminaisConta = _terminalController.BuscarPorContaId(conta.Id);
+                    if (terminaisConta != null && terminaisConta.Any())
+                    {
+                        todosTerminais.AddRange(terminaisConta);
+                    }
+                }
+
+                Console.WriteLine($"Resultado da busca: {todosTerminais.Count} terminais encontrados");
+
+                if (todosTerminais.Any())
+                {
+                    _listaTerminais.AddRange(todosTerminais);
+                    Console.WriteLine($"✅ Terminais carregados: {_listaTerminais.Count} terminais do usuário");
 
                     // Mostrar detalhes dos terminais
                     foreach (var terminal in _listaTerminais)
                     {
-                        Console.WriteLine($"  - Terminal: {terminal.Nome} ({terminal.NomeLoja}) - Ativo: {terminal.Ativo}");
+                        var conta = _listaContasUsuario.FirstOrDefault(c => c.Id == terminal.ContaId);
+                        Console.WriteLine($"  - Terminal: {terminal.Nome} ({terminal.NomeLoja}) - Conta: {conta?.NumeroConta} - Ativo: {terminal.Ativo}");
                     }
+
+                    // Atualizar interface para mostrar instruções normais
+                    AtualizarInterfaceComTerminais();
                 }
                 else
                 {
-                    Console.WriteLine("❌ Nenhum terminal encontrado no banco de dados");
-                    MessageBox.Show("Nenhum terminal encontrado. Crie um terminal primeiro.", "Aviso",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Console.WriteLine("❌ Nenhum terminal encontrado para o usuário logado");
+                    AtualizarInterfaceSemTerminais();
                 }
             }
             catch (Exception ex)
@@ -114,30 +188,41 @@ namespace DigiBank.views
             }
         }
 
-
-
         private void CarregarPagamentosRecentes()
         {
             _listaPagamentos.Clear();
 
             try
             {
-                // Buscar pagamentos do banco e pegar os mais recentes
-                var pagamentos = _pagamentoController.BuscarTodos();
-                if (pagamentos != null && pagamentos.Any())
-                {
-                    // Pegar os 10 mais recentes
-                    var pagamentosRecentes = pagamentos
-                        .OrderByDescending(p => p.DataPagamento)
-                        .Take(10)
-                        .ToList();
+                Console.WriteLine("=== CARREGANDO PAGAMENTOS RECENTES ===");
 
-                    _listaPagamentos.AddRange(pagamentosRecentes);
-                    Console.WriteLine($"Pagamentos carregados: {_listaPagamentos.Count} pagamentos recentes reais");
+                // Buscar pagamentos dos terminais do usuário
+                var todosPagamentos = new List<PagamentoPos>();
+
+                if (_listaTerminais.Any())
+                {
+                    var pagamentos = _pagamentoController.BuscarTodos();
+                    if (pagamentos != null && pagamentos.Any())
+                    {
+                        // Filtrar apenas pagamentos dos terminais do usuário
+                        var pagamentosUsuario = pagamentos.Where(p =>
+                            p.TerminalId.HasValue &&
+                            _listaTerminais.Any(t => t.Id == p.TerminalId.Value)
+                        ).ToList();
+
+                        // Pegar os 10 mais recentes
+                        var pagamentosRecentes = pagamentosUsuario
+                            .OrderByDescending(p => p.DataPagamento)
+                            .Take(10)
+                            .ToList();
+
+                        _listaPagamentos.AddRange(pagamentosRecentes);
+                        Console.WriteLine($"✅ Pagamentos carregados: {_listaPagamentos.Count} pagamentos recentes do usuário");
+                    }
                 }
                 else
                 {
-                    Console.WriteLine("Nenhum pagamento encontrado no banco de dados");
+                    Console.WriteLine("Nenhum terminal encontrado para carregar pagamentos");
                 }
             }
             catch (Exception ex)
@@ -148,8 +233,6 @@ namespace DigiBank.views
             }
         }
 
-
-
         private void CarregarCartoes()
         {
             _listaCartoes.Clear();
@@ -159,6 +242,7 @@ namespace DigiBank.views
                 Console.WriteLine("=== CARREGANDO CARTÕES ===");
 
                 // Buscar TODOS os cartões ativos do banco (de todos os usuários)
+                // pois o usuário pode receber pagamentos de qualquer cartão
                 var cartoes = _cartaoController.BuscarTodos();
                 Console.WriteLine($"Resultado da busca: {cartoes?.Count ?? 0} cartões encontrados");
 
@@ -300,7 +384,7 @@ namespace DigiBank.views
                 var pagamentosAprovados = _listaPagamentos.Count(p => p.Status == "aprovado");
 
                 Console.WriteLine($"Estatísticas do Terminal POS:");
-                Console.WriteLine($"- Total terminais: {totalTerminais}");
+                Console.WriteLine($"- Total terminais do usuário: {totalTerminais}");
                 Console.WriteLine($"- Terminais ativos: {terminaisAtivos}");
                 Console.WriteLine($"- Total pagamentos: {totalPagamentos}");
                 Console.WriteLine($"- Pagamentos aprovados: {pagamentosAprovados}");
@@ -430,93 +514,7 @@ namespace DigiBank.views
             }
         }
 
-        private async Task SimularPagamento()
-        {
-            if (_processandoPagamento)
-                return;
 
-            if (_valorTransacao <= 0)
-            {
-                MessageBox.Show("Por favor, digite um valor válido.", "Aviso",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            _processandoPagamento = true;
-            btnSimularPagamento.Enabled = false;
-
-            try
-            {
-                // Mostrar estado de processamento
-                AtualizarEstadoPagamento("processando");
-
-                // Simular processamento (2 segundos)
-                await Task.Delay(2000);
-
-                // Simular resultado (80% de chance de sucesso)
-                var sucesso = new Random().Next(1, 101) <= 80;
-
-                if (sucesso)
-                {
-                    // Sucesso
-                    AtualizarEstadoPagamento("sucesso");
-                    lblValorAprovado.Text = _valorTransacao.ToString("C2");
-
-                    // Processar pagamento no backend
-                    try
-                    {
-                        var terminalAtivo = _listaTerminais.FirstOrDefault(t => t.Ativo);
-                        var cartaoAtivo = _listaCartoes.FirstOrDefault(c => c.Ativo);
-
-                        if (terminalAtivo != null && cartaoAtivo != null)
-                        {
-                            var pagamentoId = _pagamentoController.ProcessarPagamento(
-                                terminalAtivo.Id,
-                                cartaoAtivo.Id,
-                                _valorTransacao,
-                                $"Pagamento via Terminal {terminalAtivo.Nome}"
-                            );
-
-                            Console.WriteLine($"Pagamento processado com sucesso! ID: {pagamentoId}");
-
-                            // Recarregar pagamentos recentes
-                            CarregarPagamentosRecentes();
-                            AtualizarEstatisticas();
-                        }
-                        else
-                        {
-                            Console.WriteLine("Terminal ou cartão ativo não encontrado");
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine($"Erro ao processar pagamento no backend: {ex.Message}");
-                    }
-                }
-                else
-                {
-                    // Erro
-                    AtualizarEstadoPagamento("erro");
-                }
-
-                // Voltar ao estado inicial após 3 segundos
-                await Task.Delay(3000);
-                AtualizarEstadoPagamento("idle");
-                txtValor.Text = "";
-                _valorTransacao = 0;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Erro ao processar pagamento: {ex.Message}", "Erro",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                AtualizarEstadoPagamento("erro");
-            }
-            finally
-            {
-                _processandoPagamento = false;
-                btnSimularPagamento.Enabled = true;
-            }
-        }
 
         private async Task SimularAproximacaoCartao()
         {
@@ -530,10 +528,10 @@ namespace DigiBank.views
                 return;
             }
 
-            // Verificar se há terminais e validar UID do cartão digitado
+            // Verificar se o usuário possui terminais ativos
             if (!_listaTerminais.Any(t => t.Ativo))
             {
-                MessageBox.Show("Nenhum terminal ativo encontrado. Crie um terminal primeiro.", "Aviso",
+                MessageBox.Show("Você não possui terminais ativos. Crie um terminal primeiro.", "Aviso",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
@@ -541,7 +539,7 @@ namespace DigiBank.views
             var uid = txtUidCartao?.Text?.Trim();
             if (string.IsNullOrWhiteSpace(uid))
             {
-                MessageBox.Show("Informe o UID do cartão (ex: 0848182788)", "Aviso",
+                MessageBox.Show("Informe o UID do cartão (ex: 0066581178)", "Aviso",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
@@ -551,6 +549,15 @@ namespace DigiBank.views
             if (cartaoPeloUid == null || !cartaoPeloUid.Ativo)
             {
                 MessageBox.Show("Cartão não encontrado ou inativo.", "Aviso",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Verificar se o cartão não pertence ao próprio usuário (não pode pagar para si mesmo)
+            var contaCartao = _contaController.BuscarPorId(cartaoPeloUid.ContaId);
+            if (contaCartao != null && _listaContasUsuario.Any(c => c.Id == contaCartao.Id))
+            {
+                MessageBox.Show("Você não pode fazer pagamentos para sua própria conta.", "Aviso",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
@@ -615,6 +622,7 @@ namespace DigiBank.views
                 await Task.Delay(3000);
                 AtualizarEstadoPagamento("idle");
                 txtValor.Text = "";
+                txtUidCartao.Text = "";
                 _valorTransacao = 0;
             }
             catch (Exception ex)
@@ -648,6 +656,11 @@ namespace DigiBank.views
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+        private void btnCriarTerminal_Click(object sender, EventArgs e)
+        {
+            _ = CriarTerminalPadrao();
+        }
+
         private void txtValor_TextChanged(object sender, EventArgs e)
         {
             if (decimal.TryParse(txtValor.Text, out decimal valor))
@@ -675,9 +688,149 @@ namespace DigiBank.views
             if (e.KeyChar == (char)Keys.Enter)
             {
                 e.Handled = true;
-                _ = SimularPagamento();
+                _ = SimularAproximacaoCartao();
+            }
+        }
+
+        private void txtUidCartao_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Permitir Enter para simular pagamento
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                e.Handled = true;
+                _ = SimularAproximacaoCartao();
+            }
+        }
+
+        private async Task CriarTerminalPadrao()
+        {
+            try
+            {
+                if (!_listaContasUsuario.Any())
+                {
+                    MessageBox.Show("Você precisa ter uma conta antes de criar um terminal.", "Aviso",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                var contaPadrao = _listaContasUsuario.First();
+                var cliente = _clienteController.BuscarPorId(_usuarioLogado.ClienteId);
+
+                if (cliente == null)
+                {
+                    MessageBox.Show("Cliente não encontrado.", "Erro",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                var novoTerminal = new DigiBank.models.TerminalPos
+                {
+                    Nome = $"Terminal {cliente.Nome}",
+                    NomeLoja = cliente.Nome,
+                    Localizacao = "Localização Padrão",
+                    Uid = $"TERM_{DateTime.Now:yyyyMMddHHmmss}",
+                    ContaId = contaPadrao.Id,
+                    Ativo = true
+                };
+
+                var terminalId = _terminalController.Criar(novoTerminal);
+                Console.WriteLine($"✅ Terminal padrão criado com sucesso! ID: {terminalId}");
+
+                // Recarregar dados
+                CarregarTerminaisUsuario();
+                CarregarPagamentosRecentes();
+                AtualizarEstatisticas();
+
+                MessageBox.Show($"Terminal padrão criado com sucesso!\nNome: {novoTerminal.Nome}\nUID: {novoTerminal.Uid}", "Sucesso",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"❌ Erro ao criar terminal padrão: {ex.Message}");
+                MessageBox.Show($"Erro ao criar terminal padrão: {ex.Message}", "Erro",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         #endregion
+
+        private void AtualizarInterfaceSemContas()
+        {
+            // Desabilitar campos e botões
+            txtValor.Enabled = false;
+            txtUidCartao.Enabled = false;
+            btnSimularPagamento.Enabled = false;
+
+            // Atualizar instruções
+            lblInstrucao.Text = "Você não possui contas cadastradas. Crie uma conta primeiro.";
+            lblInstrucao.ForeColor = Color.FromArgb(239, 68, 68); // Vermelho
+        }
+
+        private void AtualizarInterfaceSemTerminais()
+        {
+            // Desabilitar campos e botões
+            txtValor.Enabled = false;
+            txtUidCartao.Enabled = false;
+            btnSimularPagamento.Enabled = false;
+
+            // Atualizar instruções
+            lblInstrucao.Text = "Você não possui terminais cadastrados. Clique em 'Criar Terminal' para começar.";
+            lblInstrucao.ForeColor = Color.FromArgb(245, 158, 11); // Laranja
+
+            // Mostrar botão para criar terminal (se não existir, será criado dinamicamente)
+            MostrarBotaoCriarTerminal();
+        }
+
+        private void AtualizarInterfaceComTerminais()
+        {
+            // Habilitar campos e botões
+            txtValor.Enabled = true;
+            txtUidCartao.Enabled = true;
+            btnSimularPagamento.Enabled = true;
+
+            // Atualizar instruções
+            lblInstrucao.Text = "Digite valor e UID do cartão e clique para aproximar";
+            lblInstrucao.ForeColor = Color.FromArgb(107, 114, 128); // Cinza original
+
+            // Ocultar botão de criar terminal se existir
+            OcultarBotaoCriarTerminal();
+        }
+
+        private void MostrarBotaoCriarTerminal()
+        {
+            // Verificar se o botão já existe
+            var btnCriar = panelIdle.Controls.OfType<Button>().FirstOrDefault(b => b.Name == "btnCriarTerminal");
+
+            if (btnCriar == null)
+            {
+                // Criar botão dinamicamente
+                btnCriar = new Button
+                {
+                    Name = "btnCriarTerminal",
+                    Text = "🚀 Criar Terminal Padrão",
+                    BackColor = Color.FromArgb(34, 197, 94), // Verde
+                    FlatAppearance = { BorderSize = 0 },
+                    FlatStyle = FlatStyle.Flat,
+                    Font = new Font("Segoe UI", 10, FontStyle.Bold),
+                    ForeColor = Color.White,
+                    Size = new Size(304, 40),
+                    Location = new Point(24, 250), // Abaixo do botão de simular pagamento
+                    UseVisualStyleBackColor = false
+                };
+
+                btnCriar.Click += btnCriarTerminal_Click;
+                panelIdle.Controls.Add(btnCriar);
+            }
+
+            btnCriar.Visible = true;
+        }
+
+        private void OcultarBotaoCriarTerminal()
+        {
+            var btnCriar = panelIdle.Controls.OfType<Button>().FirstOrDefault(b => b.Name == "btnCriarTerminal");
+            if (btnCriar != null)
+            {
+                btnCriar.Visible = false;
+            }
+        }
     }
 }

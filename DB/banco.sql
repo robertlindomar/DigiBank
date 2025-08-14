@@ -99,30 +99,25 @@ CREATE TABLE pagamento_pos (
     FOREIGN KEY (cartao_id) REFERENCES cartao (id) ON DELETE CASCADE
 ) DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
 
--- Inserir clientes (apenas uma vez)
+-- Clientes (2 usuários)
 INSERT INTO
-    cliente (nome, cpf)
+    cliente (id, nome, cpf)
 VALUES (
-        'Administrador do Sistema',
+        1,
+        'Loja Teste',
         '000.000.000-00'
     ),
     (
-        'João da Silva',
+        2,
+        'Cliente Teste',
         '111.111.111-11'
-    ),
-    (
-        'Maria Oliveira',
-        '222.222.222-22'
-    ),
-    (
-        'Carlos Pereira',
-        '333.333.333-33'
-    ),
-    ('Ana Souza', '444.444.444-44');
+    );
 
--- Usuários com senha hash BCrypt
+-- Usuários (logins) - senhas são hashes bcrypt de exemplo
+-- senha: 123456 (para ambos)
 INSERT INTO
     usuario (
+        id,
         cliente_id,
         login,
         senha,
@@ -131,265 +126,93 @@ INSERT INTO
     )
 VALUES (
         1,
-        'admin',
+        1,
+        'loja',
         '$2a$11$9CaOWUQHHzwgDdsgvfKMZOnBRZRvbCtE55QkfudF83tHg3SR5aYEq',
         1,
-        'admin'
+        'cliente'
     ),
     (
         2,
-        'joao',
-        '$2a$11$Cjz8OGQmpwG4G8O6Zytl/OuZr9MTUk5cdOw1hxRYYA3Y5GcE7MSWe',
-        1,
-        'cliente'
-    ),
-    (
-        3,
-        'maria',
-        '$2a$11$MtzW1lFbyyCQ0ZP3brG7duVQSm21ztTjMkPGp.XmJgMyWOVnZBg96',
-        1,
-        'cliente'
-    ),
-    (
-        4,
-        'carlos',
-        '$2a$11$ONdB3uklE6dUJWBPqoy1EuDNcQkKNv27rOYv6fYx0j.02G6lU3B9W',
-        1,
-        'cliente'
-    ),
-    (
-        5,
-        'ana',
-        '$2a$11$qa.Cor2kaBDP7uhM1r33ie1PTjK7cwrRAXm3i6p8i2y1k4p4wlZlO',
+        2,
+        'cliente',
+        '$2a$11$9CaOWUQHHzwgDdsgvfKMZOnBRZRvbCtE55QkfudF83tHg3SR5aYEq',
         1,
         'cliente'
     );
 
--- Contas
+-- Contas (1 por usuário)
 INSERT INTO
     conta (
+        id,
         numero_conta,
         tipo,
         saldo,
+        ativa,
         cliente_id
     )
 VALUES (
+        1,
         '0001-1',
         'corrente',
-        15000.00,
+        1000.00,
+        1,
         1
-    ),
+    ), -- Conta da LOJA (recebedora)
     (
+        2,
         '1234-5',
         'corrente',
         2500.00,
+        1,
         2
-    ),
-    (
-        '6789-0',
-        'poupanca',
-        3200.00,
-        2
-    ),
-    (
-        '2222-2',
-        'corrente',
-        5000.00,
-        3
-    ),
-    (
-        '3333-3',
-        'poupanca',
-        1500.00,
-        4
-    ),
-    (
-        '4444-4',
-        'corrente',
-        800.00,
-        5
     );
+-- Conta do CLIENTE (pagador)
 
--- Cartões NFC
-INSERT INTO
-    cartao (
-        uid,
-        apelido,
-        pin_hash,
-        conta_id
-    )
-VALUES (
-        '0848182788',
-        'Cartão João',
-        '$2a$11$YxYiR9Gp5rEpBG8E.qDQ1.V5zY0UdlpLZ4yFRfppzMS9pOTyVjjci',
-        2
-    ),
-    (
-        '0278033935',
-        'Poupança João',
-        NULL,
-        3
-    ),
-    (
-        '0066507913',
-        'Cartão Maria',
-        '$2a$11$KXYFlV3fQYrNqaaPHmSmR.MUus7QfXfSuQ8kFW/Nydp9p7yDCtHdm',
-        4
-    ),
-    (
-        '0066581178',
-        'Cartão Carlos',
-        NULL,
-        5
-    ),
-    (
-        '0099999999',
-        'Cartão Ana',
-        NULL,
-        6
-    );
-
--- Terminais POS
+-- Terminal POS (pertence à conta da LOJA)
 INSERT INTO
     terminal_pos (
+        id,
         nome,
         nome_loja,
         localizacao,
-        uid,
         conta_id,
         ativo
     )
 VALUES (
-        'Terminal Padaria',
-        'Padaria Central',
+        1,
+        'Terminal Loja',
+        'Loja Teste',
         'Centro',
-        'POSPAD123',
         1,
-        TRUE
-    ),
-    (
-        'Terminal Mercado',
-        'Mercado Popular',
-        'Bairro Sul',
-        'POSMER456',
-        1,
-        TRUE
-    ),
-    (
-        'Terminal Restaurante',
-        'Restaurante Bom Sabor',
-        'Bairro Norte',
-        'POSRES789',
-        1,
-        TRUE
+        1
     );
 
--- Transações
+-- Cartões NFC (um para cada usuário) com os UIDs solicitados
 INSERT INTO
-    transacao (
-        tipo,
-        valor,
-        conta_origem_id,
-        conta_destino_id,
-        descricao
-    )
-VALUES (
-        'deposito',
-        1000.00,
-        NULL,
-        2,
-        'Depósito inicial João'
-    ),
-    (
-        'deposito',
-        2000.00,
-        NULL,
-        4,
-        'Depósito inicial Maria'
-    ),
-    (
-        'transferencia',
-        300.00,
-        2,
-        4,
-        'Pagamento de serviços para Maria'
-    ),
-    (
-        'transferencia',
-        150.00,
-        4,
-        5,
-        'Carlos pagou Ana'
-    ),
-    (
-        'saque',
-        100.00,
-        2,
-        NULL,
-        'Saque em caixa eletrônico'
-    ),
-    (
-        'deposito',
-        500.00,
-        NULL,
-        6,
-        'Depósito Ana'
-    ),
-    (
-        'transferencia',
-        200.00,
-        6,
-        2,
-        'Ana pagou João'
-    );
-
--- Pagamentos POS
-INSERT INTO
-    pagamento_pos (
-        terminal_id,
-        cartao_id,
-        valor,
-        data_pagamento,
-        status,
-        descricao
+    cartao (
+        id,
+        uid,
+        apelido,
+        pin_hash,
+        conta_id,
+        ativo
     )
 VALUES (
         1,
+        '0848182788',
+        'Cartão Loja',
+        NULL,
         1,
-        25.50,
-        '2024-01-15 14:30:00',
-        'aprovado',
-        'Compra de pães e café'
+        1
     ),
     (
         2,
-        1,
-        120.00,
-        '2024-01-15 12:15:00',
-        'aprovado',
-        'Compras no mercado'
-    ),
-    (
-        3,
-        3,
-        75.90,
-        '2024-01-15 10:45:00',
-        'aprovado',
-        'Almoço no restaurante'
-    ),
-    (
-        1,
-        5,
-        12.00,
-        '2024-01-14 16:20:00',
-        'aprovado',
-        'Café da manhã'
-    ),
-    (
+        '0066581178',
+        'Cartão Cliente',
+        NULL,
         2,
-        4,
-        200.00,
-        '2024-01-14 15:30:00',
-        'saldo_insuficiente',
-        'Tentativa de compra no mercado'
+        1
     );
+
+

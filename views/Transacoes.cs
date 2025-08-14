@@ -54,20 +54,33 @@ namespace DigiBank.views
         {
             try
             {
+                Console.WriteLine("=== INICIANDO CARREGAMENTO DE DADOS ===");
+
                 CarregarContas();
+                Console.WriteLine($"Contas carregadas: {_listaContas.Count}");
+
                 CarregarTransacoes();
+                Console.WriteLine($"Transações carregadas: {_listaTransacoes.Count}");
+
                 ConfigurarDataGridView();
                 ConfigurarFiltros();
+
+                Console.WriteLine("Chamando AtualizarEstatisticas...");
                 AtualizarEstatisticas();
+                Console.WriteLine("AtualizarEstatisticas concluído!");
 
                 // Garantir que as transações filtradas estejam carregadas
                 _transacoesFiltradas = new List<Transacao>(_listaTransacoes);
 
                 // Aplicar cores imediatamente
                 AtualizarDataGridView();
+
+                Console.WriteLine("=== CARREGAMENTO DE DADOS CONCLUÍDO ===");
             }
             catch (Exception ex)
             {
+                Console.WriteLine($"ERRO no CarregarDados: {ex.Message}");
+                Console.WriteLine($"StackTrace: {ex.StackTrace}");
                 MessageBox.Show($"Erro ao carregar dados: {ex.Message}", "Erro",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -78,9 +91,16 @@ namespace DigiBank.views
             _listaContas.Clear();
             var contas = _contaController.BuscarPorClienteId(_usuarioLogado.ClienteId);
 
-            if (contas != null)
+            if (contas != null && contas.Any())
             {
                 _listaContas.AddRange(contas);
+                Console.WriteLine($"Contas carregadas do banco: {contas.Count}");
+            }
+            else
+            {
+                Console.WriteLine("Nenhuma conta encontrada no banco para o usuário.");
+                MessageBox.Show("Nenhuma conta encontrada. Entre em contato com o suporte.", "Aviso",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -105,11 +125,10 @@ namespace DigiBank.views
                 Console.WriteLine($"- Transação {transacao.Id}: {transacao.Tipo} - {transacao.Valor:C} - {transacao.DataTransacao:dd/MM/yyyy}");
             }
 
-            // Se não houver transações reais, criar dados de exemplo
+            // Verificar se há transações
             if (_listaTransacoes.Count == 0)
             {
-                Console.WriteLine("Nenhuma transação encontrada, criando dados de exemplo...");
-                CriarTransacoesExemplo();
+                Console.WriteLine("Nenhuma transação encontrada para o usuário.");
             }
 
             _transacoesFiltradas = new List<Transacao>(_listaTransacoes);
@@ -117,86 +136,7 @@ namespace DigiBank.views
             Console.WriteLine($"Transações filtradas inicializadas: {_transacoesFiltradas.Count} transações");
         }
 
-        private void CriarTransacoesExemplo()
-        {
-            var transacoesExemplo = new List<Transacao>
-            {
-                new Transacao
-                {
-                    Id = 1,
-                    Tipo = "transferencia",
-                    Valor = -250.00m,
-                    Descricao = "Transferência PIX para Maria Silva",
-                    DataTransacao = DateTime.Parse("2024-01-15 14:30"),
-                    ContaOrigemId = 1
-                },
-                new Transacao
-                {
-                    Id = 2,
-                    Tipo = "deposito",
-                    Valor = 1200.00m,
-                    Descricao = "Depósito em dinheiro - Agência Centro",
-                    DataTransacao = DateTime.Parse("2024-01-15 10:15"),
-                    ContaOrigemId = 1
-                },
-                new Transacao
-                {
-                    Id = 3,
-                    Tipo = "saque",
-                    Valor = -100.00m,
-                    Descricao = "Saque ATM - Shopping Center",
-                    DataTransacao = DateTime.Parse("2024-01-14 16:45"),
-                    ContaOrigemId = 1
-                },
-                new Transacao
-                {
-                    Id = 4,
-                    Tipo = "transferencia",
-                    Valor = -75.50m,
-                    Descricao = "Pagamento NFC - Supermercado ABC",
-                    DataTransacao = DateTime.Parse("2024-01-14 12:20"),
-                    ContaOrigemId = 1
-                },
-                new Transacao
-                {
-                    Id = 5,
-                    Tipo = "transferencia",
-                    Valor = -45.90m,
-                    Descricao = "Pagamento NFC - Farmácia XYZ",
-                    DataTransacao = DateTime.Parse("2024-01-13 18:30"),
-                    ContaOrigemId = 1
-                },
-                new Transacao
-                {
-                    Id = 6,
-                    Tipo = "deposito",
-                    Valor = 500.00m,
-                    Descricao = "Transferência recebida de João Santos",
-                    DataTransacao = DateTime.Parse("2024-01-13 09:15"),
-                    ContaOrigemId = 2
-                },
-                new Transacao
-                {
-                    Id = 7,
-                    Tipo = "saque",
-                    Valor = -200.00m,
-                    Descricao = "Saque ATM - Centro da Cidade",
-                    DataTransacao = DateTime.Parse("2024-01-12 14:00"),
-                    ContaOrigemId = 1
-                },
-                new Transacao
-                {
-                    Id = 8,
-                    Tipo = "transferencia",
-                    Valor = -120.00m,
-                    Descricao = "Pagamento NFC - Restaurante Italiano",
-                    DataTransacao = DateTime.Parse("2024-01-12 20:15"),
-                    ContaOrigemId = 1
-                }
-            };
 
-            _listaTransacoes.AddRange(transacoesExemplo);
-        }
 
         private void ConfigurarDataGridView()
         {
@@ -345,11 +285,30 @@ namespace DigiBank.views
                 var mesAtual = DateTime.Now.Month;
                 var anoAtual = DateTime.Now.Year;
 
+                Console.WriteLine($"=== ATUALIZANDO ESTATÍSTICAS ===");
+                Console.WriteLine($"Mês atual: {mesAtual}, Ano atual: {anoAtual}");
+                Console.WriteLine($"Total de transações na lista: {_listaTransacoes.Count}");
+                Console.WriteLine($"Total de contas na lista: {_listaContas.Count}");
+
+                // Mostrar algumas transações para debug
+                if (_listaTransacoes.Count > 0)
+                {
+                    Console.WriteLine("Primeiras 3 transações:");
+                    foreach (var t in _listaTransacoes.Take(3))
+                    {
+                        Console.WriteLine($"  - {t.Tipo}: {t.Valor:C} em {t.DataTransacao:dd/MM/yyyy}");
+                    }
+                }
+
                 var transacoesMes = _listaTransacoes
                     .Where(t => t.DataTransacao.Month == mesAtual && t.DataTransacao.Year == anoAtual)
                     .ToList();
 
+                Console.WriteLine($"Transações do mês atual ({mesAtual}/{anoAtual}): {transacoesMes.Count}");
+
                 // Separar transferências de entrada e saída baseado na conta do usuário
+                // Uma transferência é de ENTRADA se a conta de destino é uma das minhas contas
+                // Uma transferência é de SAÍDA se a conta de origem é uma das minhas contas
                 var transferenciasEntrada = transacoesMes
                     .Where(t => t.Tipo == "transferencia" && t.ContaDestinoId.HasValue &&
                                _listaContas.Any(c => c.Id == t.ContaDestinoId.Value))
@@ -360,13 +319,68 @@ namespace DigiBank.views
                                _listaContas.Any(c => c.Id == t.ContaOrigemId.Value))
                     .ToList();
 
-                var totalEntradas = transacoesMes
-                    .Where(t => t.Tipo == "deposito")
-                    .Sum(t => t.Valor) + transferenciasEntrada.Sum(t => t.Valor);
+                // Para transferências entre contas do mesmo usuário, considerar como entrada e saída
+                var transferenciasInternas = transacoesMes
+                    .Where(t => t.Tipo == "transferencia" &&
+                               t.ContaOrigemId.HasValue && t.ContaDestinoId.HasValue &&
+                               _listaContas.Any(c => c.Id == t.ContaOrigemId.Value) &&
+                               _listaContas.Any(c => c.Id == t.ContaDestinoId.Value))
+                    .ToList();
 
-                var totalSaidas = transacoesMes
-                    .Where(t => t.Tipo == "saque")
-                    .Sum(t => Math.Abs(t.Valor)) + transferenciasSaida.Sum(t => Math.Abs(t.Valor));
+                // Adicionar transferências internas como entrada e saída
+                foreach (var transferencia in transferenciasInternas)
+                {
+                    if (!transferenciasEntrada.Any(t => t.Id == transferencia.Id))
+                        transferenciasEntrada.Add(transferencia);
+                    if (!transferenciasSaida.Any(t => t.Id == transferencia.Id))
+                        transferenciasSaida.Add(transferencia);
+                }
+
+                // Para transferências de entrada (recebidas), usar o valor absoluto
+                var transferenciasEntradaValor = transferenciasEntrada.Sum(t => Math.Abs(t.Valor));
+                // Para transferências de saída (enviadas), usar o valor absoluto
+                var transferenciasSaidaValor = transferenciasSaida.Sum(t => Math.Abs(t.Valor));
+
+
+
+                Console.WriteLine($"Transferências de entrada: {transferenciasEntrada.Count}");
+                Console.WriteLine($"Transferências de saída: {transferenciasSaida.Count}");
+
+                // Para debug, mostrar detalhes das transferências
+                if (transferenciasEntrada.Count > 0)
+                {
+                    Console.WriteLine("Transferências de entrada:");
+                    foreach (var t in transferenciasEntrada.Take(3))
+                    {
+                        Console.WriteLine($"  - {t.Valor:C} para conta {t.ContaDestinoId}");
+                    }
+                }
+
+                if (transferenciasSaida.Count > 0)
+                {
+                    Console.WriteLine("Transferências de saída:");
+                    foreach (var t in transferenciasSaida.Take(3))
+                    {
+                        Console.WriteLine($"  - {t.Valor:C} da conta {t.ContaOrigemId}");
+                    }
+                }
+
+                var depositos = transacoesMes.Where(t => t.Tipo == "deposito").ToList();
+                var saques = transacoesMes.Where(t => t.Tipo == "saque").ToList();
+
+                var totalEntradas = depositos.Sum(t => t.Valor) + transferenciasEntradaValor;
+                var totalSaidas = saques.Sum(t => Math.Abs(t.Valor)) + transferenciasSaidaValor;
+
+                // Garantir que os valores sejam positivos para o cálculo
+                totalEntradas = Math.Max(0, totalEntradas);
+                totalSaidas = Math.Max(0, totalSaidas);
+
+                Console.WriteLine($"Depósitos: {depositos.Count} transações, total: {depositos.Sum(t => t.Valor):C}");
+                Console.WriteLine($"Transferências de entrada: {transferenciasEntrada.Count} transações, total: {transferenciasEntradaValor:C}");
+                Console.WriteLine($"Saques: {saques.Count} transações, total: {saques.Sum(t => Math.Abs(t.Valor)):C}");
+                Console.WriteLine($"Transferências de saída: {transferenciasSaida.Count} transações, total: {transferenciasSaidaValor:C}");
+                Console.WriteLine($"Total entradas calculado: {totalEntradas:C}");
+                Console.WriteLine($"Total saídas calculado: {totalSaidas:C}");
 
                 var saldoLiquido = totalEntradas - totalSaidas;
 
@@ -374,27 +388,41 @@ namespace DigiBank.views
                 Console.WriteLine($"Estatísticas do mês {mesAtual}/{anoAtual}:");
                 Console.WriteLine($"- Transações no mês: {transacoesMes.Count}");
 
-                var depositos = transacoesMes.Where(t => t.Tipo == "deposito").ToList();
-                var saques = transacoesMes.Where(t => t.Tipo == "saque").ToList();
-
                 Console.WriteLine($"- Depósitos: {depositos.Count} transações, total: {depositos.Sum(t => t.Valor):C}");
                 Console.WriteLine($"- Saques: {saques.Count} transações, total: {saques.Sum(t => Math.Abs(t.Valor)):C}");
-                Console.WriteLine($"- Transferências de entrada: {transferenciasEntrada.Count} transações, total: {transferenciasEntrada.Sum(t => t.Valor):C}");
-                Console.WriteLine($"- Transferências de saída: {transferenciasSaida.Count} transações, total: {transferenciasSaida.Sum(t => Math.Abs(t.Valor)):C}");
+                Console.WriteLine($"- Transferências de entrada: {transferenciasEntrada.Count} transações, total: {transferenciasEntradaValor:C}");
+                Console.WriteLine($"- Transferências de saída: {transferenciasSaida.Count} transações, total: {transferenciasSaidaValor:C}");
                 Console.WriteLine($"- Total entradas: {totalEntradas:C}");
                 Console.WriteLine($"- Total saídas: {totalSaidas:C}");
                 Console.WriteLine($"- Saldo líquido: {saldoLiquido:C}");
 
                 // Atualizar labels
+                Console.WriteLine("Atualizando labels das estatísticas...");
+
                 if (lblTotalEntradas != null)
+                {
                     lblTotalEntradas.Text = totalEntradas.ToString("C");
+                    Console.WriteLine($"Label Total Entradas atualizado: {totalEntradas:C}");
+                }
+                else
+                {
+                    Console.WriteLine("ERRO: lblTotalEntradas é null!");
+                }
 
                 if (lblTotalSaidas != null)
+                {
                     lblTotalSaidas.Text = totalSaidas.ToString("C");
+                    Console.WriteLine($"Label Total Saídas atualizado: {totalSaidas:C}");
+                }
+                else
+                {
+                    Console.WriteLine("ERRO: lblTotalSaidas é null!");
+                }
 
                 if (lblSaldoLiquido != null)
                 {
                     lblSaldoLiquido.Text = saldoLiquido.ToString("C");
+                    Console.WriteLine($"Label Saldo Líquido atualizado: {saldoLiquido:C}");
 
                     // Configurar cores do saldo líquido
                     if (saldoLiquido >= 0)
@@ -406,6 +434,12 @@ namespace DigiBank.views
                         lblSaldoLiquido.ForeColor = Color.FromArgb(239, 68, 68); // Vermelho
                     }
                 }
+                else
+                {
+                    Console.WriteLine("ERRO: lblSaldoLiquido é null!");
+                }
+
+                Console.WriteLine("=== ESTATÍSTICAS ATUALIZADAS COM SUCESSO ===");
             }
             catch (Exception ex)
             {
