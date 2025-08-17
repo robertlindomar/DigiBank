@@ -114,20 +114,54 @@ namespace DigiBank.views
                 var transacoes = _transacaoController.BuscarPorContaId(conta.Id);
                 if (transacoes != null)
                 {
-                    _listaTransacoes.AddRange(transacoes);
+                    foreach (var transacao in transacoes)
+                    {
+                        // Para transferências, criar uma cópia específica para cada conta
+                        // com o valor correto (negativo para origem, positivo para destino)
+                        if (transacao.Tipo == "transferencia")
+                        {
+                            if (transacao.ContaOrigemId == conta.Id)
+                            {
+                                // Esta conta é a origem da transferência (SAÍDA)
+                                var transacaoSaida = new Transacao
+                                {
+                                    Id = transacao.Id,
+                                    Tipo = transacao.Tipo,
+                                    Descricao = transacao.Descricao,
+                                    Valor = -Math.Abs(transacao.Valor), // Negativo (saída)
+                                    DataTransacao = transacao.DataTransacao,
+                                    ContaOrigemId = transacao.ContaOrigemId,
+                                    ContaDestinoId = transacao.ContaDestinoId
+                                };
+                                _listaTransacoes.Add(transacaoSaida);
+                            }
+                            else if (transacao.ContaDestinoId == conta.Id)
+                            {
+                                // Esta conta é o destino da transferência (ENTRADA)
+                                var transacaoEntrada = new Transacao
+                                {
+                                    Id = transacao.Id,
+                                    Tipo = transacao.Tipo,
+                                    Descricao = transacao.Descricao,
+                                    Valor = Math.Abs(transacao.Valor), // Positivo (entrada)
+                                    DataTransacao = transacao.DataTransacao,
+                                    ContaOrigemId = transacao.ContaOrigemId,
+                                    ContaDestinoId = transacao.ContaDestinoId
+                                };
+                                _listaTransacoes.Add(transacaoEntrada);
+                            }
+                        }
+                        else
+                        {
+                            // Para outras transações (depósitos, saques), adicionar normalmente
+                            _listaTransacoes.Add(transacao);
+                        }
+                    }
                 }
             }
 
-            // CORREÇÃO: Remover duplicações baseado no ID da transação
-            // Isso resolve o problema onde a mesma transação aparecia múltiplas vezes
-            // quando buscada por diferentes contas (ex: transferência entre contas do mesmo usuário)
-            _listaTransacoes = _listaTransacoes
-                .GroupBy(t => t.Id)
-                .Select(g => g.First())
-                .ToList();
-
             // Debug: Log das transações carregadas
-            Console.WriteLine($"Transações carregadas (após remoção de duplicações): {_listaTransacoes.Count}");
+            Console.WriteLine($"Transações carregadas: {_listaTransacoes.Count}");
             foreach (var transacao in _listaTransacoes.Take(5)) // Mostrar apenas as 5 primeiras
             {
                 Console.WriteLine($"- Transação {transacao.Id}: {transacao.Tipo} - {transacao.Valor:C} - {transacao.DataTransacao:dd/MM/yyyy}");
@@ -191,13 +225,13 @@ namespace DigiBank.views
                 }
             };
 
-            // Coluna Conta
-            var colConta = new DataGridViewTextBoxColumn
+            // Coluna Extrato (CORRIGIDA: Mostra origem → destino)
+            var colExtrato = new DataGridViewTextBoxColumn
             {
-                Name = "Conta",
-                HeaderText = "Conta",
-                DataPropertyName = "ContaOrigemId",
-                Width = 120,
+                Name = "Extrato",
+                HeaderText = "Extrato",
+                DataPropertyName = "Extrato",
+                Width = 150,
                 DefaultCellStyle = new DataGridViewCellStyle
                 {
                     Font = new Font("Segoe UI", 9),
@@ -253,7 +287,7 @@ namespace DigiBank.views
 
             dgvTransacoes.Columns.AddRange(new DataGridViewColumn[]
             {
-                colTipo, colDescricao, colConta, colData, colValor, colStatus
+                colTipo, colDescricao, colExtrato, colData, colValor, colStatus
             });
 
             // Configurar estilo do cabeçalho
@@ -325,22 +359,19 @@ namespace DigiBank.views
 
                 Console.WriteLine($"Transações do mês atual ({mesAtual}/{anoAtual}): {transacoesMes.Count}");
 
-                // Separar transferências de entrada e saída baseado na conta do usuário
-                // Uma transferência é de ENTRADA se a conta de destino é uma das minhas contas
-                // Uma transferência é de SAÍDA se a conta de origem é uma das minhas contas
+                // Separar transferências de entrada e saída baseado no valor
+                // Agora as transferências já têm valores corretos: negativos para saídas, positivos para entradas
                 var transferenciasEntrada = transacoesMes
-                    .Where(t => t.Tipo == "transferencia" && t.ContaDestinoId.HasValue &&
-                               _listaContas.Any(c => c.Id == t.ContaDestinoId.Value))
+                    .Where(t => t.Tipo == "transferencia" && t.Valor > 0)
                     .ToList();
 
                 var transferenciasSaida = transacoesMes
-                    .Where(t => t.Tipo == "transferencia" && t.ContaOrigemId.HasValue &&
-                               _listaContas.Any(c => c.Id == t.ContaOrigemId.Value))
+                    .Where(t => t.Tipo == "transferencia" && t.Valor < 0)
                     .ToList();
 
-                // Para transferências entre contas do mesmo usuário, NÃO duplicar
-                // Uma transferência interna deve aparecer apenas uma vez, mas ser contabilizada
-                // como saída da conta de origem e entrada na conta de destino
+                // Para transferências entre contas do mesmo usuário, agora aparecem duas vezes
+                // Uma vez como saída da conta de origem (valor negativo) e outra como entrada na conta de destino (valor positivo)
+                // Isso é correto pois cada conta tem seu próprio extrato
                 var transferenciasInternas = transacoesMes
                     .Where(t => t.Tipo == "transferencia" &&
                                t.ContaOrigemId.HasValue && t.ContaDestinoId.HasValue &&
@@ -374,9 +405,8 @@ namespace DigiBank.views
                 var depositos = transacoesMes.Where(t => t.Tipo == "deposito").ToList();
                 var saques = transacoesMes.Where(t => t.Tipo == "saque").ToList();
 
-                // Para transferências internas, não duplicar o valor total
-                // Mas sim considerar como entrada e saída para o cálculo do saldo
-                var totalEntradas = depositos.Sum(t => t.Valor) + transferenciasEntrada.Sum(t => Math.Abs(t.Valor));
+                // Para transferências, usar os valores já corrigidos (positivos para entradas, negativos para saídas)
+                var totalEntradas = depositos.Sum(t => Math.Abs(t.Valor)) + transferenciasEntrada.Sum(t => Math.Abs(t.Valor));
                 var totalSaidas = saques.Sum(t => Math.Abs(t.Valor)) + transferenciasSaida.Sum(t => Math.Abs(t.Valor));
 
                 // Garantir que os valores sejam positivos para o cálculo
@@ -472,41 +502,166 @@ namespace DigiBank.views
                 var tipoSelecionado = cmbTipoTransacao.SelectedItem?.ToString();
                 var tipoContaSelecionado = cmbTipoConta.SelectedItem?.ToString();
 
-                // CORREÇÃO: Filtros baseados no tipo real da transação, não no valor
-                // Antes: "Depósitos" filtravam por valor > 0 (incluía transferências)
-                // Agora: "Depósitos" filtram apenas por tipo == "deposito"
+                Console.WriteLine($"=== APLICANDO FILTROS ===");
+                Console.WriteLine($"Termo busca: '{termoBusca}'");
+                Console.WriteLine($"Tipo transação: '{tipoSelecionado}'");
+                Console.WriteLine($"Tipo conta: '{tipoContaSelecionado}'");
+                Console.WriteLine($"Total transações antes do filtro: {_listaTransacoes.Count}");
+
+                // Aplicar filtros
                 _transacoesFiltradas = _listaTransacoes.Where(t =>
                 {
+                    // Filtro por termo de busca
                     var matchesSearch = string.IsNullOrEmpty(termoBusca) ||
                                        (t.Descricao?.ToLower().Contains(termoBusca) ?? false);
 
+                    // Filtro por tipo de transação
                     var matchesType = tipoSelecionado == "Todas" ||
                                     (tipoSelecionado == "Depósitos" && t.Tipo == "deposito") ||
                                     (tipoSelecionado == "Saques" && t.Tipo == "saque") ||
                                     (tipoSelecionado == "Transferências" && t.Tipo == "transferencia");
 
                     // Filtro por tipo de conta
-                    // Considera tanto conta de origem quanto de destino para transferências
-                    // Ex: Se filtrar por "Conta Corrente", mostra transações onde:
-                    // - Conta de origem é corrente, OU
-                    // - Conta de destino é corrente (para transferências recebidas)
-                    var matchesConta = tipoContaSelecionado == "Todas as Contas" ||
-                                      (tipoContaSelecionado == "Conta Corrente" &&
-                                       (_listaContas.Any(c => c.Id == t.ContaOrigemId && c.Tipo == "corrente") ||
-                                        _listaContas.Any(c => c.Id == t.ContaDestinoId && c.Tipo == "corrente"))) ||
-                                      (tipoContaSelecionado == "Conta Poupança" &&
-                                       (_listaContas.Any(c => c.Id == t.ContaOrigemId && c.Tipo == "poupanca") ||
-                                        _listaContas.Any(c => c.Id == t.ContaDestinoId && c.Tipo == "poupanca")));
+                    var matchesConta = true; // Padrão: mostrar todas
+
+                    if (tipoContaSelecionado != "Todas as Contas")
+                    {
+                        if (t.Tipo == "transferencia")
+                        {
+                            // Para transferências, verificar se a conta selecionada está envolvida
+                            var contaOrigem = _listaContas.FirstOrDefault(c => c.Id == t.ContaOrigemId);
+                            var contaDestino = _listaContas.FirstOrDefault(c => c.Id == t.ContaDestinoId);
+
+                            if (tipoContaSelecionado == "Conta Corrente")
+                            {
+                                matchesConta = (contaOrigem?.Tipo == "corrente" || contaDestino?.Tipo == "corrente");
+                            }
+                            else if (tipoContaSelecionado == "Conta Poupança")
+                            {
+                                matchesConta = (contaOrigem?.Tipo == "poupanca" || contaDestino?.Tipo == "poupanca");
+                            }
+                        }
+                        else
+                        {
+                            // Para outras transações, verificar a conta de origem
+                            var conta = _listaContas.FirstOrDefault(c => c.Id == t.ContaOrigemId);
+                            if (conta != null)
+                            {
+                                if (tipoContaSelecionado == "Conta Corrente")
+                                {
+                                    matchesConta = (conta.Tipo == "corrente");
+                                }
+                                else if (tipoContaSelecionado == "Conta Poupança")
+                                {
+                                    matchesConta = (conta.Tipo == "poupanca");
+                                }
+                            }
+                        }
+                    }
 
                     return matchesSearch && matchesType && matchesConta;
                 }).ToList();
 
+                // CORREÇÃO: Se filtrar por tipo de conta específico, remover duplicatas de transferências
+                // E ajustar os valores para mostrar a perspectiva correta da conta selecionada
+                if (tipoContaSelecionado != "Todas as Contas")
+                {
+                    Console.WriteLine("Filtro específico ativo - removendo duplicatas e ajustando valores...");
+
+                    // Para cada transferência, determinar qual transação mostrar baseado no filtro
+                    var transferenciasFiltradas = new List<Transacao>();
+
+                    // Agrupar transferências por ID
+                    var gruposTransferencias = _transacoesFiltradas
+                        .Where(t => t.Tipo == "transferencia")
+                        .GroupBy(t => t.Id);
+
+                    foreach (var grupo in gruposTransferencias)
+                    {
+                        var transacoes = grupo.ToList();
+
+                        // Encontrar a transação que corresponde à conta selecionada
+                        Transacao transacaoParaMostrar = null;
+
+                        if (tipoContaSelecionado == "Conta Corrente")
+                        {
+                            // Procurar transação da conta corrente
+                            transacaoParaMostrar = transacoes.FirstOrDefault(t =>
+                            {
+                                var contaOrigem = _listaContas.FirstOrDefault(c => c.Id == t.ContaOrigemId);
+                                var contaDestino = _listaContas.FirstOrDefault(c => c.Id == t.ContaDestinoId);
+                                return (contaOrigem?.Tipo == "corrente" || contaDestino?.Tipo == "corrente");
+                            });
+                        }
+                        else if (tipoContaSelecionado == "Conta Poupança")
+                        {
+                            // Procurar transação da conta poupança
+                            transacaoParaMostrar = transacoes.FirstOrDefault(t =>
+                            {
+                                var contaOrigem = _listaContas.FirstOrDefault(c => c.Id == t.ContaOrigemId);
+                                var contaDestino = _listaContas.FirstOrDefault(c => c.Id == t.ContaDestinoId);
+                                return (contaOrigem?.Tipo == "poupanca" || contaDestino?.Tipo == "poupanca");
+                            });
+                        }
+
+                        if (transacaoParaMostrar != null)
+                        {
+                            // Ajustar o valor baseado na perspectiva da conta selecionada
+                            var contaOrigem = _listaContas.FirstOrDefault(c => c.Id == transacaoParaMostrar.ContaOrigemId);
+                            var contaDestino = _listaContas.FirstOrDefault(c => c.Id == transacaoParaMostrar.ContaDestinoId);
+
+                            if (tipoContaSelecionado == "Conta Corrente")
+                            {
+                                if (contaOrigem?.Tipo == "corrente")
+                                {
+                                    // Conta corrente é origem (SAÍDA) - valor negativo
+                                    transacaoParaMostrar.Valor = -Math.Abs(transacaoParaMostrar.Valor);
+                                }
+                                else if (contaDestino?.Tipo == "corrente")
+                                {
+                                    // Conta corrente é destino (ENTRADA) - valor positivo
+                                    transacaoParaMostrar.Valor = Math.Abs(transacaoParaMostrar.Valor);
+                                }
+                            }
+                            else if (tipoContaSelecionado == "Conta Poupança")
+                            {
+                                if (contaOrigem?.Tipo == "poupanca")
+                                {
+                                    // Conta poupança é origem (SAÍDA) - valor negativo
+                                    transacaoParaMostrar.Valor = -Math.Abs(transacaoParaMostrar.Valor);
+                                }
+                                else if (contaDestino?.Tipo == "poupanca")
+                                {
+                                    // Conta poupança é destino (ENTRADA) - valor positivo
+                                    transacaoParaMostrar.Valor = Math.Abs(transacaoParaMostrar.Valor);
+                                }
+                            }
+
+                            transferenciasFiltradas.Add(transacaoParaMostrar);
+                        }
+                    }
+
+                    // Adicionar outras transações (não transferências)
+                    var outrasTransacoes = _transacoesFiltradas.Where(t => t.Tipo != "transferencia").ToList();
+                    transferenciasFiltradas.AddRange(outrasTransacoes);
+
+                    _transacoesFiltradas = transferenciasFiltradas;
+
+                    Console.WriteLine($"Após ajuste de valores: {_transacoesFiltradas.Count} transações");
+                }
+
                 // Debug: Log dos filtros aplicados
-                Console.WriteLine($"Filtros aplicados:");
-                Console.WriteLine($"- Termo busca: '{termoBusca}'");
-                Console.WriteLine($"- Tipo selecionado: '{tipoSelecionado}'");
-                Console.WriteLine($"- Tipo conta selecionado: '{tipoContaSelecionado}'");
-                Console.WriteLine($"- Transações filtradas: {_transacoesFiltradas.Count} de {_listaTransacoes.Count}");
+                Console.WriteLine($"=== RESULTADO DOS FILTROS ===");
+                Console.WriteLine($"Transações filtradas: {_transacoesFiltradas.Count} de {_listaTransacoes.Count}");
+
+                if (_transacoesFiltradas.Count > 0)
+                {
+                    Console.WriteLine("Primeiras 3 transações filtradas:");
+                    foreach (var t in _transacoesFiltradas.Take(3))
+                    {
+                        Console.WriteLine($"  - {t.Tipo}: {t.Valor:C} - {t.Descricao}");
+                    }
+                }
 
                 AtualizarDataGridView();
                 AtualizarContador();
@@ -528,9 +683,8 @@ namespace DigiBank.views
                 // Criar lista de objetos anônimos para o DataGridView
                 var dadosParaGrid = _transacoesFiltradas.Select(t =>
                 {
-                    // Para transferências, mostrar informações mais claras
                     string descricao = t.Descricao;
-                    string nomeConta = "Conta";
+                    string extrato = "N/A";
 
                     if (t.Tipo == "transferencia")
                     {
@@ -542,44 +696,38 @@ namespace DigiBank.views
                             var tipoOrigem = contaOrigem.Tipo == "corrente" ? "Conta Corrente" : "Conta Poupança";
                             var tipoDestino = contaDestino.Tipo == "corrente" ? "Conta Corrente" : "Conta Poupança";
 
-                            // Se for transferência interna (mesmo usuário), mostrar de forma clara
-                            if (_listaContas.Any(c => c.Id == t.ContaOrigemId) &&
-                                _listaContas.Any(c => c.Id == t.ContaDestinoId))
+                            // Determinar se esta transação é vista da perspectiva da conta de origem ou destino
+                            if (t.Valor < 0)
                             {
-                                descricao = $"Transferência interna: {tipoOrigem} → {tipoDestino}";
-                                nomeConta = $"{tipoOrigem} → {tipoDestino}";
+                                // Esta é a conta de origem (SAÍDA) - valor negativo
+                                descricao = $"Transferência para {tipoDestino}";
+                                extrato = $"{tipoOrigem} → {tipoDestino}";
                             }
                             else
                             {
-                                // Transferência externa
-                                if (_listaContas.Any(c => c.Id == t.ContaOrigemId))
-                                {
-                                    // É saída (envio)
-                                    nomeConta = $"{tipoOrigem} → Externa";
-                                }
-                                else
-                                {
-                                    // É entrada (recebimento)
-                                    nomeConta = $"Externa → {tipoDestino}";
-                                }
+                                // Esta é a conta de destino (ENTRADA) - valor positivo
+                                descricao = $"Transferência de {tipoOrigem}";
+                                extrato = $"{tipoOrigem} → {tipoDestino}";
                             }
                         }
                     }
                     else
                     {
+                        // Para outras transações (depósitos, saques)
                         var conta = _listaContas.FirstOrDefault(c => c.Id == t.ContaOrigemId);
-                        nomeConta = conta != null ?
-                            (conta.Tipo == "corrente" ? "Conta Corrente" : "Conta Poupança") :
-                            "Conta";
+                        if (conta != null)
+                        {
+                            extrato = conta.Tipo == "corrente" ? "Conta Corrente" : "Conta Poupança";
+                        }
                     }
 
                     return new
                     {
                         Tipo = ObterNomeTipoTransacao(t.Tipo),
                         Descricao = descricao,
-                        Conta = nomeConta,
+                        Extrato = extrato,
                         DataTransacao = t.DataTransacao,
-                        Valor = t.Valor,
+                        Valor = t.Valor, // Usar o valor já corrigido da transação
                         Status = "Concluída"
                     };
                 }).ToList();
@@ -594,21 +742,8 @@ namespace DigiBank.views
                         var valor = (decimal)row.Cells["Valor"].Value;
                         var tipo = row.Cells["Tipo"].Value?.ToString();
 
-                        // Determinar se é entrada ou saída baseado no tipo e conta
-                        var transacaoOriginal = _transacoesFiltradas[row.Index];
-                        var isEntrada = false;
-
-                        if (transacaoOriginal.Tipo == "deposito")
-                        {
-                            isEntrada = true;
-                        }
-                        else if (transacaoOriginal.Tipo == "transferencia")
-                        {
-                            // Se tem ContaDestinoId e é uma das minhas contas, é entrada
-                            isEntrada = transacaoOriginal.ContaDestinoId.HasValue &&
-                                       _listaContas.Any(c => c.Id == transacaoOriginal.ContaDestinoId.Value);
-                        }
-                        // Saque sempre é saída
+                        // Determinar se é entrada ou saída baseado no valor (positivo = entrada, negativo = saída)
+                        var isEntrada = valor >= 0;
 
                         // Colorir valores
                         if (isEntrada)
@@ -736,6 +871,27 @@ namespace DigiBank.views
 
         private void CmbTipoConta_SelectedIndexChanged(object sender, EventArgs e)
         {
+            Console.WriteLine($"=== EVENTO FILTRO CONTA DISPARADO ===");
+            Console.WriteLine($"Item selecionado: {cmbTipoConta.SelectedItem}");
+            Console.WriteLine($"Índice selecionado: {cmbTipoConta.SelectedIndex}");
+
+            // Teste: verificar se o filtro está funcionando
+            var tipoContaSelecionado = cmbTipoConta.SelectedItem?.ToString();
+            Console.WriteLine($"Tipo de conta selecionado: '{tipoContaSelecionado}'");
+
+            if (tipoContaSelecionado == "Conta Corrente")
+            {
+                Console.WriteLine("Filtrando por Conta Corrente...");
+            }
+            else if (tipoContaSelecionado == "Conta Poupança")
+            {
+                Console.WriteLine("Filtrando por Conta Poupança...");
+            }
+            else
+            {
+                Console.WriteLine("Mostrando todas as contas...");
+            }
+
             AplicarFiltros();
         }
 
