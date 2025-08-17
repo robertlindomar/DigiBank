@@ -18,7 +18,7 @@ namespace DigiBank
     public partial class Main : Form
     {
 
-        Usuario usuarioLogado = new Usuario();
+        Cliente clienteLogado = new Cliente();
 
 
         public Main()
@@ -26,11 +26,11 @@ namespace DigiBank
             InitializeComponent();
             ConfigurarUsuario();
         }
-        public Main(Usuario usuario)
+        public Main(Cliente cliente)
         {
             InitializeComponent();
-            this.usuarioLogado = usuario;
-            if (usuario != null)
+            this.clienteLogado = cliente;
+            if (cliente != null)
             {
                 ConfigurarUsuario();
             }
@@ -41,14 +41,14 @@ namespace DigiBank
 
         private void ConfigurarUsuario()
         {
-            if (usuarioLogado != null)
+            if (clienteLogado != null)
             {
-                // Configurar informações do usuário
-                lblNomeUsuario.Text = usuarioLogado.Login;
-                lblCPF.Text = $"ID: {usuarioLogado.Id}";
+                // Configurar informações do cliente
+                lblNomeUsuario.Text = clienteLogado.Login;
+                lblCPF.Text = $"ID: {clienteLogado.Id}";
 
                 // Gerar iniciais do nome
-                var iniciais = GerarIniciais(usuarioLogado.Login);
+                var iniciais = GerarIniciais(clienteLogado.Login);
                 lblIniciais.Text = iniciais;
             }
             else
@@ -74,10 +74,7 @@ namespace DigiBank
             return (palavras[0].Substring(0, 1) + palavras[palavras.Length - 1].Substring(0, 1)).ToUpper();
         }
 
-        private void CarregarClientes()
-        {
 
-        }
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -95,7 +92,7 @@ namespace DigiBank
 
             panelPrincipal.Controls.Clear();
 
-            DashBoard telaDashboard = new DashBoard(usuarioLogado)
+            DashBoard telaDashboard = new DashBoard(clienteLogado)
             {
                 TopLevel = false,
                 FormBorderStyle = FormBorderStyle.None,
@@ -110,7 +107,7 @@ namespace DigiBank
 
             panelPrincipal.Controls.Clear();
 
-            Transacoes tela = new Transacoes(usuarioLogado)
+            Transacoes tela = new Transacoes(clienteLogado)
             {
                 TopLevel = false,
                 FormBorderStyle = FormBorderStyle.None,
@@ -126,7 +123,7 @@ namespace DigiBank
 
             panelPrincipal.Controls.Clear();
 
-            Cartoes tela = new Cartoes(usuarioLogado)
+            Cartoes tela = new Cartoes(clienteLogado)
             {
                 TopLevel = false,
                 FormBorderStyle = FormBorderStyle.None,
@@ -142,7 +139,7 @@ namespace DigiBank
 
             panelPrincipal.Controls.Clear();
 
-            TerminalPosForm tela = new TerminalPosForm(usuarioLogado)
+            TerminalPosForm tela = new TerminalPosForm(clienteLogado)
             {
                 TopLevel = false,
                 FormBorderStyle = FormBorderStyle.None,

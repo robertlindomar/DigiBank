@@ -62,7 +62,7 @@
             this.panelLateral.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelLateral.Location = new System.Drawing.Point(0, 0);
             this.panelLateral.Name = "panelLateral";
-            this.panelLateral.Size = new System.Drawing.Size(250, 700);
+            this.panelLateral.Size = new System.Drawing.Size(250, 692);
             this.panelLateral.TabIndex = 0;
             // 
             // panelUsuario
@@ -72,7 +72,7 @@
             this.panelUsuario.Controls.Add(this.lblNomeUsuario);
             this.panelUsuario.Controls.Add(this.picAvatar);
             this.panelUsuario.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelUsuario.Location = new System.Drawing.Point(0, 620);
+            this.panelUsuario.Location = new System.Drawing.Point(0, 612);
             this.panelUsuario.Name = "panelUsuario";
             this.panelUsuario.Size = new System.Drawing.Size(250, 80);
             this.panelUsuario.TabIndex = 2;
@@ -84,7 +84,7 @@
             this.lblCPF.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(107)))), ((int)(((byte)(114)))), ((int)(((byte)(128)))));
             this.lblCPF.Location = new System.Drawing.Point(80, 40);
             this.lblCPF.Name = "lblCPF";
-            this.lblCPF.Size = new System.Drawing.Size(108, 13);
+            this.lblCPF.Size = new System.Drawing.Size(140, 19);
             this.lblCPF.TabIndex = 2;
             this.lblCPF.Text = "CPF: 123.456.789-00";
             // 
@@ -95,7 +95,7 @@
             this.lblNomeUsuario.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
             this.lblNomeUsuario.Location = new System.Drawing.Point(80, 20);
             this.lblNomeUsuario.Name = "lblNomeUsuario";
-            this.lblNomeUsuario.Size = new System.Drawing.Size(77, 19);
+            this.lblNomeUsuario.Size = new System.Drawing.Size(90, 23);
             this.lblNomeUsuario.TabIndex = 1;
             this.lblNomeUsuario.Text = "João Silva";
             // 
@@ -113,9 +113,9 @@
             this.lblIniciais.AutoSize = true;
             this.lblIniciais.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblIniciais.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(65)))), ((int)(((byte)(81)))));
-            this.lblIniciais.Location = new System.Drawing.Point(8, 10);
+            this.lblIniciais.Location = new System.Drawing.Point(6, 9);
             this.lblIniciais.Name = "lblIniciais";
-            this.lblIniciais.Size = new System.Drawing.Size(23, 19);
+            this.lblIniciais.Size = new System.Drawing.Size(28, 23);
             this.lblIniciais.TabIndex = 0;
             this.lblIniciais.Text = "JS";
             // 
@@ -137,7 +137,7 @@
             this.lblLogo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
             this.lblLogo.Location = new System.Drawing.Point(80, 25);
             this.lblLogo.Name = "lblLogo";
-            this.lblLogo.Size = new System.Drawing.Size(117, 32);
+            this.lblLogo.Size = new System.Drawing.Size(147, 41);
             this.lblLogo.TabIndex = 1;
             this.lblLogo.Text = "DigiBank";
             // 
@@ -157,7 +157,7 @@
             this.lblIconeLogo.ForeColor = System.Drawing.Color.White;
             this.lblIconeLogo.Location = new System.Drawing.Point(8, 8);
             this.lblIconeLogo.Name = "lblIconeLogo";
-            this.lblIconeLogo.Size = new System.Drawing.Size(44, 30);
+            this.lblIconeLogo.Size = new System.Drawing.Size(55, 37);
             this.lblIconeLogo.TabIndex = 0;
             this.lblIconeLogo.Text = "⚡";
             // 
@@ -172,7 +172,7 @@
             this.panelMenu.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelMenu.Location = new System.Drawing.Point(0, 0);
             this.panelMenu.Name = "panelMenu";
-            this.panelMenu.Size = new System.Drawing.Size(250, 700);
+            this.panelMenu.Size = new System.Drawing.Size(250, 692);
             this.panelMenu.TabIndex = 0;
             // 
             // btnDashboard
@@ -261,15 +261,15 @@
             this.panelPrincipal.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelPrincipal.Location = new System.Drawing.Point(250, 0);
             this.panelPrincipal.Name = "panelPrincipal";
-            this.panelPrincipal.Size = new System.Drawing.Size(950, 700);
+            this.panelPrincipal.Size = new System.Drawing.Size(948, 692);
             this.panelPrincipal.TabIndex = 1;
             // 
             // Main
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1200, 700);
+            this.ClientSize = new System.Drawing.Size(1198, 692);
             this.Controls.Add(this.panelPrincipal);
             this.Controls.Add(this.panelLateral);
             this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));

@@ -15,7 +15,7 @@ namespace DigiBank.views
     public partial class Cartoes : Form
     {
         #region Campos Privados
-        private readonly Usuario _usuarioLogado;
+        private readonly Cliente _clienteLogado;
         private readonly CartaoController _cartaoController;
         private readonly ContaController _contaController;
         private List<CartaoNfc> _listaCartoes;
@@ -26,17 +26,17 @@ namespace DigiBank.views
         public Cartoes()
         {
             InitializeComponent();
-            _usuarioLogado = new Usuario();
+            _clienteLogado = new Cliente();
             _cartaoController = new CartaoController();
             _contaController = new ContaController();
             _listaCartoes = new List<CartaoNfc>();
             _listaContas = new List<Conta>();
         }
 
-        public Cartoes(Usuario usuario)
+        public Cartoes(Cliente cliente)
         {
             InitializeComponent();
-            _usuarioLogado = usuario ?? throw new ArgumentNullException(nameof(usuario));
+            _clienteLogado = cliente ?? throw new ArgumentNullException(nameof(cliente));
             _cartaoController = new CartaoController();
             _contaController = new ContaController();
             _listaCartoes = new List<CartaoNfc>();
@@ -66,7 +66,7 @@ namespace DigiBank.views
         private void CarregarContas()
         {
             _listaContas.Clear();
-            var contas = _contaController.BuscarPorClienteId(_usuarioLogado.ClienteId);
+            var contas = _contaController.BuscarPorClienteId(_clienteLogado.Id);
 
             if (contas != null)
             {

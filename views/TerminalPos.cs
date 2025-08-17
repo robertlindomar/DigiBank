@@ -15,7 +15,7 @@ namespace DigiBank.views
     public partial class TerminalPosForm : Form
     {
         #region Campos Privados
-        private readonly Usuario _usuarioLogado;
+        private readonly Cliente _clienteLogado;
         private readonly TerminalPosController _terminalController;
         private readonly PagamentoPosController _pagamentoController;
         private readonly CartaoController _cartaoController;
@@ -33,7 +33,7 @@ namespace DigiBank.views
         public TerminalPosForm()
         {
             InitializeComponent();
-            _usuarioLogado = new Usuario();
+            _clienteLogado = new Cliente();
             _terminalController = new TerminalPosController();
             _pagamentoController = new PagamentoPosController();
             _cartaoController = new CartaoController();
@@ -45,10 +45,10 @@ namespace DigiBank.views
             _listaContasUsuario = new List<Conta>();
         }
 
-        public TerminalPosForm(Usuario usuario)
+        public TerminalPosForm(Cliente cliente)
         {
             InitializeComponent();
-            _usuarioLogado = usuario ?? throw new ArgumentNullException(nameof(usuario));
+            _clienteLogado = cliente ?? throw new ArgumentNullException(nameof(cliente));
             _terminalController = new TerminalPosController();
             _pagamentoController = new PagamentoPosController();
             _cartaoController = new CartaoController();
@@ -72,7 +72,7 @@ namespace DigiBank.views
             try
             {
                 Console.WriteLine("=== Carregando dados do Terminal POS ===");
-                Console.WriteLine($"Usuário logado: {_usuarioLogado.Login} (Cliente ID: {_usuarioLogado.ClienteId})");
+                Console.WriteLine($"Cliente logado: {_clienteLogado.Login} (Cliente ID: {_clienteLogado.Id})");
 
                 CarregarContasUsuario();
                 CarregarTerminaisUsuario();
@@ -99,7 +99,7 @@ namespace DigiBank.views
                 Console.WriteLine("=== CARREGANDO CONTAS DO USUÁRIO ===");
 
                 // Buscar contas do cliente logado
-                var contas = _contaController.BuscarPorClienteId(_usuarioLogado.ClienteId);
+                var contas = _contaController.BuscarPorClienteId(_clienteLogado.Id);
                 Console.WriteLine($"Resultado da busca: {contas?.Count ?? 0} contas encontradas");
 
                 if (contas != null && contas.Any())
@@ -714,7 +714,7 @@ namespace DigiBank.views
                 }
 
                 var contaPadrao = _listaContasUsuario.First();
-                var cliente = _clienteController.BuscarPorId(_usuarioLogado.ClienteId);
+                var cliente = _clienteController.BuscarPorId(_clienteLogado.Id);
 
                 if (cliente == null)
                 {

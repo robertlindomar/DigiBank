@@ -13,13 +13,17 @@ namespace DigiBank.repositories
             using (var db = new Database())
             {
                 var conexao = db.OpenConnection();
-                string sql = "INSERT INTO cliente (nome, cpf, data_criacao) VALUES (@nome, @cpf, @data_criacao); SELECT LAST_INSERT_ID();";
+                string sql = "INSERT INTO cliente (nome, cpf, login, senha, ativo, data_criacao, tipo) VALUES (@nome, @cpf, @login, @senha, @ativo, @data_criacao, @tipo); SELECT LAST_INSERT_ID();";
 
                 using (MySqlCommand cmd = new MySqlCommand(sql, conexao))
                 {
                     cmd.Parameters.AddWithValue("@nome", novoCliente.Nome);
                     cmd.Parameters.AddWithValue("@cpf", novoCliente.Cpf);
+                    cmd.Parameters.AddWithValue("@login", novoCliente.Login);
+                    cmd.Parameters.AddWithValue("@senha", novoCliente.Senha);
+                    cmd.Parameters.AddWithValue("@ativo", novoCliente.Ativo);
                     cmd.Parameters.AddWithValue("@data_criacao", novoCliente.DataCriacao);
+                    cmd.Parameters.AddWithValue("@tipo", novoCliente.Tipo);
 
                     int id = Convert.ToInt32(cmd.ExecuteScalar());
                     db.CloseConnection();
@@ -46,7 +50,11 @@ namespace DigiBank.repositories
                             Id = Convert.ToInt32(reader["id"]),
                             Nome = reader["nome"].ToString(),
                             Cpf = reader["cpf"].ToString(),
-                            DataCriacao = Convert.ToDateTime(reader["data_criacao"])
+                            Login = reader["login"].ToString(),
+                            Senha = reader["senha"].ToString(),
+                            Ativo = Convert.ToBoolean(reader["ativo"]),
+                            DataCriacao = Convert.ToDateTime(reader["data_criacao"]),
+                            Tipo = reader["tipo"].ToString()
                         });
                     }
                 }
@@ -75,7 +83,11 @@ namespace DigiBank.repositories
                                 Id = Convert.ToInt32(reader["id"]),
                                 Nome = reader["nome"].ToString(),
                                 Cpf = reader["cpf"].ToString(),
-                                DataCriacao = Convert.ToDateTime(reader["data_criacao"])
+                                Login = reader["login"].ToString(),
+                                Senha = reader["senha"].ToString(),
+                                Ativo = Convert.ToBoolean(reader["ativo"]),
+                                DataCriacao = Convert.ToDateTime(reader["data_criacao"]),
+                                Tipo = reader["tipo"].ToString()
                             };
                         }
                     }
@@ -90,12 +102,16 @@ namespace DigiBank.repositories
             using (var db = new Database())
             {
                 var conexao = db.OpenConnection();
-                string sql = "UPDATE cliente SET nome = @nome, cpf = @cpf WHERE id = @id";
+                string sql = "UPDATE cliente SET nome = @nome, cpf = @cpf, login = @login, senha = @senha, ativo = @ativo, tipo = @tipo WHERE id = @id";
 
                 using (MySqlCommand cmd = new MySqlCommand(sql, conexao))
                 {
                     cmd.Parameters.AddWithValue("@nome", cliente.Nome);
                     cmd.Parameters.AddWithValue("@cpf", cliente.Cpf);
+                    cmd.Parameters.AddWithValue("@login", cliente.Login);
+                    cmd.Parameters.AddWithValue("@senha", cliente.Senha);
+                    cmd.Parameters.AddWithValue("@ativo", cliente.Ativo);
+                    cmd.Parameters.AddWithValue("@tipo", cliente.Tipo);
                     cmd.Parameters.AddWithValue("@id", cliente.Id);
 
                     cmd.ExecuteNonQuery();
@@ -140,7 +156,11 @@ namespace DigiBank.repositories
                                 Id = Convert.ToInt32(reader["id"]),
                                 Nome = reader["nome"].ToString(),
                                 Cpf = reader["cpf"].ToString(),
-                                DataCriacao = Convert.ToDateTime(reader["data_criacao"])
+                                Login = reader["login"].ToString(),
+                                Senha = reader["senha"].ToString(),
+                                Ativo = Convert.ToBoolean(reader["ativo"]),
+                                DataCriacao = Convert.ToDateTime(reader["data_criacao"]),
+                                Tipo = reader["tipo"].ToString()
                             };
                         }
                     }
@@ -148,6 +168,75 @@ namespace DigiBank.repositories
                 db.CloseConnection();
             }
             return null;
+        }
+
+        public Cliente BuscarPorLogin(string login)
+        {
+            using (var db = new Database())
+            {
+                var conexao = db.OpenConnection();
+                string sql = "SELECT * FROM cliente WHERE login = @login";
+
+                using (MySqlCommand cmd = new MySqlCommand(sql, conexao))
+                {
+                    cmd.Parameters.AddWithValue("@login", login);
+
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            return new Cliente
+                            {
+                                Id = Convert.ToInt32(reader["id"]),
+                                Nome = reader["nome"].ToString(),
+                                Cpf = reader["cpf"].ToString(),
+                                Login = reader["login"].ToString(),
+                                Senha = reader["senha"].ToString(),
+                                Ativo = Convert.ToBoolean(reader["ativo"]),
+                                DataCriacao = Convert.ToDateTime(reader["data_criacao"]),
+                                Tipo = reader["tipo"].ToString()
+                            };
+                        }
+                    }
+                }
+                db.CloseConnection();
+            }
+            return null;
+        }
+
+        public List<Cliente> BuscarPorTipo(string tipo)
+        {
+            var clientes = new List<Cliente>();
+            using (var db = new Database())
+            {
+                var conexao = db.OpenConnection();
+                string sql = "SELECT * FROM cliente WHERE tipo = @tipo ORDER BY nome";
+
+                using (MySqlCommand cmd = new MySqlCommand(sql, conexao))
+                {
+                    cmd.Parameters.AddWithValue("@tipo", tipo);
+
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            clientes.Add(new Cliente
+                            {
+                                Id = Convert.ToInt32(reader["id"]),
+                                Nome = reader["nome"].ToString(),
+                                Cpf = reader["cpf"].ToString(),
+                                Login = reader["login"].ToString(),
+                                Senha = reader["senha"].ToString(),
+                                Ativo = Convert.ToBoolean(reader["ativo"]),
+                                DataCriacao = Convert.ToDateTime(reader["data_criacao"]),
+                                Tipo = reader["tipo"].ToString()
+                            });
+                        }
+                    }
+                }
+                db.CloseConnection();
+            }
+            return clientes;
         }
 
         public List<Cliente> BuscarPorNome(string nome)
@@ -171,7 +260,11 @@ namespace DigiBank.repositories
                                 Id = Convert.ToInt32(reader["id"]),
                                 Nome = reader["nome"].ToString(),
                                 Cpf = reader["cpf"].ToString(),
-                                DataCriacao = Convert.ToDateTime(reader["data_criacao"])
+                                Login = reader["login"].ToString(),
+                                Senha = reader["senha"].ToString(),
+                                Ativo = Convert.ToBoolean(reader["ativo"]),
+                                DataCriacao = Convert.ToDateTime(reader["data_criacao"]),
+                                Tipo = reader["tipo"].ToString()
                             });
                         }
                     }
@@ -191,6 +284,23 @@ namespace DigiBank.repositories
                 using (MySqlCommand cmd = new MySqlCommand(sql, conexao))
                 {
                     cmd.Parameters.AddWithValue("@cpf", cpf);
+                    int count = Convert.ToInt32(cmd.ExecuteScalar());
+                    db.CloseConnection();
+                    return count > 0;
+                }
+            }
+        }
+
+        public bool ExisteLogin(string login)
+        {
+            using (var db = new Database())
+            {
+                var conexao = db.OpenConnection();
+                string sql = "SELECT COUNT(*) FROM cliente WHERE login = @login";
+
+                using (MySqlCommand cmd = new MySqlCommand(sql, conexao))
+                {
+                    cmd.Parameters.AddWithValue("@login", login);
                     int count = Convert.ToInt32(cmd.ExecuteScalar());
                     db.CloseConnection();
                     return count > 0;

@@ -26,6 +26,12 @@ namespace DigiBank.services
                     throw new Exception("CPF já cadastrado.");
                 }
 
+                // Verificar se o login já existe
+                if (_repository.ExisteLogin(novoCliente.Login))
+                {
+                    throw new Exception("Login já cadastrado.");
+                }
+
                 return _repository.Criar(novoCliente);
             }
             catch (Exception ex)
@@ -163,6 +169,122 @@ namespace DigiBank.services
             }
         }
 
+        public Cliente BuscarPorLogin(string login)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(login))
+                    throw new ArgumentException("Login não pode ser vazio.");
+
+                return _repository.BuscarPorLogin(login);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erro ao buscar cliente por login: {ex.Message}");
+            }
+        }
+
+        public List<Cliente> BuscarPorTipo(string tipo)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(tipo))
+                    throw new ArgumentException("Tipo não pode ser vazio.");
+
+                if (!tipo.Equals("cliente", StringComparison.OrdinalIgnoreCase) &&
+                    !tipo.Equals("admin", StringComparison.OrdinalIgnoreCase))
+                {
+                    throw new ArgumentException("Tipo deve ser 'cliente' ou 'admin'.");
+                }
+
+                return _repository.BuscarPorTipo(tipo);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erro ao buscar clientes por tipo: {ex.Message}");
+            }
+        }
+
+        public void AtivarCliente(int id)
+        {
+            try
+            {
+                if (id <= 0)
+                    throw new ArgumentException("ID deve ser maior que zero.");
+
+                var cliente = _repository.BuscarPorId(id);
+                if (cliente == null)
+                {
+                    throw new Exception("Cliente não encontrado.");
+                }
+
+                cliente.Ativo = true;
+                _repository.Atualizar(cliente);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erro ao ativar cliente: {ex.Message}");
+            }
+        }
+
+        public void DesativarCliente(int id)
+        {
+            try
+            {
+                if (id <= 0)
+                    throw new ArgumentException("ID deve ser maior que zero.");
+
+                var cliente = _repository.BuscarPorId(id);
+                if (cliente == null)
+                {
+                    throw new Exception("Cliente não encontrado.");
+                }
+
+                cliente.Ativo = false;
+                _repository.Atualizar(cliente);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erro ao desativar cliente: {ex.Message}");
+            }
+        }
+
+        public Cliente FazerLogin(string login, string senha)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(login))
+                    throw new ArgumentException("Login não pode ser vazio.");
+
+                if (string.IsNullOrWhiteSpace(senha))
+                    throw new ArgumentException("Senha não pode ser vazia.");
+
+                var cliente = _repository.BuscarPorLogin(login);
+                if (cliente == null)
+                {
+                    throw new Exception("Login ou senha incorretos.");
+                }
+
+                if (!cliente.Ativo)
+                {
+                    throw new Exception("Conta desativada. Entre em contato com o suporte.");
+                }
+
+                // Aqui você implementaria a verificação de senha hash
+                // Por enquanto, vamos fazer uma comparação simples
+                if (cliente.Senha != senha)
+                {
+                    throw new Exception("Login ou senha incorretos.");
+                }
+
+                return cliente;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erro ao fazer login: {ex.Message}");
+            }
+        }
+
         private void ValidarCliente(Cliente cliente)
         {
             if (cliente == null)
@@ -174,11 +296,32 @@ namespace DigiBank.services
             if (string.IsNullOrWhiteSpace(cliente.Cpf))
                 throw new ArgumentException("CPF do cliente é obrigatório.");
 
+            if (string.IsNullOrWhiteSpace(cliente.Login))
+                throw new ArgumentException("Login do cliente é obrigatório.");
+
+            if (string.IsNullOrWhiteSpace(cliente.Senha))
+                throw new ArgumentException("Senha do cliente é obrigatória.");
+
             if (cliente.Nome.Length < 3)
                 throw new ArgumentException("Nome deve ter pelo menos 3 caracteres.");
 
             if (cliente.Cpf.Length < 11)
                 throw new ArgumentException("CPF deve ter pelo menos 11 caracteres.");
+
+            if (cliente.Login.Length < 3)
+                throw new ArgumentException("Login deve ter pelo menos 3 caracteres.");
+
+            if (cliente.Senha.Length < 6)
+                throw new ArgumentException("Senha deve ter pelo menos 6 caracteres.");
+
+            if (string.IsNullOrWhiteSpace(cliente.Tipo))
+                throw new ArgumentException("Tipo do cliente é obrigatório.");
+
+            if (!cliente.Tipo.Equals("cliente", StringComparison.OrdinalIgnoreCase) &&
+                !cliente.Tipo.Equals("admin", StringComparison.OrdinalIgnoreCase))
+            {
+                throw new ArgumentException("Tipo deve ser 'cliente' ou 'admin'.");
+            }
         }
     }
 }

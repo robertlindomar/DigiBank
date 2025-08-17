@@ -47,9 +47,13 @@ namespace DigiBank.views
             this.panel3 = new System.Windows.Forms.Panel();
             this.panelFiltros = new System.Windows.Forms.Panel();
             this.btnMaisFiltros = new System.Windows.Forms.Button();
+            this.cmbTipoConta = new System.Windows.Forms.ComboBox();
             this.cmbTipoTransacao = new System.Windows.Forms.ComboBox();
             this.txtBuscar = new System.Windows.Forms.TextBox();
             this.lblTituloFiltros = new System.Windows.Forms.Label();
+            this.lblTipoConta = new System.Windows.Forms.Label();
+            this.lblTipoTransacao = new System.Windows.Forms.Label();
+            this.lblBuscar = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
             this.lblContadorTransacoes = new System.Windows.Forms.Label();
             this.lblTituloTabela = new System.Windows.Forms.Label();
@@ -272,9 +276,13 @@ namespace DigiBank.views
             // 
             this.panelFiltros.BackColor = System.Drawing.Color.White;
             this.panelFiltros.Controls.Add(this.btnMaisFiltros);
+            this.panelFiltros.Controls.Add(this.cmbTipoConta);
             this.panelFiltros.Controls.Add(this.cmbTipoTransacao);
             this.panelFiltros.Controls.Add(this.txtBuscar);
             this.panelFiltros.Controls.Add(this.lblTituloFiltros);
+            this.panelFiltros.Controls.Add(this.lblTipoConta);
+            this.panelFiltros.Controls.Add(this.lblTipoTransacao);
+            this.panelFiltros.Controls.Add(this.lblBuscar);
             this.panelFiltros.Location = new System.Drawing.Point(32, 0);
             this.panelFiltros.Name = "panelFiltros";
             this.panelFiltros.Size = new System.Drawing.Size(886, 120);
@@ -290,9 +298,23 @@ namespace DigiBank.views
             this.btnMaisFiltros.Location = new System.Drawing.Point(742, 74);
             this.btnMaisFiltros.Name = "btnMaisFiltros";
             this.btnMaisFiltros.Size = new System.Drawing.Size(120, 32);
-            this.btnMaisFiltros.TabIndex = 3;
+            this.btnMaisFiltros.TabIndex = 4;
             this.btnMaisFiltros.Text = "🔍 Mais Filtros";
             this.btnMaisFiltros.UseVisualStyleBackColor = false;
+            // 
+            // cmbTipoConta
+            // 
+            this.cmbTipoConta.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbTipoConta.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbTipoConta.FormattingEnabled = true;
+            this.cmbTipoConta.Items.AddRange(new object[] {
+            "Todas as Contas",
+            "Conta Corrente",
+            "Conta Poupança"});
+            this.cmbTipoConta.Location = new System.Drawing.Point(24, 79);
+            this.cmbTipoConta.Name = "cmbTipoConta";
+            this.cmbTipoConta.Size = new System.Drawing.Size(150, 23);
+            this.cmbTipoConta.TabIndex = 1;
             // 
             // cmbTipoTransacao
             // 
@@ -304,7 +326,7 @@ namespace DigiBank.views
             "Depósitos",
             "Saques",
             "Transferências"});
-            this.cmbTipoTransacao.Location = new System.Drawing.Point(586, 79);
+            this.cmbTipoTransacao.Location = new System.Drawing.Point(180, 79);
             this.cmbTipoTransacao.Name = "cmbTipoTransacao";
             this.cmbTipoTransacao.Size = new System.Drawing.Size(150, 23);
             this.cmbTipoTransacao.TabIndex = 2;
@@ -313,10 +335,10 @@ namespace DigiBank.views
             // 
             this.txtBuscar.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtBuscar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(156)))), ((int)(((byte)(163)))), ((int)(((byte)(175)))));
-            this.txtBuscar.Location = new System.Drawing.Point(24, 79);
+            this.txtBuscar.Location = new System.Drawing.Point(340, 79);
             this.txtBuscar.Name = "txtBuscar";
-            this.txtBuscar.Size = new System.Drawing.Size(556, 23);
-            this.txtBuscar.TabIndex = 1;
+            this.txtBuscar.Size = new System.Drawing.Size(396, 23);
+            this.txtBuscar.TabIndex = 3;
             this.txtBuscar.Text = "🔍 Buscar transações...";
             // 
             // lblTituloFiltros
@@ -329,6 +351,39 @@ namespace DigiBank.views
             this.lblTituloFiltros.Size = new System.Drawing.Size(67, 25);
             this.lblTituloFiltros.TabIndex = 0;
             this.lblTituloFiltros.Text = "Filtros";
+            // 
+            // lblTipoConta
+            // 
+            this.lblTipoConta.AutoSize = true;
+            this.lblTipoConta.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTipoConta.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(107)))), ((int)(((byte)(114)))), ((int)(((byte)(128)))));
+            this.lblTipoConta.Location = new System.Drawing.Point(24, 52);
+            this.lblTipoConta.Name = "lblTipoConta";
+            this.lblTipoConta.Size = new System.Drawing.Size(60, 19);
+            this.lblTipoConta.TabIndex = 1;
+            this.lblTipoConta.Text = "Tipo Conta:";
+            // 
+            // lblTipoTransacao
+            // 
+            this.lblTipoTransacao.AutoSize = true;
+            this.lblTipoTransacao.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTipoTransacao.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(107)))), ((int)(((byte)(114)))), ((int)(((byte)(128)))));
+            this.lblTipoTransacao.Location = new System.Drawing.Point(180, 52);
+            this.lblTipoTransacao.Name = "lblTipoTransacao";
+            this.lblTipoTransacao.Size = new System.Drawing.Size(100, 19);
+            this.lblTipoTransacao.TabIndex = 2;
+            this.lblTipoTransacao.Text = "Tipo Transação:";
+            // 
+            // lblBuscar
+            // 
+            this.lblBuscar.AutoSize = true;
+            this.lblBuscar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblBuscar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(107)))), ((int)(((byte)(114)))), ((int)(((byte)(128)))));
+            this.lblBuscar.Location = new System.Drawing.Point(340, 52);
+            this.lblBuscar.Name = "lblBuscar";
+            this.lblBuscar.Size = new System.Drawing.Size(50, 19);
+            this.lblBuscar.TabIndex = 3;
+            this.lblBuscar.Text = "Buscar:";
             // 
             // panel4
             // 
@@ -367,8 +422,8 @@ namespace DigiBank.views
             // 
             this.dgvTransacoes.AllowUserToAddRows = false;
             this.dgvTransacoes.AllowUserToDeleteRows = false;
-            this.dgvTransacoes.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.dgvTransacoes.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvTransacoes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvTransacoes.BackgroundColor = System.Drawing.Color.White;
@@ -443,9 +498,13 @@ namespace DigiBank.views
         private System.Windows.Forms.TextBox txtBuscar;
         private System.Windows.Forms.ComboBox cmbTipoTransacao;
         private System.Windows.Forms.Button btnMaisFiltros;
+        private System.Windows.Forms.ComboBox cmbTipoConta;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Label lblTituloTabela;
         private System.Windows.Forms.Label lblContadorTransacoes;
         private System.Windows.Forms.DataGridView dgvTransacoes;
+        private System.Windows.Forms.Label lblTipoConta;
+        private System.Windows.Forms.Label lblTipoTransacao;
+        private System.Windows.Forms.Label lblBuscar;
     }
 }

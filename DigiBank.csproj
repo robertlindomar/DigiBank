@@ -126,10 +126,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="configs\Database.cs" />
-    <Compile Include="controllers\UsuarioController.cs" />
-    <Compile Include="models\Usuario.cs" />
-    <Compile Include="repositories\UsuarioRepository.cs" />
-    <Compile Include="services\UsuarioService.cs" />
     <Compile Include="views\Login.cs">
       <SubType>Form</SubType>
     </Compile>

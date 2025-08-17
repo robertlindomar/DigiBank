@@ -15,7 +15,7 @@ namespace DigiBank.views
     public partial class DashBoard : Form
     {
         #region Campos Privados
-        private readonly Usuario _usuarioLogado;
+        private readonly Cliente _clienteLogado;
         private readonly List<Conta> _listaContas;
         private readonly ContaController _contaController;
         private readonly TransacaoController _transacaoController;
@@ -32,17 +32,17 @@ namespace DigiBank.views
         public DashBoard()
         {
             InitializeComponent();
-            _usuarioLogado = new Usuario();
+            _clienteLogado = new Cliente();
             _listaContas = new List<Conta>();
             _contaController = new ContaController();
             _transacaoController = new TransacaoController();
             _cartaoController = new CartaoController();
         }
 
-        public DashBoard(Usuario usuario)
+        public DashBoard(Cliente cliente)
         {
             InitializeComponent();
-            _usuarioLogado = usuario ?? throw new ArgumentNullException(nameof(usuario));
+            _clienteLogado = cliente;
             _listaContas = new List<Conta>();
             _contaController = new ContaController();
             _transacaoController = new TransacaoController();
@@ -74,29 +74,23 @@ namespace DigiBank.views
         {
             if (lblSubtitulo != null)
             {
-                lblSubtitulo.Text = $"Bem-vindo de volta, {_usuarioLogado.Login}!";
+                lblSubtitulo.Text = $"Bem-vindo de volta, {_clienteLogado.Login}!";
             }
         }
 
         private void CarregarContas()
         {
             _listaContas.Clear();
-            var contas = _contaController.BuscarPorClienteId(_usuarioLogado.ClienteId);
+            var contas = _contaController.BuscarPorClienteId(_clienteLogado.Id);
 
             if (contas != null)
             {
                 _listaContas.AddRange(contas);
 
-                // Debug: Log das contas carregadas
-                Console.WriteLine($"Contas carregadas para usuário {_usuarioLogado.ClienteId}:");
-                foreach (var conta in _listaContas)
-                {
-                    Console.WriteLine($"- Conta {conta.Id}: Tipo={conta.Tipo}, Saldo={conta.Saldo:C}, Número={conta.NumeroConta}");
-                }
             }
             else
             {
-                Console.WriteLine($"Nenhuma conta encontrada para o usuário {_usuarioLogado.ClienteId}");
+                MessageBox.Show($"Nenhuma conta encontrada para o cliente {_clienteLogado.Id}");
             }
         }
 
@@ -105,9 +99,6 @@ namespace DigiBank.views
             var contaCorrente = ObterContaPorTipo(TIPO_CONTA_CORRENTE);
             var contaPoupanca = ObterContaPorTipo(TIPO_CONTA_POUPANCA);
 
-            // Debug: Log das contas encontradas
-            Console.WriteLine($"Conta Corrente encontrada: {(contaCorrente != null ? $"ID={contaCorrente.Id}, Saldo={contaCorrente.Saldo:C}" : "NÃO ENCONTRADA")}");
-            Console.WriteLine($"Conta Poupança encontrada: {(contaPoupanca != null ? $"ID={contaPoupanca.Id}, Saldo={contaPoupanca.Saldo:C}" : "NÃO ENCONTRADA")}");
 
             // Configurar botões
             ConfigurarBotaoConta(btnCorrente, contaCorrente, "Conta Corrente");
@@ -116,7 +107,6 @@ namespace DigiBank.views
             // Definir conta inicial (prioridade: corrente > poupança)
             _contaAtual = contaCorrente ?? contaPoupanca;
 
-            Console.WriteLine($"Conta inicial definida: {(_contaAtual != null ? $"ID={_contaAtual.Id}, Tipo={_contaAtual.Tipo}" : "NENHUMA")}");
         }
 
         private void ConfigurarBotaoConta(Button botao, Conta conta, string tipoConta)
@@ -537,7 +527,7 @@ namespace DigiBank.views
                 else
                 {
                     // Fallback: se não conseguir acessar o Main, abrir em nova janela
-                    var telaTransacoes = new Transacoes(_usuarioLogado);
+                    var telaTransacoes = new Transacoes(_clienteLogado);
                     telaTransacoes.Show();
                 }
             }

@@ -3,12 +3,16 @@ CREATE DATABASE IF NOT EXISTS digibank DEFAULT CHARACTER SET utf8mb4 DEFAULT COL
 
 USE digibank;
 
--- Tabela de clientes
+-- Tabela de clientes (consolidada com informações de autenticação)
 CREATE TABLE cliente (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
     cpf VARCHAR(14) NOT NULL UNIQUE,
-    data_criacao DATETIME DEFAULT CURRENT_TIMESTAMP
+    login VARCHAR(50) NOT NULL UNIQUE,
+    senha VARCHAR(255) NOT NULL,
+    ativo BOOLEAN DEFAULT TRUE,
+    data_criacao DATETIME DEFAULT CURRENT_TIMESTAMP,
+    tipo ENUM('cliente', 'admin') NOT NULL DEFAULT 'cliente'
 ) DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
 
 -- Tabela de contas bancárias
@@ -20,18 +24,6 @@ CREATE TABLE conta (
     ativa BOOLEAN DEFAULT TRUE,
     cliente_id INT NOT NULL,
     data_abertura DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (cliente_id) REFERENCES cliente (id) ON DELETE CASCADE
-) DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
-
--- Tabela de login
-CREATE TABLE usuario (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    cliente_id INT NOT NULL,
-    login VARCHAR(50) NOT NULL UNIQUE,
-    senha VARCHAR(255) NOT NULL,
-    ativo BOOLEAN DEFAULT TRUE,
-    data_criacao DATETIME DEFAULT CURRENT_TIMESTAMP,
-    tipo ENUM('cliente', 'admin') NOT NULL,
     FOREIGN KEY (cliente_id) REFERENCES cliente (id) ON DELETE CASCADE
 ) DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
 
@@ -50,6 +42,8 @@ CREATE TABLE cartao (
 CREATE INDEX idx_cartao_uid ON cartao (uid);
 
 CREATE INDEX idx_cliente_cpf ON cliente (cpf);
+
+CREATE INDEX idx_cliente_login ON cliente (login);
 
 -- Tabela de transações
 CREATE TABLE transacao (
@@ -99,26 +93,13 @@ CREATE TABLE pagamento_pos (
     FOREIGN KEY (cartao_id) REFERENCES cartao (id) ON DELETE CASCADE
 ) DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
 
--- Clientes (2 usuários)
+-- Clientes (consolidados com informações de autenticação)
+-- senha: 123456 (hash bcrypt)
 INSERT INTO
-    cliente (id, nome, cpf)
-VALUES (
-        1,
-        'Loja Teste',
-        '000.000.000-00'
-    ),
-    (
-        2,
-        'Cliente Teste',
-        '111.111.111-11'
-    );
-
--- Usuários (logins) - senhas são hashes bcrypt de exemplo
--- senha: 123456 (para ambos)
-INSERT INTO
-    usuario (
+    cliente (
         id,
-        cliente_id,
+        nome,
+        cpf,
         login,
         senha,
         ativo,
@@ -126,7 +107,8 @@ INSERT INTO
     )
 VALUES (
         1,
-        1,
+        'Loja Teste',
+        '000.000.000-00',
         'loja',
         '$2a$11$9CaOWUQHHzwgDdsgvfKMZOnBRZRvbCtE55QkfudF83tHg3SR5aYEq',
         1,
@@ -134,14 +116,15 @@ VALUES (
     ),
     (
         2,
-        2,
+        'Cliente Teste',
+        '111.111.111-11',
         'cliente',
         '$2a$11$9CaOWUQHHzwgDdsgvfKMZOnBRZRvbCtE55QkfudF83tHg3SR5aYEq',
         1,
         'cliente'
     );
 
--- Contas (1 por usuário)
+-- Contas (1 por cliente)
 INSERT INTO
     conta (
         id,
@@ -188,7 +171,7 @@ VALUES (
         1
     );
 
--- Cartões NFC (um para cada usuário) com os UIDs solicitados
+-- Cartões NFC (um para cada cliente) com os UIDs solicitados
 INSERT INTO
     cartao (
         id,
@@ -214,5 +197,3 @@ VALUES (
         2,
         1
     );
-
-

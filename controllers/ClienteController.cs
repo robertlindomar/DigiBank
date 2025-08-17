@@ -121,5 +121,65 @@ namespace DigiBank.controllers
                 throw new Exception($"Erro no controller ao verificar existência do CPF: {ex.Message}");
             }
         }
+
+        public Cliente BuscarPorLogin(string login)
+        {
+            try
+            {
+                return _service.BuscarPorLogin(login);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erro no controller ao buscar cliente por login: {ex.Message}");
+            }
+        }
+
+        public List<Cliente> BuscarPorTipo(string tipo)
+        {
+            try
+            {
+                return _service.BuscarPorTipo(tipo);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erro no controller ao buscar clientes por tipo: {ex.Message}");
+            }
+        }
+
+        public void Ativar(int id)
+        {
+            try
+            {
+                _service.AtivarCliente(id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erro no controller ao ativar cliente: {ex.Message}");
+            }
+        }
+
+        public void Desativar(int id)
+        {
+            try
+            {
+                _service.DesativarCliente(id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erro no controller ao desativar cliente: {ex.Message}");
+            }
+        }
+
+        public Cliente FazerLogin(string login, string senha)
+        {
+            try
+            {
+                return _service.FazerLogin(login, senha);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erro no controller ao fazer login: {ex.Message}");
+            }
+        }
     }
 }

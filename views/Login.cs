@@ -15,7 +15,7 @@ namespace DigiBank.views
 {
     public partial class Login : Form
     {
-        UsuarioController usuarioController = new UsuarioController();
+        ClienteController clienteController = new ClienteController();
         private string bufferUID = "";
         private bool bloqueioLeitura = false;
         public Login()
@@ -46,8 +46,6 @@ namespace DigiBank.views
                 {
                     try
                     {
-                        // Debug: mostrar o UID lido
-                        Console.WriteLine($"Tentando login com UID: {uidLido}");
 
                         // Primeiro, buscar o cartão pelo UID
                         CartaoController cartaoController = new CartaoController();
@@ -55,7 +53,6 @@ namespace DigiBank.views
 
                         if (cartao != null && cartao.Ativo)
                         {
-                            Console.WriteLine($"Cartão encontrado: ID={cartao.Id}, ContaID={cartao.ContaId}");
 
                             // Buscar a conta associada ao cartão
                             ContaController contaController = new ContaController();
@@ -63,17 +60,15 @@ namespace DigiBank.views
 
                             if (conta != null)
                             {
-                                Console.WriteLine($"Conta encontrada: ID={conta.Id}, ClienteID={conta.ClienteId}");
 
-                                // Buscar o usuário associado ao cliente da conta
-                                var usuario = usuarioController.BuscarPorClienteId(conta.ClienteId);
+                                // Buscar o cliente associado à conta
+                                var cliente = clienteController.BuscarPorId(conta.ClienteId);
 
-                                if (usuario != null && usuario.Ativo)
+                                if (cliente != null && cliente.Ativo)
                                 {
-                                    Console.WriteLine($"Usuário encontrado: ID={usuario.Id}, Login={usuario.Login}");
                                     bloqueioLeitura = true;
 
-                                    Main telaDashboard = new Main(usuario);
+                                    Main telaDashboard = new Main(cliente);
                                     telaDashboard.FormClosed += (s, args) =>
                                     {
                                         bloqueioLeitura = false;
@@ -87,28 +82,24 @@ namespace DigiBank.views
                                 {
                                     lblError.Text = "Usuário associado ao cartão não encontrado ou inativo!";
                                     bufferUID = "";
-                                    Console.WriteLine("Usuário não encontrado ou inativo");
                                 }
                             }
                             else
                             {
                                 lblError.Text = "Conta associada ao cartão não encontrada!";
                                 bufferUID = "";
-                                Console.WriteLine("Conta não encontrada");
                             }
                         }
                         else
                         {
                             lblError.Text = "Cartão não encontrado ou inativo!";
                             bufferUID = "";
-                            Console.WriteLine("Cartão não encontrado ou inativo");
                         }
                     }
                     catch (Exception ex)
                     {
                         lblError.Text = $"Erro no login por UID: {ex.Message}";
                         bufferUID = "";
-                        Console.WriteLine($"Erro no login por UID: {ex.Message}");
                     }
                 }
                 return true;
@@ -139,13 +130,13 @@ namespace DigiBank.views
             try
             {
 
-                var usuario = usuarioController.FazerLogin(email, senha);
-                if (usuario != null)
+                var cliente = clienteController.FazerLogin(email, senha);
+                if (cliente != null)
                 {
 
 
 
-                    Main telaDashboard = new Main(usuario);
+                    Main telaDashboard = new Main(cliente);
                     telaDashboard.FormClosed += (s, args) => this.Show();
 
                     telaDashboard.Show();
@@ -231,15 +222,15 @@ namespace DigiBank.views
                     {
                         mensagem += $"Conta encontrada: ID={conta.Id}, ClienteID={conta.ClienteId}\n";
 
-                        // Buscar usuário
-                        var usuario = usuarioController.BuscarPorClienteId(conta.ClienteId);
-                        if (usuario != null)
+                        // Buscar cliente
+                        var cliente = clienteController.BuscarPorId(conta.ClienteId);
+                        if (cliente != null)
                         {
-                            mensagem += $"Usuário encontrado: ID={usuario.Id}, Login={usuario.Login}\n";
+                            mensagem += $"Cliente encontrado: ID={cliente.Id}, Login={cliente.Login}\n";
                         }
                         else
                         {
-                            mensagem += "Usuário NÃO encontrado!\n";
+                            mensagem += "Cliente NÃO encontrado!\n";
                         }
                     }
                     else
@@ -257,6 +248,22 @@ namespace DigiBank.views
             catch (Exception ex)
             {
                 MessageBox.Show($"Erro ao buscar cartões: {ex.Message}", "Erro");
+            }
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            try
+            {
+                //criar cliente
+                ClienteController clienteController = new ClienteController();
+                clienteController.Criar(new Cliente(1, "admin", "35987612544", "admin", "123456", "admin"));
+                clienteController.Criar(new Cliente(2, "usuario", "36985265377", "usuario", "123456", "cliente"));
+                MessageBox.Show("Clientes cadastrados com sucesso");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao cadastrar usuários: {ex.Message}", "Erro");
             }
         }
     }
