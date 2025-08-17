@@ -125,6 +125,13 @@ namespace DigiBank.views
             ConfigurarBotaoConta(btnCorrente, contaCorrente, "Conta Corrente");
             ConfigurarBotaoConta(btnPoupanca, contaPoupanca, "Conta Poupança");
 
+            // Conectar evento do botão de transferência
+            if (btnTransferir != null)
+            {
+                btnTransferir.Click += btnNovaTransferencia_Click;
+                Console.WriteLine("Evento de transferência conectado ao botão btnTransferir");
+            }
+
             // Definir conta inicial (prioridade: corrente > poupança)
             _contaAtual = contaCorrente ?? contaPoupanca;
             Console.WriteLine($"Conta inicial definida: {_contaAtual?.Id} ({_contaAtual?.Tipo})");
@@ -658,6 +665,233 @@ namespace DigiBank.views
             catch (Exception ex)
             {
                 MessageBox.Show($"Erro ao abrir transações: {ex.Message}", "Erro",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnNovaTransferencia_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Verificar se há pelo menos 1 conta para transferir
+                if (_listaContas.Count < 1)
+                {
+                    MessageBox.Show("É necessário ter pelo menos 1 conta para realizar transferências.", "Aviso",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Criar formulário para transferência para outros clientes
+                using (var form = new Form())
+                {
+                    form.Text = "Nova Transferência para Outro Cliente";
+                    form.Size = new Size(450, 400);
+                    form.StartPosition = FormStartPosition.CenterParent;
+                    form.FormBorderStyle = FormBorderStyle.FixedDialog;
+                    form.MaximizeBox = false;
+                    form.MinimizeBox = false;
+
+                    // Título
+                    var lblTitulo = new Label
+                    {
+                        Text = "Transferência para Outro Cliente",
+                        Location = new Point(20, 20),
+                        AutoSize = true,
+                        Font = new Font("Segoe UI", 12, FontStyle.Bold)
+                    };
+
+                    // Conta de origem
+                    var lblOrigem = new Label { Text = "Conta de Origem:", Location = new Point(20, 60), AutoSize = true };
+                    var cmbOrigem = new ComboBox
+                    {
+                        Location = new Point(20, 85),
+                        Size = new Size(400, 25),
+                        DropDownStyle = ComboBoxStyle.DropDownList
+                    };
+
+                    // Número da conta de destino
+                    var lblDestino = new Label { Text = "Número da Conta de Destino:", Location = new Point(20, 120), AutoSize = true };
+                    var txtDestino = new TextBox
+                    {
+                        Location = new Point(20, 145),
+                        Size = new Size(400, 25)
+                    };
+
+                    // Valor
+                    var lblValor = new Label { Text = "Valor:", Location = new Point(20, 180), AutoSize = true };
+                    var txtValor = new TextBox
+                    {
+                        Location = new Point(20, 205),
+                        Size = new Size(400, 25)
+                    };
+
+                    // Descrição
+                    var lblDescricao = new Label { Text = "Descrição (opcional):", Location = new Point(20, 240), AutoSize = true };
+                    var txtDescricao = new TextBox
+                    {
+                        Location = new Point(20, 265),
+                        Size = new Size(400, 25)
+                    };
+
+                    // Botões
+                    var btnConfirmar = new Button
+                    {
+                        Text = "Confirmar Transferência",
+                        Location = new Point(200, 320),
+                        Size = new Size(120, 35),
+                        DialogResult = DialogResult.OK,
+                        BackColor = Color.FromArgb(37, 99, 235),
+                        ForeColor = Color.White,
+                        Font = new Font("Segoe UI", 9, FontStyle.Bold)
+                    };
+                    var btnCancelar = new Button
+                    {
+                        Text = "Cancelar",
+                        Location = new Point(330, 320),
+                        Size = new Size(80, 35),
+                        DialogResult = DialogResult.Cancel
+                    };
+
+                    // Preencher combo de contas de origem
+                    foreach (var conta in _listaContas)
+                    {
+                        var texto = $"{conta.NumeroConta} - {conta.Tipo} (Saldo: {conta.Saldo:C})";
+                        cmbOrigem.Items.Add(new { Conta = conta, Texto = texto });
+                    }
+
+                    cmbOrigem.DisplayMember = "Texto";
+
+                    if (cmbOrigem.Items.Count > 0)
+                        cmbOrigem.SelectedIndex = 0;
+
+                    // Adicionar controles
+                    form.Controls.AddRange(new Control[]
+                    {
+                        lblTitulo, lblOrigem, cmbOrigem, lblDestino, txtDestino,
+                        lblValor, txtValor, lblDescricao, txtDescricao,
+                        btnConfirmar, btnCancelar
+                    });
+
+                    if (form.ShowDialog() == DialogResult.OK)
+                    {
+                        // Validar seleções
+                        if (cmbOrigem.SelectedItem == null)
+                        {
+                            MessageBox.Show("Selecione a conta de origem.", "Erro",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+
+                        if (string.IsNullOrWhiteSpace(txtDestino.Text))
+                        {
+                            MessageBox.Show("Digite o número da conta de destino.", "Erro",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+
+                        if (!decimal.TryParse(txtValor.Text, out decimal valor) || valor <= 0)
+                        {
+                            MessageBox.Show("Digite um valor válido maior que zero.", "Erro",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+
+                        var contaOrigem = ((dynamic)cmbOrigem.SelectedItem).Conta;
+                        var numeroContaDestino = txtDestino.Text.Trim();
+                        var descricao = string.IsNullOrWhiteSpace(txtDescricao.Text) ?
+                            $"Transferência para conta {numeroContaDestino}" : txtDescricao.Text;
+
+                        // Verificar se a conta de destino existe
+                        var contaDestino = _contaController.BuscarPorNumeroConta(numeroContaDestino);
+                        if (contaDestino == null)
+                        {
+                            MessageBox.Show($"Conta de destino {numeroContaDestino} não encontrada.", "Erro",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+
+                        // Verificar se não está transferindo para a própria conta
+                        if (contaOrigem.Id == contaDestino.Id)
+                        {
+                            MessageBox.Show("Não é possível transferir para a própria conta.", "Erro",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+
+                        // Verificar se tem saldo suficiente
+                        if (contaOrigem.Saldo < valor)
+                        {
+                            MessageBox.Show($"Saldo insuficiente. Saldo atual: {contaOrigem.Saldo:C}", "Erro",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+
+                        // Confirmar transferência
+                        var resultado = MessageBox.Show(
+                            $"Confirmar transferência de {valor:C} da conta {contaOrigem.NumeroConta} para a conta {contaDestino.NumeroConta}?",
+                            "Confirmar Transferência",
+                            MessageBoxButtons.YesNo,
+                            MessageBoxIcon.Question);
+
+                        if (resultado == DialogResult.Yes)
+                        {
+                            // Realizar transferência
+                            var transacaoId = _transacaoController.RealizarTransferencia(
+                                contaOrigem.Id,
+                                contaDestino.Id,
+                                valor,
+                                descricao
+                            );
+
+                            MessageBox.Show($"Transferência realizada com sucesso!\nID da transação: {transacaoId}", "Sucesso",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                            // Recarregar dados
+                            RefreshDados();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao realizar transferência: {ex.Message}", "Erro",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void RefreshDados()
+        {
+            try
+            {
+                Console.WriteLine("=== ATUALIZANDO DADOS APÓS TRANSFERÊNCIA ===");
+
+                // Recarregar contas (para atualizar saldos)
+                CarregarContas();
+
+                // Recarregar transações da conta atual
+                if (_contaAtual != null)
+                {
+                    Console.WriteLine($"Recarregando transações da conta atual: {_contaAtual.Tipo}");
+                    CarregarTransacoesRecentes(_contaAtual.Tipo);
+                }
+                else
+                {
+                    Console.WriteLine("Recarregando todas as transações");
+                    CarregarTransacoesRecentes();
+                }
+
+                // Atualizar saldo da conta atual
+                if (_contaAtual != null)
+                {
+                    ExibirSaldoPorTipo(_contaAtual.Tipo);
+                }
+
+                Console.WriteLine("=== DADOS ATUALIZADOS ===");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro ao atualizar dados: {ex.Message}");
+                MessageBox.Show($"Erro ao atualizar dados: {ex.Message}", "Erro",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
