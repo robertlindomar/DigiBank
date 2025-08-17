@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO; // Added for StreamWriter
 
 namespace DigiBank.views
 {
@@ -122,33 +123,37 @@ namespace DigiBank.views
                         {
                             if (transacao.ContaOrigemId == conta.Id)
                             {
-                                // Esta conta é a origem da transferência (SAÍDA)
+                                // Esta conta é a origem da transferência (SAÍDA) - VALOR NEGATIVO
                                 var transacaoSaida = new Transacao
                                 {
                                     Id = transacao.Id,
                                     Tipo = transacao.Tipo,
                                     Descricao = transacao.Descricao,
-                                    Valor = -Math.Abs(transacao.Valor), // Negativo (saída)
+                                    Valor = -Math.Abs(transacao.Valor), // NEGATIVO (saída)
                                     DataTransacao = transacao.DataTransacao,
                                     ContaOrigemId = transacao.ContaOrigemId,
                                     ContaDestinoId = transacao.ContaDestinoId
                                 };
                                 _listaTransacoes.Add(transacaoSaida);
+
+                                Console.WriteLine($"TRANSFERÊNCIA SAÍDA criada: Conta {conta.Id} ({conta.Tipo}) - Valor: {transacaoSaida.Valor:C}");
                             }
                             else if (transacao.ContaDestinoId == conta.Id)
                             {
-                                // Esta conta é o destino da transferência (ENTRADA)
+                                // Esta conta é o destino da transferência (ENTRADA) - VALOR POSITIVO
                                 var transacaoEntrada = new Transacao
                                 {
                                     Id = transacao.Id,
                                     Tipo = transacao.Tipo,
                                     Descricao = transacao.Descricao,
-                                    Valor = Math.Abs(transacao.Valor), // Positivo (entrada)
+                                    Valor = Math.Abs(transacao.Valor), // POSITIVO (entrada)
                                     DataTransacao = transacao.DataTransacao,
                                     ContaOrigemId = transacao.ContaOrigemId,
                                     ContaDestinoId = transacao.ContaDestinoId
                                 };
                                 _listaTransacoes.Add(transacaoEntrada);
+
+                                Console.WriteLine($"TRANSFERÊNCIA ENTRADA criada: Conta {conta.Id} ({conta.Tipo}) - Valor: {transacaoEntrada.Valor:C}");
                             }
                         }
                         else
@@ -161,10 +166,21 @@ namespace DigiBank.views
             }
 
             // Debug: Log das transações carregadas
-            Console.WriteLine($"Transações carregadas: {_listaTransacoes.Count}");
-            foreach (var transacao in _listaTransacoes.Take(5)) // Mostrar apenas as 5 primeiras
+            Console.WriteLine($"=== TRANSAÇÕES CARREGADAS ===");
+            Console.WriteLine($"Total de transações: {_listaTransacoes.Count}");
+
+            // Mostrar todas as transferências para debug
+            var transferencias = _listaTransacoes.Where(t => t.Tipo == "transferencia").ToList();
+            Console.WriteLine($"Transferências encontradas: {transferencias.Count}");
+
+            foreach (var t in transferencias)
             {
-                Console.WriteLine($"- Transação {transacao.Id}: {transacao.Tipo} - {transacao.Valor:C} - {transacao.DataTransacao:dd/MM/yyyy}");
+                var contaOrigem = _listaContas.FirstOrDefault(c => c.Id == t.ContaOrigemId);
+                var contaDestino = _listaContas.FirstOrDefault(c => c.Id == t.ContaDestinoId);
+                var tipoOrigem = contaOrigem?.Tipo ?? "N/A";
+                var tipoDestino = contaDestino?.Tipo ?? "N/A";
+
+                Console.WriteLine($"  - ID {t.Id}: {tipoOrigem} → {tipoDestino} | Valor: {t.Valor:C} | Conta Atual: {(t.Valor < 0 ? "ORIGEM" : "DESTINO")}");
             }
 
             // Verificar se há transações
@@ -815,6 +831,46 @@ namespace DigiBank.views
             }
         }
 
+        private string ObterNomeConta(Transacao transacao)
+        {
+            // Para transferências, determinar se é da conta de origem ou destino baseado no valor
+            if (transacao.Tipo == "transferencia")
+            {
+                if (transacao.Valor < 0)
+                {
+                    // Valor negativo = conta de origem (SAÍDA)
+                    var contaOrigem = _listaContas.FirstOrDefault(c => c.Id == transacao.ContaOrigemId);
+                    if (contaOrigem != null)
+                    {
+                        var tipoConta = contaOrigem.Tipo == "corrente" ? "Conta Corrente" : "Conta Poupança";
+                        return $"{contaOrigem.NumeroConta} - {tipoConta}";
+                    }
+                }
+                else
+                {
+                    // Valor positivo = conta de destino (ENTRADA)
+                    var contaDestino = _listaContas.FirstOrDefault(c => c.Id == transacao.ContaDestinoId);
+                    if (contaDestino != null)
+                    {
+                        var tipoConta = contaDestino.Tipo == "corrente" ? "Conta Corrente" : "Conta Poupança";
+                        return $"{contaDestino.NumeroConta} - {tipoConta}";
+                    }
+                }
+            }
+            else
+            {
+                // Para outras transações (depósitos, saques), usar a conta de origem
+                var conta = _listaContas.FirstOrDefault(c => c.Id == transacao.ContaOrigemId);
+                if (conta != null)
+                {
+                    var tipoConta = conta.Tipo == "corrente" ? "Conta Corrente" : "Conta Poupança";
+                    return $"{conta.NumeroConta} - {tipoConta}";
+                }
+            }
+
+            return "Conta Desconhecida";
+        }
+
         private void RefreshDados()
         {
             try
@@ -905,25 +961,374 @@ namespace DigiBank.views
         {
             try
             {
-                var saveFileDialog = new SaveFileDialog
-                {
-                    Filter = "Arquivo CSV (*.csv)|*.csv|Arquivo Excel (*.xlsx)|*.xlsx",
-                    Title = "Exportar Transações",
-                    FileName = $"transacoes_{DateTime.Now:yyyyMMdd_HHmmss}"
-                };
+                Console.WriteLine("=== BOTÃO EXPORTAR CLICADO ===");
+                Console.WriteLine("Iniciando processo de exportação...");
 
-                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                // Criar formulário de opções de exportação
+                using (var formExportacao = new Form())
                 {
-                    // TODO: Implementar exportação
-                    MessageBox.Show("Funcionalidade de exportação será implementada em breve!", "Informação",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Console.WriteLine("Formulário de exportação criado");
+
+                    formExportacao.Text = "Exportar Transações";
+                    formExportacao.Size = new Size(450, 350);
+                    formExportacao.StartPosition = FormStartPosition.CenterParent;
+                    formExportacao.FormBorderStyle = FormBorderStyle.FixedDialog;
+                    formExportacao.MaximizeBox = false;
+                    formExportacao.MinimizeBox = false;
+
+                    // Título
+                    var lblTitulo = new Label
+                    {
+                        Text = "Configurações de Exportação",
+                        Location = new Point(20, 20),
+                        AutoSize = true,
+                        Font = new Font("Segoe UI", 12, FontStyle.Bold)
+                    };
+
+                    // Período
+                    var lblPeriodo = new Label { Text = "Período:", Location = new Point(20, 60), AutoSize = true };
+                    var cmbPeriodo = new ComboBox
+                    {
+                        Location = new Point(20, 85),
+                        Size = new Size(400, 25),
+                        DropDownStyle = ComboBoxStyle.DropDownList
+                    };
+
+                    // Formato
+                    var lblFormato = new Label { Text = "Formato:", Location = new Point(20, 120), AutoSize = true };
+                    var cmbFormato = new ComboBox
+                    {
+                        Location = new Point(20, 145),
+                        Size = new Size(400, 25),
+                        DropDownStyle = ComboBoxStyle.DropDownList,
+                        Enabled = false // Sempre CSV
+                    };
+
+                    // Incluir cabeçalhos
+                    var chkIncluirCabecalhos = new CheckBox
+                    {
+                        Text = "Incluir cabeçalhos das colunas",
+                        Location = new Point(20, 180),
+                        AutoSize = true,
+                        Checked = true
+                    };
+
+                    // Incluir estatísticas
+                    var chkIncluirEstatisticas = new CheckBox
+                    {
+                        Text = "Incluir resumo estatístico",
+                        Location = new Point(20, 200),
+                        AutoSize = true,
+                        Checked = true
+                    };
+
+                    // Botões
+                    var btnExportar = new Button
+                    {
+                        Text = "Exportar",
+                        Location = new Point(250, 250),
+                        Size = new Size(80, 30),
+                        DialogResult = DialogResult.OK
+                    };
+                    var btnCancelar = new Button
+                    {
+                        Text = "Cancelar",
+                        Location = new Point(340, 250),
+                        Size = new Size(80, 30),
+                        DialogResult = DialogResult.Cancel
+                    };
+
+                    // Preencher combos
+                    cmbPeriodo.Items.AddRange(new object[]
+                    {
+                        "Últimos 7 dias",
+                        "Último mês",
+                        "Últimos 3 meses",
+                        "Último ano",
+                        "Todas as transações"
+                    });
+                    cmbPeriodo.SelectedIndex = 0;
+
+                    cmbFormato.Items.Add("Arquivo CSV (*.csv)");
+                    cmbFormato.SelectedIndex = 0;
+
+                    Console.WriteLine("Controles configurados, adicionando ao formulário...");
+
+                    // Adicionar controles
+                    formExportacao.Controls.AddRange(new Control[]
+                    {
+                        lblTitulo, lblPeriodo, cmbPeriodo, lblFormato, cmbFormato,
+                        chkIncluirCabecalhos, chkIncluirEstatisticas, btnExportar, btnCancelar
+                    });
+
+                    Console.WriteLine("Formulário configurado, exibindo...");
+
+                    if (formExportacao.ShowDialog() == DialogResult.OK)
+                    {
+                        Console.WriteLine("Usuário confirmou exportação");
+
+                        var periodoSelecionado = cmbPeriodo.SelectedItem?.ToString();
+                        var formatoSelecionado = cmbFormato.SelectedItem?.ToString();
+                        var incluirCabecalhos = chkIncluirCabecalhos.Checked;
+                        var incluirEstatisticas = chkIncluirEstatisticas.Checked;
+
+                        Console.WriteLine($"Período selecionado: {periodoSelecionado}");
+                        Console.WriteLine($"Formato selecionado: {formatoSelecionado}");
+                        Console.WriteLine($"Incluir cabeçalhos: {incluirCabecalhos}");
+                        Console.WriteLine($"Incluir estatísticas: {incluirEstatisticas}");
+
+                        // Filtrar transações pelo período selecionado
+                        var transacoesParaExportar = FiltrarTransacoesPorPeriodo(periodoSelecionado);
+
+                        Console.WriteLine($"Transações para exportar: {transacoesParaExportar.Count}");
+
+                        if (transacoesParaExportar.Count == 0)
+                        {
+                            MessageBox.Show("Nenhuma transação encontrada para o período selecionado.", "Aviso",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+
+                        // Configurar SaveFileDialog
+                        var saveFileDialog = new SaveFileDialog();
+                        var nomeArquivo = $"transacoes_{DateTime.Now:yyyyMMdd_HHmmss}";
+
+                        // Sempre CSV
+                        saveFileDialog.Filter = "Arquivo CSV (*.csv)|*.csv";
+                        saveFileDialog.FileName = $"{nomeArquivo}.csv";
+                        saveFileDialog.Title = "Salvar Arquivo de Transações";
+
+                        Console.WriteLine("SaveFileDialog configurado, exibindo...");
+
+                        if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                        {
+                            Console.WriteLine($"Arquivo selecionado: {saveFileDialog.FileName}");
+
+                            // Realizar exportação (sempre CSV)
+                            var sucesso = ExportarTransacoes(
+                                transacoesParaExportar,
+                                saveFileDialog.FileName,
+                                true, // Sempre CSV
+                                incluirCabecalhos,
+                                incluirEstatisticas
+                            );
+
+                            if (sucesso)
+                            {
+                                MessageBox.Show($"Transações exportadas com sucesso!\nArquivo salvo em: {saveFileDialog.FileName}",
+                                    "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                Console.WriteLine("Exportação concluída com sucesso!");
+                            }
+                            else
+                            {
+                                MessageBox.Show("Erro ao exportar transações. Verifique o console para mais detalhes.", "Erro",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                Console.WriteLine("Exportação falhou!");
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Usuário cancelou a seleção do arquivo");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Usuário cancelou a exportação");
+                    }
                 }
             }
             catch (Exception ex)
             {
+                Console.WriteLine($"ERRO no btnExportar_Click: {ex.Message}");
+                Console.WriteLine($"StackTrace: {ex.StackTrace}");
                 MessageBox.Show($"Erro ao exportar: {ex.Message}", "Erro",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private List<Transacao> FiltrarTransacoesPorPeriodo(string periodo)
+        {
+            var dataInicio = DateTime.Now;
+            var dataFim = DateTime.Now;
+
+            switch (periodo)
+            {
+                case "Últimos 7 dias":
+                    dataInicio = DateTime.Now.AddDays(-7);
+                    break;
+                case "Último mês":
+                    dataInicio = DateTime.Now.AddMonths(-1);
+                    break;
+                case "Últimos 3 meses":
+                    dataInicio = DateTime.Now.AddMonths(-3);
+                    break;
+                case "Último ano":
+                    dataInicio = DateTime.Now.AddYears(-1);
+                    break;
+                case "Todas as transações":
+                    return _listaTransacoes;
+                default:
+                    return _listaTransacoes;
+            }
+
+            return _listaTransacoes
+                .Where(t => t.DataTransacao >= dataInicio && t.DataTransacao <= dataFim)
+                .OrderByDescending(t => t.DataTransacao)
+                .ToList();
+        }
+
+        private bool ExportarTransacoes(List<Transacao> transacoes, string caminhoArquivo, bool isCSV, bool incluirCabecalhos, bool incluirEstatisticas)
+        {
+            try
+            {
+                // Sempre exportar como CSV (removido Excel)
+                return ExportarParaCSV(transacoes, caminhoArquivo, incluirCabecalhos, incluirEstatisticas);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro na exportação: {ex.Message}");
+                return false;
+            }
+        }
+
+        private bool ExportarParaCSV(List<Transacao> transacoes, string caminhoArquivo, bool incluirCabecalhos, bool incluirEstatisticas)
+        {
+            try
+            {
+                using (var writer = new StreamWriter(caminhoArquivo, false, Encoding.UTF8))
+                {
+                    // Escrever cabeçalhos se solicitado
+                    if (incluirCabecalhos)
+                    {
+                        writer.WriteLine("Tipo;Descrição;Extrato;Data;Valor;Status;Conta");
+                    }
+
+                    // Escrever dados das transações
+                    foreach (var transacao in transacoes)
+                    {
+                        // Obter dados formatados
+                        string descricao = ObterDescricaoTransacao(transacao);
+                        string extrato = ObterExtratoTransacao(transacao);
+                        string tipo = ObterNomeTipoTransacao(transacao.Tipo);
+                        string data = transacao.DataTransacao.ToString("dd/MM/yyyy HH:mm");
+                        string valor = transacao.Valor.ToString("C");
+                        string status = "Concluída";
+                        string conta = ObterNomeConta(transacao);
+
+                        // Limpar campos (sem aspas, apenas limpar quebras de linha)
+                        descricao = LimparCampoCSV(descricao);
+                        extrato = LimparCampoCSV(extrato);
+                        tipo = LimparCampoCSV(tipo);
+                        data = LimparCampoCSV(data);
+                        valor = LimparCampoCSV(valor);
+                        status = LimparCampoCSV(status);
+                        conta = LimparCampoCSV(conta);
+
+                        // Escrever linha da transação com ponto e vírgula como separador
+                        writer.WriteLine($"{tipo};{descricao};{extrato};{data};{valor};{status};{conta}");
+                    }
+
+                    // Adicionar linha em branco antes das estatísticas
+                    if (incluirEstatisticas)
+                    {
+                        writer.WriteLine();
+                        writer.WriteLine("=== RESUMO ESTATÍSTICO ===");
+                        writer.WriteLine("Item;Valor");
+                        writer.WriteLine($"Total de transações;{transacoes.Count}");
+                        writer.WriteLine($"Período;{transacoes.Min(t => t.DataTransacao):dd/MM/yyyy} a {transacoes.Max(t => t.DataTransacao):dd/MM/yyyy}");
+                        writer.WriteLine();
+
+                        var totalEntradas = transacoes.Where(t => t.Valor > 0).Sum(t => t.Valor);
+                        var totalSaidas = Math.Abs(transacoes.Where(t => t.Valor < 0).Sum(t => t.Valor));
+                        var saldoLiquido = totalEntradas - totalSaidas;
+
+                        writer.WriteLine("RESUMO FINANCEIRO");
+                        writer.WriteLine("Item;Valor");
+                        writer.WriteLine($"Total entradas;{totalEntradas:C}");
+                        writer.WriteLine($"Total saídas;{totalSaidas:C}");
+                        writer.WriteLine($"Saldo líquido;{saldoLiquido:C}");
+                    }
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro ao exportar para CSV: {ex.Message}");
+                return false;
+            }
+        }
+
+        private string LimparCampoCSV(string campo)
+        {
+            if (string.IsNullOrEmpty(campo))
+                return "";
+
+            // Remover quebras de linha e tabs
+            campo = campo.Replace("\r", " ").Replace("\n", " ").Replace("\t", " ");
+
+            // Remover espaços múltiplos
+            while (campo.Contains("  "))
+            {
+                campo = campo.Replace("  ", " ");
+            }
+
+            // Remover espaços no início e fim
+            campo = campo.Trim();
+
+            return campo;
+        }
+
+        private string ObterExtratoTransacao(Transacao transacao)
+        {
+            if (transacao.Tipo == "transferencia")
+            {
+                var contaOrigem = _listaContas.FirstOrDefault(c => c.Id == transacao.ContaOrigemId);
+                var contaDestino = _listaContas.FirstOrDefault(c => c.Id == transacao.ContaDestinoId);
+
+                if (contaOrigem != null && contaDestino != null)
+                {
+                    var tipoOrigem = contaOrigem.Tipo == "corrente" ? "Conta Corrente" : "Conta Poupança";
+                    var tipoDestino = contaDestino.Tipo == "corrente" ? "Conta Corrente" : "Conta Poupança";
+                    return $"{tipoOrigem} → {tipoDestino}";
+                }
+            }
+            else
+            {
+                var conta = _listaContas.FirstOrDefault(c => c.Id == transacao.ContaOrigemId);
+                if (conta != null)
+                {
+                    return conta.Tipo == "corrente" ? "Conta Corrente" : "Conta Poupança";
+                }
+            }
+
+            return "N/A";
+        }
+
+        private string ObterDescricaoTransacao(Transacao transacao)
+        {
+            if (transacao.Tipo == "transferencia")
+            {
+                var contaOrigem = _listaContas.FirstOrDefault(c => c.Id == transacao.ContaOrigemId);
+                var contaDestino = _listaContas.FirstOrDefault(c => c.Id == transacao.ContaDestinoId);
+
+                if (contaOrigem != null && contaDestino != null)
+                {
+                    var tipoOrigem = contaOrigem.Tipo == "corrente" ? "Conta Corrente" : "Conta Poupança";
+                    var tipoDestino = contaDestino.Tipo == "corrente" ? "Conta Corrente" : "Conta Poupança";
+
+                    if (transacao.Valor < 0)
+                    {
+                        return $"Transferência para {tipoDestino}";
+                    }
+                    else
+                    {
+                        return $"Transferência de {tipoOrigem}";
+                    }
+                }
+            }
+
+            return transacao.Descricao ?? "N/A";
         }
 
         private void btnNovaTransferencia_Click(object sender, EventArgs e)

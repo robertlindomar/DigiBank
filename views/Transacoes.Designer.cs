@@ -113,6 +113,7 @@ namespace DigiBank.views
             this.btnExportar.TabIndex = 3;
             this.btnExportar.Text = "📥 Exportar";
             this.btnExportar.UseVisualStyleBackColor = false;
+            this.btnExportar.Click += new System.EventHandler(this.btnExportar_Click);
             // 
             // btnNotificacao
             // 
