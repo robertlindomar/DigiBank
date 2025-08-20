@@ -95,34 +95,10 @@ CREATE TABLE pagamento_pos (
 
 -- Clientes (consolidados com informações de autenticação)
 -- senha: 123456 (hash bcrypt)
-INSERT INTO
-    cliente (
-        id,
-        nome,
-        cpf,
-        login,
-        senha,
-        ativo,
-        tipo
-    )
-VALUES (
-        1,
-        'Loja Teste',
-        '000.000.000-00',
-        'loja',
-        '$2a$11$9CaOWUQHHzwgDdsgvfKMZOnBRZRvbCtE55QkfudF83tHg3SR5aYEq',
-        1,
-        'cliente'
-    ),
-    (
-        2,
-        'Cliente Teste',
-        '111.111.111-11',
-        'cliente',
-        '$2a$11$9CaOWUQHHzwgDdsgvfKMZOnBRZRvbCtE55QkfudF83tHg3SR5aYEq',
-        1,
-        'cliente'
-    );
+INSERT INTO `cliente` (`id`, `nome`, `cpf`, `login`, `senha`, `ativo`, `data_criacao`, `tipo`) VALUES
+(1, 'admin', '35987612544', 'admin', '123456', 1, '2025-08-20 19:28:36', 'admin'),
+(2, 'usuario', '36985265377', 'usuario', '123456', 1, '2025-08-20 19:28:36', 'cliente');
+
 
 -- Contas (1 por cliente)
 INSERT INTO
