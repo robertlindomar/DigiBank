@@ -26,11 +26,12 @@ namespace DigiBank.views
             // Para capturar as teclas digitadas
             this.KeyPreview = true;
 
-
-
-
-
-
+            // Configurar os textos da nova interface
+            // lblIcon.Text = "⚡";
+            // lblLogo.Text = "DigiBank";
+            // lblTagline.Text = "Seu banco digital com tecnologia NFC";
+            // lblTitle.Text = "Entrar na sua conta";
+            // lblSubtitle.Text = "Digite suas credenciais para acessar o sistema";
         }
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
@@ -154,117 +155,9 @@ namespace DigiBank.views
             }
         }
 
-
-
-
-
-
-
-
-
-
-        private void label1_Click(object sender, EventArgs e)
+        private void panelHeader_Paint(object sender, PaintEventArgs e)
         {
 
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void Login_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Main telaDashboard = new Main();
-
-            telaDashboard.Show();
-            this.Hide();
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            // Teste para verificar cartoes no banco
-            try
-            {
-                CartaoController cartaoController = new CartaoController();
-                var cartoes = cartaoController.BuscarTodos();
-
-                string mensagem = $"Cartões encontrados: {cartoes.Count}\n\n";
-                foreach (var cartao in cartoes)
-                {
-                    mensagem += $"ID: {cartao.Id}, UID: {cartao.Uid}, Ativo: {cartao.Ativo}, ContaID: {cartao.ContaId}\n";
-                }
-
-                // Teste específico com UID conhecido
-                string uidTeste = "0848182788"; // UID do admin no banco
-                var cartaoTeste = cartaoController.BuscarPorUid(uidTeste);
-                if (cartaoTeste != null)
-                {
-                    mensagem += $"\n\nTeste com UID {uidTeste}:\n";
-                    mensagem += $"Cartão encontrado: ID={cartaoTeste.Id}, ContaID={cartaoTeste.ContaId}\n";
-
-                    // Buscar conta
-                    ContaController contaController = new ContaController();
-                    var conta = contaController.BuscarPorId(cartaoTeste.ContaId);
-                    if (conta != null)
-                    {
-                        mensagem += $"Conta encontrada: ID={conta.Id}, ClienteID={conta.ClienteId}\n";
-
-                        // Buscar cliente
-                        var cliente = clienteController.BuscarPorId(conta.ClienteId);
-                        if (cliente != null)
-                        {
-                            mensagem += $"Cliente encontrado: ID={cliente.Id}, Login={cliente.Login}\n";
-                        }
-                        else
-                        {
-                            mensagem += "Cliente NÃO encontrado!\n";
-                        }
-                    }
-                    else
-                    {
-                        mensagem += "Conta NÃO encontrada!\n";
-                    }
-                }
-                else
-                {
-                    mensagem += $"\n\nTeste com UID {uidTeste}: Cartão NÃO encontrado!\n";
-                }
-
-                MessageBox.Show(mensagem, "Teste de Cartões");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Erro ao buscar cartões: {ex.Message}", "Erro");
-            }
-        }
-
-        private void button1_Click_1(object sender, EventArgs e)
-        {
-            try
-            {
-                //criar cliente
-                ClienteController clienteController = new ClienteController();
-                clienteController.Criar(new Cliente(1, "admin", "35987612544", "admin", "123456", "admin"));
-                clienteController.Criar(new Cliente(2, "usuario", "36985265377", "usuario", "123456", "cliente"));
-                MessageBox.Show("Clientes cadastrados com sucesso");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Erro ao cadastrar usuários: {ex.Message}", "Erro");
-            }
         }
     }
 }

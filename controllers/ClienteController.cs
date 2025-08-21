@@ -178,7 +178,7 @@ namespace DigiBank.controllers
             }
             catch (Exception ex)
             {
-                throw new Exception($"Erro no controller ao fazer login: {ex.Message}");
+                throw new Exception($" Erro no controller ao fazer login: {ex.Message}");
             }
         }
     }
