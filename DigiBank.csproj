@@ -120,6 +120,72 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="configs\Database.cs" />
+    <Compile Include="views\Admin\AdminDashBoard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="views\Admin\AdminDashBoard.Designer.cs">
+      <DependentUpon>AdminDashBoard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="views\Admin\AdminMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="views\Admin\AdminMain.Designer.cs">
+      <DependentUpon>AdminMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="views\Admin\CartoesNFC.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="views\Admin\CartoesNFC.Designer.cs">
+      <DependentUpon>CartoesNFC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="views\Admin\Clientes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="views\Admin\Clientes.Designer.cs">
+      <DependentUpon>Clientes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="views\Admin\Contas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="views\Admin\Contas.Designer.cs">
+      <DependentUpon>Contas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="views\Admin\Relatorios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="views\Admin\Relatorios.Designer.cs">
+      <DependentUpon>Relatorios.cs</DependentUpon>
+    </Compile>
+    <Compile Include="views\Admin\TerminaisPOS.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="views\Admin\TerminaisPOS.Designer.cs">
+      <DependentUpon>TerminaisPOS.cs</DependentUpon>
+    </Compile>
+    <Compile Include="views\Admin\Transacoes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="views\Admin\Transacoes.Designer.cs">
+      <DependentUpon>Transacoes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="views\Admin\FormNovoCliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="views\Admin\FormNovoCliente.Designer.cs">
+      <DependentUpon>FormNovoCliente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="views\Admin\FormNovaConta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="views\Admin\FormNovaConta.Designer.cs">
+      <DependentUpon>FormNovaConta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="views\Admin\FormNovoCartao.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="views\Admin\FormNovoCartao.Designer.cs">
+      <DependentUpon>FormNovoCartao.cs</DependentUpon>
+    </Compile>
     <Compile Include="views\Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -182,6 +248,39 @@
     <Compile Include="views\TerminalPos.Designer.cs">
       <DependentUpon>TerminalPos.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="views\Admin\AdminDashBoard.resx">
+      <DependentUpon>AdminDashBoard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="views\Admin\AdminMain.resx">
+      <DependentUpon>AdminMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="views\Admin\CartoesNFC.resx">
+      <DependentUpon>CartoesNFC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="views\Admin\Clientes.resx">
+      <DependentUpon>Clientes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="views\Admin\Contas.resx">
+      <DependentUpon>Contas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="views\Admin\Relatorios.resx">
+      <DependentUpon>Relatorios.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="views\Admin\TerminaisPOS.resx">
+      <DependentUpon>TerminaisPOS.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="views\Admin\Transacoes.resx">
+      <DependentUpon>Transacoes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="views\Admin\FormNovoCliente.resx">
+      <DependentUpon>FormNovoCliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="views\Admin\FormNovaConta.resx">
+      <DependentUpon>FormNovaConta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="views\Admin\FormNovoCartao.resx">
+      <DependentUpon>FormNovoCartao.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="views\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
@@ -227,6 +326,13 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="DB\banco.sql" />
+    <None Include="Resources\icons8-erro-40.png" />
+    <None Include="Resources\icons8-x-48.png" />
+    <None Include="Resources\icons8-selecionado-50.png" />
+    <None Include="Resources\icons8-grupos-de-usuários-50.png" />
+    <None Include="Resources\icons8-nota-de-dinheiro-32.png" />
+    <None Include="Resources\icons8-frente-do-cartão-de-crédito-80.png" />
+    <None Include="Resources\icons8-contatos-32.png" />
     <None Include="Resources\carteira %281%29.png" />
     <None Include="Resources\carteira.png" />
     <None Include="Resources\moedas.png" />

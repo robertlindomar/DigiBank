@@ -39,14 +39,17 @@ namespace DigiBank.repositories
             using (var db = new Database())
             {
                 var conexao = db.OpenConnection();
-                string sql = "SELECT * FROM conta ORDER BY data_abertura DESC";
+                string sql = @"SELECT c.*, cl.nome as cliente_nome, cl.cpf as cliente_cpf 
+                             FROM conta c 
+                             LEFT JOIN cliente cl ON c.cliente_id = cl.id 
+                             ORDER BY c.data_abertura DESC";
 
                 using (MySqlCommand cmd = new MySqlCommand(sql, conexao))
                 using (MySqlDataReader reader = cmd.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        contas.Add(LerContaDoReader(reader));
+                        contas.Add(LerContaComClienteDoReader(reader));
                     }
                 }
                 db.CloseConnection();
@@ -255,6 +258,33 @@ namespace DigiBank.repositories
                 ClienteId = Convert.ToInt32(reader["cliente_id"]),
                 DataAbertura = Convert.ToDateTime(reader["data_abertura"])
             };
+        }
+
+        private Conta LerContaComClienteDoReader(MySqlDataReader reader)
+        {
+            var conta = new Conta
+            {
+                Id = Convert.ToInt32(reader["id"]),
+                NumeroConta = reader["numero_conta"].ToString(),
+                Tipo = reader["tipo"].ToString(),
+                Saldo = Convert.ToDecimal(reader["saldo"]),
+                Ativa = Convert.ToBoolean(reader["ativa"]),
+                ClienteId = Convert.ToInt32(reader["cliente_id"]),
+                DataAbertura = Convert.ToDateTime(reader["data_abertura"])
+            };
+
+            // Carregar dados do cliente se disponíveis
+            if (reader["cliente_nome"] != DBNull.Value)
+            {
+                conta.Cliente = new Cliente
+                {
+                    Id = conta.ClienteId,
+                    Nome = reader["cliente_nome"].ToString(),
+                    Cpf = reader["cliente_cpf"].ToString()
+                };
+            }
+
+            return conta;
         }
     }
 }

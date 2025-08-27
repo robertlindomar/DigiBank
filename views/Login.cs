@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DigiBank.models;
 using DigiBank.repositories;
+using DigiBank.views.Admin;
 
 namespace DigiBank.views
 {
@@ -135,7 +136,15 @@ namespace DigiBank.views
                 if (cliente != null)
                 {
 
-
+                    //se o tipo do usuario for admin, abre a tela de admin
+                    if (cliente.Tipo == "admin")
+                    {
+                        AdminMain adminMain = new AdminMain();
+                        adminMain.FormClosed += (s, args) => this.Show();
+                        adminMain.Show();
+                        this.Hide();
+                        return;
+                    }
 
                     Main telaDashboard = new Main(cliente);
                     telaDashboard.FormClosed += (s, args) => this.Show();
@@ -151,7 +160,8 @@ namespace DigiBank.views
             }
             catch (Exception ex)
             {
-                lblError.Text = $"Ocorreu um erro ao tentar fazer login: {ex.Message}";
+                lblError.Text = $"Ocorreu um erro ao tentar fazer login !";
+                Console.WriteLine(  ex.Message);
             }
         }
 
