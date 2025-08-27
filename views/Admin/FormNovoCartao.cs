@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+
 using DigiBank.services;
 using DigiBank.models;
 
@@ -122,17 +123,17 @@ namespace DigiBank.views.Admin
         {
             try
             {
-                // Gerar UID único baseado em timestamp e random
+                // Gerar UID único de 10 dígitos baseado em timestamp e random
                 var timestamp = DateTime.Now.Ticks % 1000000000;
                 var random = new Random();
                 var randomPart = random.Next(1000, 9999);
 
-                var uid = $"NFC{timestamp:D9}{randomPart:D4}";
+                var uid = $"{timestamp:D6}{randomPart:D4}";
 
                 txtUid.Text = uid;
-                txtUid.Enabled = false;
-                txtUid.BackColor = Color.LightGray;
-                txtUid.ReadOnly = true;
+                txtUid.Enabled = true; // Permitir edição manual
+                txtUid.BackColor = Color.White;
+                txtUid.ReadOnly = false;
             }
             catch (Exception ex)
             {
@@ -162,10 +163,10 @@ namespace DigiBank.views.Admin
                         MessageBox.Show("Conta associada ao cartão não foi encontrada.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
 
-                    // Desabilitar edição de campos que não devem ser alterados
-                    txtUid.Enabled = false;
-                    txtUid.BackColor = Color.LightGray;
-                    txtUid.ReadOnly = true;
+                    // Permitir edição do UID para cartões físicos
+                    txtUid.Enabled = true;
+                    txtUid.BackColor = Color.White;
+                    txtUid.ReadOnly = false;
                     cmbConta.Enabled = false;
                 }
                 catch (Exception ex)
@@ -275,7 +276,7 @@ namespace DigiBank.views.Admin
                 {
                     Uid = txtUid.Text.Trim(),
                     Apelido = txtApelido.Text.Trim(),
-                    PinHash = BCrypt.Net.BCrypt.HashPassword(txtPin.Text.Trim()),
+                    PinHash = txtPin.Text.Trim(), // Armazenar PIN diretamente
                     ContaId = contaSelecionada.Id,
                     Ativo = chkAtivo.Checked,
                     DataVinculacao = DateTime.Now
@@ -310,7 +311,7 @@ namespace DigiBank.views.Admin
                     // Atualizar PIN apenas se foi alterado
                     if (txtPin.Text != "******")
                     {
-                        _cartaoEditando.PinHash = BCrypt.Net.BCrypt.HashPassword(txtPin.Text.Trim());
+                        _cartaoEditando.PinHash = txtPin.Text.Trim(); // Atualizar PIN diretamente
                     }
 
                     _cartaoService.AtualizarCartao(_cartaoEditando);
@@ -334,6 +335,8 @@ namespace DigiBank.views.Admin
                 MessageBox.Show("Erro: Cartão para edição não encontrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+
 
         private void BtnCancelar_Click(object sender, EventArgs e)
         {
