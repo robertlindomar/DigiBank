@@ -210,14 +210,20 @@ namespace DigiBank.views
                             _listaTerminais.Any(t => t.Id == p.TerminalId.Value)
                         ).ToList();
 
-                        // Pegar os 10 mais recentes
+                        // Pegar os 10 mais recentes (por ID, que é mais confiável)
                         var pagamentosRecentes = pagamentosUsuario
-                            .OrderByDescending(p => p.DataPagamento)
+                            .OrderByDescending(p => p.Id)
                             .Take(10)
                             .ToList();
 
                         _listaPagamentos.AddRange(pagamentosRecentes);
                         Console.WriteLine($"✅ Pagamentos carregados: {_listaPagamentos.Count} pagamentos recentes do usuário");
+
+                        // Mostrar detalhes dos pagamentos carregados
+                        foreach (var pagamento in _listaPagamentos)
+                        {
+                            Console.WriteLine($"  - Pagamento ID: {pagamento.Id}, Status: {pagamento.Status}, Valor: R$ {pagamento.Valor:F2}");
+                        }
                     }
                 }
                 else
@@ -453,6 +459,11 @@ namespace DigiBank.views
                             row.Cells["Status"].Style.ForeColor = Color.FromArgb(245, 158, 11);
                             row.Cells["Status"].Style.BackColor = Color.FromArgb(255, 251, 235);
                         }
+                        else if (status == "Sem Saldo")
+                        {
+                            row.Cells["Status"].Style.ForeColor = Color.FromArgb(239, 68, 68);
+                            row.Cells["Status"].Style.BackColor = Color.FromArgb(254, 242, 242);
+                        }
                         else
                         {
                             row.Cells["Status"].Style.ForeColor = Color.FromArgb(107, 114, 128);
@@ -562,6 +573,53 @@ namespace DigiBank.views
                 return;
             }
 
+            // VERIFICAR SALDO DO CARTÃO ANTES DE PROCESSAR
+            if (contaCartao != null && contaCartao.Saldo < _valorTransacao)
+            {
+                Console.WriteLine($"❌ Saldo insuficiente detectado! Saldo: R$ {contaCartao.Saldo:F2}, Valor: R$ {_valorTransacao:F2}");
+
+                // Mostrar estado de processamento primeiro (igual ao fluxo de sucesso)
+                AtualizarEstadoPagamento("processando");
+
+                // Simular processamento (2 segundos) igual ao fluxo de sucesso
+                _ = Task.Run(async () =>
+                {
+                    await Task.Delay(2000);
+
+                    this.Invoke((MethodInvoker)delegate
+                    {
+                        // Depois mostrar painel de erro
+                        AtualizarEstadoPagamento("erro");
+
+                        // Atualizar mensagem de erro para mostrar detalhes do saldo
+                        if (lblErro != null)
+                        {
+                            lblErro.Text = $"❌ Saldo Insuficiente\n\nSaldo disponível: R$ {contaCartao.Saldo:F2}\nValor da transação: R$ {_valorTransacao:F2}";
+                            lblErro.AutoSize = false;
+                            lblErro.TextAlign = ContentAlignment.MiddleCenter;
+                        }
+
+                        Console.WriteLine("✅ Painel de erro exibido para saldo insuficiente");
+
+                        // Aguardar 3 segundos e voltar ao estado inicial
+                        _ = Task.Run(async () =>
+                        {
+                            await Task.Delay(3000);
+                            this.Invoke((MethodInvoker)delegate
+                            {
+                                AtualizarEstadoPagamento("idle");
+                                txtValor.Text = "";
+                                txtUidCartao.Text = "";
+                                _valorTransacao = 0;
+                                Console.WriteLine("🔄 Retornando ao estado inicial após saldo insuficiente");
+                            });
+                        });
+                    });
+                });
+
+                return;
+            }
+
             _processandoPagamento = true;
             btnSimularPagamento.Enabled = false;
 
@@ -584,6 +642,7 @@ namespace DigiBank.views
                         Console.WriteLine($"Processando pagamento: R$ {_valorTransacao:F2}");
                         Console.WriteLine($"Terminal: {terminalAtivo.Nome} (ID: {terminalAtivo.Id})");
                         Console.WriteLine($"Cartão: {cartaoAtivo.Apelido} (ID: {cartaoAtivo.Id}) UID: {cartaoAtivo.Uid}");
+                        Console.WriteLine($"Saldo da conta: R$ {contaCartao?.Saldo:F2}");
 
                         var pagamentoId = _pagamentoController.ProcessarPagamento(
                             terminalAtivo.Id,
@@ -594,12 +653,36 @@ namespace DigiBank.views
 
                         Console.WriteLine($"✅ Pagamento processado com sucesso! ID: {pagamentoId}");
 
-                        // Sucesso
-                        AtualizarEstadoPagamento("sucesso");
-                        lblValorAprovado.Text = _valorTransacao.ToString("C2");
-
-                        // Recarregar dados
+                        // Recarregar dados para obter o status real do pagamento
                         CarregarPagamentosRecentes();
+
+                        // Buscar o pagamento recém-criado para verificar o status
+                        var pagamentoRecente = _listaPagamentos.FirstOrDefault(p => p.Id == pagamentoId);
+                        if (pagamentoRecente != null)
+                        {
+                            Console.WriteLine($"Status do pagamento {pagamentoRecente.Id}: {pagamentoRecente.Status}");
+
+                            if (pagamentoRecente.Status == "aprovado")
+                            {
+                                // Sucesso
+                                Console.WriteLine("✅ Pagamento APROVADO - Mostrando tela de sucesso");
+                                AtualizarEstadoPagamento("sucesso");
+                                lblValorAprovado.Text = _valorTransacao.ToString("C2");
+                            }
+                            else
+                            {
+                                // Pagamento recusado
+                                Console.WriteLine($"❌ Pagamento RECUSADO - Status: {pagamentoRecente.Status}");
+                                AtualizarEstadoPagamento("erro");
+                                MessageBox.Show($"Pagamento recusado: {ObterTextoStatus(pagamentoRecente.Status)}", "Pagamento Recusado",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("⚠️ Pagamento não encontrado na lista após recarregamento");
+                        }
+
                         AtualizarEstatisticas();
                     }
                     else

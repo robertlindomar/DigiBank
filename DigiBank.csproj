@@ -181,6 +181,12 @@
     <Compile Include="views\Admin\FormNovoCartao.Designer.cs">
       <DependentUpon>FormNovoCartao.cs</DependentUpon>
     </Compile>
+    <Compile Include="views\Admin\FormNovoTerminal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="views\Admin\FormNovoTerminal.Designer.cs">
+      <DependentUpon>FormNovoTerminal.cs</DependentUpon>
+    </Compile>
     <Compile Include="views\Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -275,6 +281,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="views\Admin\FormNovoCartao.resx">
       <DependentUpon>FormNovoCartao.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="views\Admin\FormNovoTerminal.resx">
+      <DependentUpon>FormNovoTerminal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="views\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>

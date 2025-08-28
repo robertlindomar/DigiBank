@@ -3,12 +3,28 @@
   "WorkspaceRootPath": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A391FB90-A041-4297-BF7F-B8B68C3631C9}|DigiBank.csproj|C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\terminalpos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{A391FB90-A041-4297-BF7F-B8B68C3631C9}|DigiBank.csproj|solutionrelative:views\\terminalpos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{A391FB90-A041-4297-BF7F-B8B68C3631C9}|DigiBank.csproj|C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\admin\\transacoes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{A391FB90-A041-4297-BF7F-B8B68C3631C9}|DigiBank.csproj|solutionrelative:views\\admin\\transacoes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A391FB90-A041-4297-BF7F-B8B68C3631C9}|DigiBank.csproj|c:\\users\\robertlindomar\\desktop\\trabalho c#\\digibank\\views\\admin\\formnovocartao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{A391FB90-A041-4297-BF7F-B8B68C3631C9}|DigiBank.csproj|c:\\users\\robertlindomar\\desktop\\trabalho c#\\digibank\\views\\terminalpos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A391FB90-A041-4297-BF7F-B8B68C3631C9}|DigiBank.csproj|solutionrelative:views\\terminalpos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A391FB90-A041-4297-BF7F-B8B68C3631C9}|DigiBank.csproj|C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\admin\\formnovocartao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{A391FB90-A041-4297-BF7F-B8B68C3631C9}|DigiBank.csproj|solutionrelative:views\\admin\\formnovocartao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A391FB90-A041-4297-BF7F-B8B68C3631C9}|DigiBank.csproj|c:\\users\\robertlindomar\\desktop\\trabalho c#\\digibank\\views\\admin\\terminaispos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A391FB90-A041-4297-BF7F-B8B68C3631C9}|DigiBank.csproj|solutionrelative:views\\admin\\terminaispos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A391FB90-A041-4297-BF7F-B8B68C3631C9}|DigiBank.csproj|C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\admin\\terminaispos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{A391FB90-A041-4297-BF7F-B8B68C3631C9}|DigiBank.csproj|solutionrelative:views\\admin\\terminaispos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A391FB90-A041-4297-BF7F-B8B68C3631C9}|DigiBank.csproj|C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
@@ -35,10 +51,6 @@
       "RelativeMoniker": "D:0:0:{A391FB90-A041-4297-BF7F-B8B68C3631C9}|DigiBank.csproj|solutionrelative:views\\admin\\relatorios.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A391FB90-A041-4297-BF7F-B8B68C3631C9}|DigiBank.csproj|C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\admin\\terminaispos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{A391FB90-A041-4297-BF7F-B8B68C3631C9}|DigiBank.csproj|solutionrelative:views\\admin\\terminaispos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A391FB90-A041-4297-BF7F-B8B68C3631C9}|DigiBank.csproj|C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\admin\\contas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{A391FB90-A041-4297-BF7F-B8B68C3631C9}|DigiBank.csproj|solutionrelative:views\\admin\\contas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
@@ -53,10 +65,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{A391FB90-A041-4297-BF7F-B8B68C3631C9}|DigiBank.csproj|C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\cartoes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{A391FB90-A041-4297-BF7F-B8B68C3631C9}|DigiBank.csproj|solutionrelative:views\\cartoes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A391FB90-A041-4297-BF7F-B8B68C3631C9}|DigiBank.csproj|C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\terminalpos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{A391FB90-A041-4297-BF7F-B8B68C3631C9}|DigiBank.csproj|solutionrelative:views\\terminalpos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A391FB90-A041-4297-BF7F-B8B68C3631C9}|DigiBank.csproj|C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
@@ -90,11 +98,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
+              "Title": "TerminalPos.cs",
+              "DocumentMoniker": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\TerminalPos.cs",
+              "RelativeDocumentMoniker": "views\\TerminalPos.cs",
+              "ToolTip": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\TerminalPos.cs",
+              "RelativeToolTip": "views\\TerminalPos.cs",
+              "ViewState": "AgIAAGEDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-28T00:29:50.757Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "FormNovoCartao.cs [Design]",
               "DocumentMoniker": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\Admin\\FormNovoCartao.cs",
               "RelativeDocumentMoniker": "views\\Admin\\FormNovoCartao.cs",
@@ -106,18 +127,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "Clientes.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\Admin\\Clientes.cs",
-              "RelativeDocumentMoniker": "views\\Admin\\Clientes.cs",
-              "ToolTip": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\Admin\\Clientes.cs [Design]",
-              "RelativeToolTip": "views\\Admin\\Clientes.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-22T21:37:52.889Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Transacoes.cs [Design]",
               "DocumentMoniker": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\Admin\\Transacoes.cs",
               "RelativeDocumentMoniker": "views\\Admin\\Transacoes.cs",
@@ -129,52 +139,32 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "AdminDashBoard.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\Admin\\AdminDashBoard.cs",
-              "RelativeDocumentMoniker": "views\\Admin\\AdminDashBoard.cs",
-              "ToolTip": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\Admin\\AdminDashBoard.cs [Design]",
-              "RelativeToolTip": "views\\Admin\\AdminDashBoard.cs [Design]",
+              "DocumentIndex": 0,
+              "Title": "TerminalPos.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\TerminalPos.cs",
+              "RelativeDocumentMoniker": "views\\TerminalPos.cs",
+              "ToolTip": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\TerminalPos.cs [Design]",
+              "RelativeToolTip": "views\\TerminalPos.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-22T21:36:44.507Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Login.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\Login.cs",
-              "RelativeDocumentMoniker": "views\\Login.cs",
-              "ToolTip": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\Login.cs [Design]",
-              "RelativeToolTip": "views\\Login.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-17T19:44:14.296Z"
+              "WhenOpened": "2025-08-25T05:27:29.723Z",
+              "EditorCaption": " [Design]"
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "AdminMain.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\Admin\\AdminMain.cs",
-              "RelativeDocumentMoniker": "views\\Admin\\AdminMain.cs",
-              "ToolTip": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\Admin\\AdminMain.cs [Design]",
-              "RelativeToolTip": "views\\Admin\\AdminMain.cs [Design]",
+              "Title": "TerminaisPOS.cs",
+              "DocumentMoniker": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\Admin\\TerminaisPOS.cs",
+              "RelativeDocumentMoniker": "views\\Admin\\TerminaisPOS.cs",
+              "ToolTip": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\Admin\\TerminaisPOS.cs",
+              "RelativeToolTip": "views\\Admin\\TerminaisPOS.cs",
+              "ViewState": "AgIAAIEBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-21T22:04:55.265Z"
+              "WhenOpened": "2025-08-27T23:16:17.009Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Login.cs",
-              "DocumentMoniker": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\Login.cs",
-              "RelativeDocumentMoniker": "views\\Login.cs",
-              "ToolTip": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\Login.cs",
-              "RelativeToolTip": "views\\Login.cs",
-              "ViewState": "AgIAAJIAAAAAAAAAAAAmwKUAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-17T19:44:16.099Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 5,
               "Title": "TerminaisPOS.cs [Design]",
               "DocumentMoniker": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\Admin\\TerminaisPOS.cs",
               "RelativeDocumentMoniker": "views\\Admin\\TerminaisPOS.cs",
@@ -186,6 +176,62 @@
             {
               "$type": "Document",
               "DocumentIndex": 10,
+              "Title": "Clientes.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\Admin\\Clientes.cs",
+              "RelativeDocumentMoniker": "views\\Admin\\Clientes.cs",
+              "ToolTip": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\Admin\\Clientes.cs [Design]",
+              "RelativeToolTip": "views\\Admin\\Clientes.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-22T21:37:52.889Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "AdminDashBoard.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\Admin\\AdminDashBoard.cs",
+              "RelativeDocumentMoniker": "views\\Admin\\AdminDashBoard.cs",
+              "ToolTip": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\Admin\\AdminDashBoard.cs [Design]",
+              "RelativeToolTip": "views\\Admin\\AdminDashBoard.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-22T21:36:44.507Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Login.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\Login.cs",
+              "RelativeDocumentMoniker": "views\\Login.cs",
+              "ToolTip": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\Login.cs [Design]",
+              "RelativeToolTip": "views\\Login.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-17T19:44:14.296Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "AdminMain.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\Admin\\AdminMain.cs",
+              "RelativeDocumentMoniker": "views\\Admin\\AdminMain.cs",
+              "ToolTip": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\Admin\\AdminMain.cs [Design]",
+              "RelativeToolTip": "views\\Admin\\AdminMain.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-21T22:04:55.265Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Login.cs",
+              "DocumentMoniker": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\Login.cs",
+              "RelativeDocumentMoniker": "views\\Login.cs",
+              "ToolTip": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\Login.cs",
+              "RelativeToolTip": "views\\Login.cs",
+              "ViewState": "AgIAAJIAAAAAAAAAAAAmwKUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-17T19:44:16.099Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
               "Title": "CartoesNFC.cs [Design]",
               "DocumentMoniker": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\Admin\\CartoesNFC.cs",
               "RelativeDocumentMoniker": "views\\Admin\\CartoesNFC.cs",
@@ -196,7 +242,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 11,
               "Title": "Relatorios.cs [Design]",
               "DocumentMoniker": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\Admin\\Relatorios.cs",
               "RelativeDocumentMoniker": "views\\Admin\\Relatorios.cs",
@@ -207,7 +253,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 12,
               "Title": "Contas.cs [Design]",
               "DocumentMoniker": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\Admin\\Contas.cs",
               "RelativeDocumentMoniker": "views\\Admin\\Contas.cs",
@@ -218,7 +264,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 14,
               "Title": "Transacoes.cs [Design]",
               "DocumentMoniker": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\Transacoes.cs",
               "RelativeDocumentMoniker": "views\\Transacoes.cs",
@@ -229,18 +275,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "TerminalPos.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\TerminalPos.cs",
-              "RelativeDocumentMoniker": "views\\TerminalPos.cs",
-              "ToolTip": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\TerminalPos.cs [Design]",
-              "RelativeToolTip": "views\\TerminalPos.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-25T05:27:29.723Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 15,
               "Title": "Cartoes.cs [Design]",
               "DocumentMoniker": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\Cartoes.cs",
               "RelativeDocumentMoniker": "views\\Cartoes.cs",
@@ -251,7 +286,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 17,
               "Title": "AdminDashBoard.resx",
               "DocumentMoniker": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\Admin\\AdminDashBoard.resx",
               "RelativeDocumentMoniker": "views\\Admin\\AdminDashBoard.resx",
@@ -262,7 +297,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 18,
               "Title": "AdminMain.resx",
               "DocumentMoniker": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\Admin\\AdminMain.resx",
               "RelativeDocumentMoniker": "views\\Admin\\AdminMain.resx",
@@ -273,7 +308,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 19,
               "Title": "banco.sql",
               "DocumentMoniker": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\DB\\banco.sql",
               "RelativeDocumentMoniker": "DB\\banco.sql",
@@ -285,7 +320,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 16,
               "Title": "Main.cs [Design]",
               "DocumentMoniker": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\Main.cs",
               "RelativeDocumentMoniker": "views\\Main.cs",
@@ -296,7 +331,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 20,
               "Title": "ClienteController.cs",
               "DocumentMoniker": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\controllers\\ClienteController.cs",
               "RelativeDocumentMoniker": "controllers\\ClienteController.cs",
@@ -308,7 +343,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 21,
               "Title": "DashBoard.cs",
               "DocumentMoniker": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\DashBoard.cs",
               "RelativeDocumentMoniker": "views\\DashBoard.cs",
