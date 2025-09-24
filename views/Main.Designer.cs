@@ -43,7 +43,7 @@
             this.btnTransacoes = new System.Windows.Forms.Button();
             this.btnCartoes = new System.Windows.Forms.Button();
             this.btnTerminalPOS = new System.Windows.Forms.Button();
-            this.btnConfiguracoes = new System.Windows.Forms.Button();
+            this.btnSair = new System.Windows.Forms.Button();
             this.panelPrincipal = new System.Windows.Forms.Panel();
             this.panelLateral.SuspendLayout();
             this.panelUsuario.SuspendLayout();
@@ -168,7 +168,7 @@
             this.panelMenu.Controls.Add(this.btnTransacoes);
             this.panelMenu.Controls.Add(this.btnCartoes);
             this.panelMenu.Controls.Add(this.btnTerminalPOS);
-            this.panelMenu.Controls.Add(this.btnConfiguracoes);
+            this.panelMenu.Controls.Add(this.btnSair);
             this.panelMenu.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelMenu.Location = new System.Drawing.Point(0, 0);
             this.panelMenu.Name = "panelMenu";
@@ -239,21 +239,21 @@
             this.btnTerminalPOS.UseVisualStyleBackColor = false;
             this.btnTerminalPOS.Click += new System.EventHandler(this.btnTerminalPOS_Click);
             // 
-            // btnConfiguracoes
+            // btnSair
             // 
-            this.btnConfiguracoes.BackColor = System.Drawing.Color.White;
-            this.btnConfiguracoes.FlatAppearance.BorderSize = 0;
-            this.btnConfiguracoes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnConfiguracoes.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnConfiguracoes.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(107)))), ((int)(((byte)(114)))), ((int)(((byte)(128)))));
-            this.btnConfiguracoes.Location = new System.Drawing.Point(0, 332);
-            this.btnConfiguracoes.Name = "btnConfiguracoes";
-            this.btnConfiguracoes.Size = new System.Drawing.Size(250, 50);
-            this.btnConfiguracoes.TabIndex = 4;
-            this.btnConfiguracoes.Text = "⚙️ Configurações";
-            this.btnConfiguracoes.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnConfiguracoes.UseVisualStyleBackColor = false;
-            this.btnConfiguracoes.Click += new System.EventHandler(this.btnConfiguracoes_Click);
+            this.btnSair.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.btnSair.FlatAppearance.BorderSize = 0;
+            this.btnSair.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSair.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSair.ForeColor = System.Drawing.Color.White;
+            this.btnSair.Location = new System.Drawing.Point(0, 392);
+            this.btnSair.Name = "btnSair";
+            this.btnSair.Size = new System.Drawing.Size(250, 50);
+            this.btnSair.TabIndex = 5;
+            this.btnSair.Text = "🚪 Sair";
+            this.btnSair.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSair.UseVisualStyleBackColor = false;
+            this.btnSair.Click += new System.EventHandler(this.btnSair_Click);
             // 
             // panelPrincipal
             // 
@@ -303,7 +303,7 @@
         private System.Windows.Forms.Button btnTransacoes;
         private System.Windows.Forms.Button btnCartoes;
         private System.Windows.Forms.Button btnTerminalPOS;
-        private System.Windows.Forms.Button btnConfiguracoes;
+        private System.Windows.Forms.Button btnSair;
         private System.Windows.Forms.Panel panelLogo;
         private System.Windows.Forms.Label lblLogo;
         private System.Windows.Forms.Panel picLogo;

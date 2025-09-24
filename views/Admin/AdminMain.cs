@@ -28,8 +28,6 @@ namespace DigiBank.views.Admin
             btnCartoes.Click += btnCartoes_Click;
             btnTransacoes.Click += btnTransacoes_Click;
             bntTerminais.Click += bntTerminais_Click;
-            bntRelatorios.Click += bntRelatorios_Click;
-            btnConfiguracoes.Click += btnConfiguracoes_Click;
             btnSair.Click += btnSair_Click;
 
             // Carregar dashboard por padrão
@@ -159,31 +157,6 @@ namespace DigiBank.views.Admin
             tela.Show();
         }
 
-        private void bntRelatorios_Click(object sender, EventArgs e)
-        {
-            SelecionarBotao(bntRelatorios);
-
-            panelPrincipal.Controls.Clear();
-
-            Relatorios tela = new Relatorios()
-            {
-                TopLevel = false,
-                FormBorderStyle = FormBorderStyle.None,
-                Dock = DockStyle.Fill
-            };
-            panelPrincipal.Controls.Add(tela);
-            tela.Show();
-        }
-
-        private void btnConfiguracoes_Click(object sender, EventArgs e)
-        {
-            SelecionarBotao(btnConfiguracoes);
-
-            panelPrincipal.Controls.Clear();
-
-            // Aqui você pode implementar a tela de configurações quando estiver disponível
-            // Por enquanto, apenas limpa o painel principal
-        }
 
         private void btnSair_Click(object sender, EventArgs e)
         {
@@ -211,8 +184,6 @@ namespace DigiBank.views.Admin
                 btnCartoes,
                 btnTransacoes,
                 bntTerminais,
-                bntRelatorios,
-                btnConfiguracoes,
                 btnSair
             };
 
@@ -229,9 +200,9 @@ namespace DigiBank.views.Admin
             // Resetar todos
             ResetarEstiloBotoes();
 
-            // Estilo de selecionado
-            botao.BackColor = Color.FromArgb(239, 246, 255);
-            botao.ForeColor = Color.FromArgb(37, 99, 235);
+            // Estilo de selecionado - vermelho para admin
+            botao.BackColor = Color.FromArgb(254, 242, 242);
+            botao.ForeColor = Color.FromArgb(239, 68, 68);
         }
     }
 }

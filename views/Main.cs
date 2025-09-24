@@ -149,21 +149,6 @@ namespace DigiBank
             tela.Show();
         }
 
-        private void btnConfiguracoes_Click(object sender, EventArgs e)
-        {
-            SelecionarBotao(btnConfiguracoes);
-
-            panelPrincipal.Controls.Clear();
-
-            //Configuracoes tela = new Configuracoes
-            //{
-            //    TopLevel = false,
-            //    FormBorderStyle = FormBorderStyle.None,
-            //    Dock = DockStyle.Fill
-            //};
-            //panelPrincipal.Controls.Add(tela);
-            //tela.Show();
-        }
 
 
 
@@ -178,7 +163,7 @@ namespace DigiBank
                 btnTransacoes,
                 btnCartoes,
                 btnTerminalPOS,
-                btnConfiguracoes
+                btnSair
             };
 
             foreach (var botao in botoesMenu)
@@ -197,6 +182,21 @@ namespace DigiBank
             // Estilo de selecionado
             botao.BackColor = Color.FromArgb(239, 246, 255);
             botao.ForeColor = Color.FromArgb(37, 99, 235);
+        }
+
+        private void btnSair_Click(object sender, EventArgs e)
+        {
+            var resultado = MessageBox.Show(
+                "Tem certeza que deseja sair do sistema?",
+                "Confirmar Saída",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (resultado == DialogResult.Yes)
+            {
+                // Fechar a janela principal e retornar para o login
+                this.Close();
+            }
         }
     }
 }

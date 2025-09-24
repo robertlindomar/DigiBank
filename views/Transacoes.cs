@@ -19,6 +19,9 @@ namespace DigiBank.views
         private readonly Cliente _clienteLogado;
         private readonly TransacaoController _transacaoController;
         private readonly ContaController _contaController;
+        private readonly PagamentoPosController _pagamentoController;
+        private readonly TerminalPosController _terminalController;
+        private readonly CartaoController _cartaoController;
         private List<Transacao> _listaTransacoes;
         private List<Conta> _listaContas;
         private List<Transacao> _transacoesFiltradas;
@@ -31,6 +34,9 @@ namespace DigiBank.views
             _clienteLogado = new Cliente();
             _transacaoController = new TransacaoController();
             _contaController = new ContaController();
+            _pagamentoController = new PagamentoPosController();
+            _terminalController = new TerminalPosController();
+            _cartaoController = new CartaoController();
             _listaTransacoes = new List<Transacao>();
             _listaContas = new List<Conta>();
             _transacoesFiltradas = new List<Transacao>();
@@ -42,6 +48,9 @@ namespace DigiBank.views
             _clienteLogado = cliente ?? throw new ArgumentNullException(nameof(cliente));
             _transacaoController = new TransacaoController();
             _contaController = new ContaController();
+            _pagamentoController = new PagamentoPosController();
+            _terminalController = new TerminalPosController();
+            _cartaoController = new CartaoController();
             _listaTransacoes = new List<Transacao>();
             _listaContas = new List<Conta>();
             _transacoesFiltradas = new List<Transacao>();
@@ -165,6 +174,9 @@ namespace DigiBank.views
                 }
             }
 
+            // CARREGAR PAGAMENTOS POS COMO TRANSAÇÕES
+            CarregarPagamentosPos();
+
             // Debug: Log das transações carregadas
             Console.WriteLine($"=== TRANSAÇÕES CARREGADAS ===");
             Console.WriteLine($"Total de transações: {_listaTransacoes.Count}");
@@ -192,6 +204,92 @@ namespace DigiBank.views
             _transacoesFiltradas = new List<Transacao>(_listaTransacoes);
 
             Console.WriteLine($"Transações filtradas inicializadas: {_transacoesFiltradas.Count} transações");
+        }
+
+        private void CarregarPagamentosPos()
+        {
+            try
+            {
+                Console.WriteLine("=== CARREGANDO PAGAMENTOS POS ===");
+
+                // Buscar todos os pagamentos POS
+                var todosPagamentos = _pagamentoController.BuscarTodos();
+                if (todosPagamentos == null || !todosPagamentos.Any())
+                {
+                    Console.WriteLine("Nenhum pagamento POS encontrado no sistema");
+                    return;
+                }
+
+                Console.WriteLine($"Total de pagamentos POS encontrados: {todosPagamentos.Count}");
+
+                // Filtrar pagamentos relevantes para o usuário logado
+                var pagamentosRelevantes = new List<PagamentoPos>();
+
+                foreach (var pagamento in todosPagamentos)
+                {
+                    bool pagamentoRelevante = false;
+
+                    // 1. Pagamentos FEITOS pelo usuário (cartão do usuário)
+                    if (pagamento.CartaoId.HasValue)
+                    {
+                        var cartao = _cartaoController.BuscarPorId(pagamento.CartaoId.Value);
+                        if (cartao != null && _listaContas.Any(c => c.Id == cartao.ContaId))
+                        {
+                            // Usuário fez um pagamento (SAÍDA)
+                            var transacaoPagamento = new Transacao
+                            {
+                                Id = pagamento.Id + 1000000, // ID único para evitar conflitos
+                                Tipo = "pagamento", // Usar tipo existente
+                                Descricao = $"Pagamento via {pagamento.Descricao}",
+                                Valor = -Math.Abs(pagamento.Valor), // NEGATIVO (saída)
+                                DataTransacao = pagamento.DataPagamento,
+                                ContaOrigemId = cartao.ContaId,
+                                ContaDestinoId = null
+                            };
+                            _listaTransacoes.Add(transacaoPagamento);
+                            pagamentoRelevante = true;
+
+                            Console.WriteLine($"✅ Pagamento FEITO pelo usuário: R$ {pagamento.Valor:F2} - {pagamento.Descricao}");
+                        }
+                    }
+
+                    // 2. Pagamentos RECEBIDOS pelo usuário (terminal do usuário)
+                    if (pagamento.TerminalId.HasValue)
+                    {
+                        var terminal = _terminalController.BuscarPorId(pagamento.TerminalId.Value);
+                        if (terminal != null && _listaContas.Any(c => c.Id == terminal.ContaId))
+                        {
+                            // Usuário recebeu um pagamento (ENTRADA)
+                            var transacaoRecebimento = new Transacao
+                            {
+                                Id = pagamento.Id + 2000000, // ID único para evitar conflitos
+                                Tipo = "recebimento", // Adicionar tipo
+                                Descricao = $"Recebimento via {pagamento.Descricao}",
+                                Valor = Math.Abs(pagamento.Valor), // POSITIVO (entrada)
+                                DataTransacao = pagamento.DataPagamento,
+                                ContaOrigemId = null,
+                                ContaDestinoId = terminal.ContaId
+                            };
+                            _listaTransacoes.Add(transacaoRecebimento);
+                            pagamentoRelevante = true;
+
+                            Console.WriteLine($"✅ Pagamento RECEBIDO pelo usuário: R$ {pagamento.Valor:F2} - {pagamento.Descricao}");
+                        }
+                    }
+
+                    if (pagamentoRelevante)
+                    {
+                        pagamentosRelevantes.Add(pagamento);
+                    }
+                }
+
+                Console.WriteLine($"✅ Pagamentos POS carregados: {pagamentosRelevantes.Count} pagamentos relevantes para o usuário");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"❌ Erro ao carregar pagamentos POS: {ex.Message}");
+                Console.WriteLine($"Stack trace: {ex.StackTrace}");
+            }
         }
 
 
@@ -335,7 +433,9 @@ namespace DigiBank.views
                 "Todas",
                 "Depósitos",
                 "Saques",
-                "Transferências"
+                "Transferências",
+                "Pagamentos",
+                "Recebimentos"
             });
             cmbTipoTransacao.SelectedIndex = 0;
 
@@ -421,9 +521,18 @@ namespace DigiBank.views
                 var depositos = transacoesMes.Where(t => t.Tipo == "deposito").ToList();
                 var saques = transacoesMes.Where(t => t.Tipo == "saque").ToList();
 
+                // NOVO: Incluir pagamentos POS nas estatísticas
+                var pagamentosPos = transacoesMes.Where(t => t.Tipo == "pagamento").ToList();
+                var recebimentosPos = transacoesMes.Where(t => t.Tipo == "recebimento").ToList();
+
                 // Para transferências, usar os valores já corrigidos (positivos para entradas, negativos para saídas)
-                var totalEntradas = depositos.Sum(t => Math.Abs(t.Valor)) + transferenciasEntrada.Sum(t => Math.Abs(t.Valor));
-                var totalSaidas = saques.Sum(t => Math.Abs(t.Valor)) + transferenciasSaida.Sum(t => Math.Abs(t.Valor));
+                var totalEntradas = depositos.Sum(t => Math.Abs(t.Valor)) +
+                                   transferenciasEntrada.Sum(t => Math.Abs(t.Valor)) +
+                                   recebimentosPos.Sum(t => Math.Abs(t.Valor));
+
+                var totalSaidas = saques.Sum(t => Math.Abs(t.Valor)) +
+                                 transferenciasSaida.Sum(t => Math.Abs(t.Valor)) +
+                                 pagamentosPos.Sum(t => Math.Abs(t.Valor));
 
                 // Garantir que os valores sejam positivos para o cálculo
                 totalEntradas = Math.Max(0, totalEntradas);
@@ -431,12 +540,29 @@ namespace DigiBank.views
 
                 Console.WriteLine($"Depósitos: {depositos.Count} transações, total: {depositos.Sum(t => t.Valor):C}");
                 Console.WriteLine($"Transferências de entrada: {transferenciasEntrada.Count} transações, total: {transferenciasEntrada.Sum(t => Math.Abs(t.Valor)):C}");
+                Console.WriteLine($"Recebimentos POS: {recebimentosPos.Count} transações, total: {recebimentosPos.Sum(t => Math.Abs(t.Valor)):C}");
                 Console.WriteLine($"Saques: {saques.Count} transações, total: {saques.Sum(t => Math.Abs(t.Valor)):C}");
                 Console.WriteLine($"Transferências de saída: {transferenciasSaida.Count} transações, total: {transferenciasSaida.Sum(t => Math.Abs(t.Valor)):C}");
+                Console.WriteLine($"Pagamentos POS: {pagamentosPos.Count} transações, total: {pagamentosPos.Sum(t => Math.Abs(t.Valor)):C}");
                 Console.WriteLine($"Total entradas calculado: {totalEntradas:C}");
                 Console.WriteLine($"Total saídas calculado: {totalSaidas:C}");
 
                 var saldoLiquido = totalEntradas - totalSaidas;
+
+                // Debug: Log detalhado dos pagamentos POS
+                Console.WriteLine($"=== DETALHAMENTO DOS PAGAMENTOS POS ===");
+                Console.WriteLine($"Pagamentos POS (saídas): {pagamentosPos.Count} transações");
+                foreach (var pagamento in pagamentosPos.Take(5)) // Mostrar até 5 pagamentos
+                {
+                    Console.WriteLine($"  - R$ {Math.Abs(pagamento.Valor):F2} - {pagamento.Descricao}");
+                }
+
+                Console.WriteLine($"Recebimentos POS (entradas): {recebimentosPos.Count} transações");
+                foreach (var recebimento in recebimentosPos.Take(5)) // Mostrar até 5 recebimentos
+                {
+                    Console.WriteLine($"  - R$ {Math.Abs(recebimento.Valor):F2} - {recebimento.Descricao}");
+                }
+                Console.WriteLine($"=== FIM DO DETALHAMENTO ===");
 
                 // Debug: Log das estatísticas
                 Console.WriteLine($"Estatísticas do mês {mesAtual}/{anoAtual}:");
@@ -446,6 +572,8 @@ namespace DigiBank.views
                 Console.WriteLine($"- Saques: {saques.Count} transações, total: {saques.Sum(t => Math.Abs(t.Valor)):C}");
                 Console.WriteLine($"- Transferências de entrada: {transferenciasEntrada.Count} transações, total: {transferenciasEntrada.Sum(t => Math.Abs(t.Valor)):C}");
                 Console.WriteLine($"- Transferências de saída: {transferenciasSaida.Count} transações, total: {transferenciasSaida.Sum(t => Math.Abs(t.Valor)):C}");
+                Console.WriteLine($"- Recebimentos POS: {recebimentosPos.Count} transações, total: {recebimentosPos.Sum(t => Math.Abs(t.Valor)):C}");
+                Console.WriteLine($"- Pagamentos POS: {pagamentosPos.Count} transações, total: {pagamentosPos.Sum(t => Math.Abs(t.Valor)):C}");
                 Console.WriteLine($"- Total entradas: {totalEntradas:C}");
                 Console.WriteLine($"- Total saídas: {totalSaidas:C}");
                 Console.WriteLine($"- Saldo líquido: {saldoLiquido:C}");
@@ -535,7 +663,9 @@ namespace DigiBank.views
                     var matchesType = tipoSelecionado == "Todas" ||
                                     (tipoSelecionado == "Depósitos" && t.Tipo == "deposito") ||
                                     (tipoSelecionado == "Saques" && t.Tipo == "saque") ||
-                                    (tipoSelecionado == "Transferências" && t.Tipo == "transferencia");
+                                    (tipoSelecionado == "Transferências" && t.Tipo == "transferencia") ||
+                                    (tipoSelecionado == "Pagamentos" && t.Tipo == "pagamento") ||
+                                    (tipoSelecionado == "Recebimentos" && t.Tipo == "recebimento");
 
                     // Filtro por tipo de conta
                     var matchesConta = true; // Padrão: mostrar todas
@@ -727,6 +857,26 @@ namespace DigiBank.views
                             }
                         }
                     }
+                    else if (t.Tipo == "pagamento")
+                    {
+                        // Pagamentos POS (saída de dinheiro)
+                        var conta = _listaContas.FirstOrDefault(c => c.Id == t.ContaOrigemId);
+                        if (conta != null)
+                        {
+                            extrato = conta.Tipo == "corrente" ? "Conta Corrente" : "Conta Poupança";
+                        }
+                        descricao = t.Descricao; // Manter descrição original do pagamento
+                    }
+                    else if (t.Tipo == "recebimento")
+                    {
+                        // Recebimentos POS (entrada de dinheiro)
+                        var conta = _listaContas.FirstOrDefault(c => c.Id == t.ContaDestinoId);
+                        if (conta != null)
+                        {
+                            extrato = conta.Tipo == "corrente" ? "Conta Corrente" : "Conta Poupança";
+                        }
+                        descricao = t.Descricao; // Manter descrição original do recebimento
+                    }
                     else
                     {
                         // Para outras transações (depósitos, saques)
@@ -790,6 +940,12 @@ namespace DigiBank.views
                                     row.Cells["Tipo"].Style.ForeColor = Color.FromArgb(239, 68, 68); // Vermelho (envio)
                                 }
                                 break;
+                            case "pagamento":
+                                row.Cells["Tipo"].Style.ForeColor = Color.FromArgb(239, 68, 68); // Vermelho (saída)
+                                break;
+                            case "recebimento":
+                                row.Cells["Tipo"].Style.ForeColor = Color.FromArgb(34, 197, 94); // Verde (entrada)
+                                break;
                         }
                     }
                 }
@@ -826,6 +982,8 @@ namespace DigiBank.views
                     return "Transferência PIX";
                 case "pagamento":
                     return "Pagamento";
+                case "recebimento":
+                    return "Recebimento";
                 default:
                     return tipo;
             }
@@ -855,6 +1013,26 @@ namespace DigiBank.views
                         var tipoConta = contaDestino.Tipo == "corrente" ? "Conta Corrente" : "Conta Poupança";
                         return $"{contaDestino.NumeroConta} - {tipoConta}";
                     }
+                }
+            }
+            else if (transacao.Tipo == "pagamento")
+            {
+                // Para pagamentos POS, usar a conta de origem (cartão do usuário)
+                var conta = _listaContas.FirstOrDefault(c => c.Id == transacao.ContaOrigemId);
+                if (conta != null)
+                {
+                    var tipoConta = conta.Tipo == "corrente" ? "Conta Corrente" : "Conta Poupança";
+                    return $"{conta.NumeroConta} - {tipoConta}";
+                }
+            }
+            else if (transacao.Tipo == "recebimento")
+            {
+                // Para recebimentos POS, usar a conta de destino (terminal do usuário)
+                var conta = _listaContas.FirstOrDefault(c => c.Id == transacao.ContaDestinoId);
+                if (conta != null)
+                {
+                    var tipoConta = conta.Tipo == "corrente" ? "Conta Corrente" : "Conta Poupança";
+                    return $"{conta.NumeroConta} - {tipoConta}";
                 }
             }
             else

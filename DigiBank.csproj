@@ -145,12 +145,6 @@
     <Compile Include="views\Admin\Contas.Designer.cs">
       <DependentUpon>Contas.cs</DependentUpon>
     </Compile>
-    <Compile Include="views\Admin\Relatorios.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="views\Admin\Relatorios.Designer.cs">
-      <DependentUpon>Relatorios.cs</DependentUpon>
-    </Compile>
     <Compile Include="views\Admin\TerminaisPOS.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -263,9 +257,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="views\Admin\Contas.resx">
       <DependentUpon>Contas.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="views\Admin\Relatorios.resx">
-      <DependentUpon>Relatorios.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="views\Admin\TerminaisPOS.resx">
       <DependentUpon>TerminaisPOS.cs</DependentUpon>
