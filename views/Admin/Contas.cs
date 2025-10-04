@@ -16,9 +16,11 @@ namespace DigiBank.views.Admin
     {
         private ContaService _contaService;
         private ClienteService _clienteService;
+        private TransacaoService _transacaoService;
         private List<Conta> _contasOriginais;
         private List<Conta> _contasFiltradas;
         private bool _isPlaceholderVisible = true;
+        private bool _isProcessingClick = false;
 
         public Contas()
         {
@@ -33,6 +35,7 @@ namespace DigiBank.views.Admin
         {
             _contaService = new ContaService();
             _clienteService = new ClienteService();
+            _transacaoService = new TransacaoService();
             _contasOriginais = new List<Conta>();
             _contasFiltradas = new List<Conta>();
         }
@@ -115,6 +118,7 @@ namespace DigiBank.views.Admin
         {
             // Eventos dos botões
             btnNovaConta.Click += BtnNovaConta_Click;
+            btnAdicionarSaldo.Click += BtnAdicionarSaldo_Click;
             bntEditarConta.Click += BntEditarConta_Click;
             btnExcluirConta.Click += BtnExcluirConta_Click;
 
@@ -281,8 +285,208 @@ namespace DigiBank.views.Admin
             }
         }
 
+        private void BtnAdicionarSaldo_Click(object sender, EventArgs e)
+        {
+            // Prevenir múltiplos cliques
+            if (_isProcessingClick)
+                return;
+
+            _isProcessingClick = true;
+
+            try
+            {
+                if (dgvContas.SelectedRows.Count > 0)
+                {
+                    var conta = dgvContas.SelectedRows[0].DataBoundItem as Conta;
+                    if (conta != null)
+                    {
+                        // Criar formulário para adicionar saldo
+                        using (var form = new Form())
+                        {
+                            form.Text = $"Adicionar Saldo - {conta.NumeroConta}";
+                            form.Size = new Size(450, 400);
+                            form.StartPosition = FormStartPosition.CenterParent;
+                            form.FormBorderStyle = FormBorderStyle.FixedDialog;
+                            form.MaximizeBox = false;
+                            form.MinimizeBox = false;
+
+                            // Título
+                            var lblTitulo = new Label
+                            {
+                                Text = $"Adicionar Saldo à Conta {conta.NumeroConta}",
+                                Location = new Point(20, 20),
+                                AutoSize = true,
+                                Font = new Font("Segoe UI", 12, FontStyle.Bold)
+                            };
+
+                            // Informações da conta
+                            var lblInfo = new Label
+                            {
+                                Text = $"Cliente: {conta.Cliente?.Nome ?? "N/A"}\nTipo: {conta.Tipo}\nSaldo Atual: {conta.Saldo:C}",
+                                Location = new Point(20, 50),
+                                AutoSize = true,
+                                Font = new Font("Segoe UI", 9),
+                                ForeColor = Color.Gray
+                            };
+
+                            // Valor a adicionar
+                            var lblValor = new Label { Text = "Valor a Adicionar:", Location = new Point(20, 100), AutoSize = true };
+                            var txtValor = new TextBox
+                            {
+                                Location = new Point(20, 125),
+                                Size = new Size(400, 25),
+                                Font = new Font("Segoe UI", 10)
+                            };
+
+                            // Tipo de depósito
+                            var lblTipoDeposito = new Label { Text = "Tipo de Depósito:", Location = new Point(20, 160), AutoSize = true };
+                            var cmbTipoDeposito = new ComboBox
+                            {
+                                Location = new Point(20, 185),
+                                Size = new Size(400, 25),
+                                DropDownStyle = ComboBoxStyle.DropDownList
+                            };
+
+                            // Motivo da adição
+                            var lblMotivo = new Label { Text = "Motivo/Observação:", Location = new Point(20, 220), AutoSize = true };
+                            var txtMotivo = new TextBox
+                            {
+                                Location = new Point(20, 245),
+                                Size = new Size(400, 25)
+                            };
+
+                            // Botões
+                            var btnConfirmar = new Button
+                            {
+                                Text = "Adicionar Saldo",
+                                Location = new Point(200, 300),
+                                Size = new Size(120, 35),
+                                DialogResult = DialogResult.OK,
+                                BackColor = Color.FromArgb(34, 197, 94),
+                                ForeColor = Color.White,
+                                Font = new Font("Segoe UI", 9, FontStyle.Bold),
+                                FlatStyle = FlatStyle.Flat
+                            };
+                            var btnCancelar = new Button
+                            {
+                                Text = "Cancelar",
+                                Location = new Point(330, 300),
+                                Size = new Size(80, 35),
+                                DialogResult = DialogResult.Cancel,
+                                BackColor = Color.FromArgb(107, 114, 128),
+                                ForeColor = Color.White,
+                                Font = new Font("Segoe UI", 9, FontStyle.Bold),
+                                FlatStyle = FlatStyle.Flat
+                            };
+
+                            // Preencher tipos de depósito
+                            cmbTipoDeposito.Items.AddRange(new object[]
+                            {
+                                "Depósito Administrativo",
+                                "Correção de Saldo",
+                                "Bonificação",
+                                "Reembolso",
+                                "Ajuste de Conta",
+                                "Outros"
+                            });
+                            cmbTipoDeposito.SelectedIndex = 0;
+
+                            // Adicionar controles
+                            form.Controls.AddRange(new Control[]
+                            {
+                                lblTitulo, lblInfo, lblValor, txtValor,
+                                lblTipoDeposito, cmbTipoDeposito, lblMotivo, txtMotivo,
+                                btnConfirmar, btnCancelar
+                            });
+
+                            // Configurar botões como aceitar/cancelar
+                            form.AcceptButton = btnConfirmar;
+                            form.CancelButton = btnCancelar;
+
+                            if (form.ShowDialog() == DialogResult.OK)
+                            {
+                                // Validar valor
+                                if (!decimal.TryParse(txtValor.Text, out decimal valor))
+                                {
+                                    MessageBox.Show("Digite um valor válido para adicionar.", "Erro",
+                                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    return;
+                                }
+
+                                if (valor <= 0)
+                                {
+                                    MessageBox.Show("O valor deve ser maior que zero.", "Erro",
+                                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    return;
+                                }
+
+                                var tipoDeposito = cmbTipoDeposito.SelectedItem?.ToString() ?? "Depósito Administrativo";
+                                var motivo = string.IsNullOrWhiteSpace(txtMotivo.Text) ?
+                                    $"{tipoDeposito} realizado pelo administrador" : txtMotivo.Text;
+
+                                // Calcular novo saldo
+                                var novoSaldo = conta.Saldo + valor;
+
+                                // Confirmar adição
+                                var resultado = MessageBox.Show(
+                                    $"Confirmar adição de {valor:C} à conta {conta.NumeroConta}?\n\n" +
+                                    $"Saldo atual: {conta.Saldo:C}\n" +
+                                    $"Novo saldo: {novoSaldo:C}\n\n" +
+                                    $"Tipo: {tipoDeposito}\n" +
+                                    $"Motivo: {motivo}",
+                                    "Confirmar Adição de Saldo",
+                                    MessageBoxButtons.YesNo,
+                                    MessageBoxIcon.Question);
+
+                                if (resultado == DialogResult.Yes)
+                                {
+                                    // Realizar depósito usando o serviço de transação
+                                    var transacaoId = _transacaoService.RealizarDeposito(
+                                        conta.Id,
+                                        valor,
+                                        motivo
+                                    );
+
+                                    MessageBox.Show($"Saldo adicionado com sucesso!\n\n" +
+                                                  $"Valor adicionado: {valor:C}\n" +
+                                                  $"Novo saldo: {novoSaldo:C}\n" +
+                                                  $"ID da transação: {transacaoId}",
+                                                  "Sucesso",
+                                                  MessageBoxButtons.OK,
+                                                  MessageBoxIcon.Information);
+
+                                    // Recarregar lista para mostrar o novo saldo
+                                    CarregarContas();
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Selecione uma conta para adicionar saldo.", "Aviso",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao adicionar saldo: {ex.Message}", "Erro",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                _isProcessingClick = false;
+            }
+        }
+
         private void BntEditarConta_Click(object sender, EventArgs e)
         {
+            // Prevenir múltiplos cliques
+            if (_isProcessingClick)
+                return;
+
+            _isProcessingClick = true;
+
             try
             {
                 if (dgvContas.SelectedRows.Count > 0)
@@ -307,10 +511,20 @@ namespace DigiBank.views.Admin
             {
                 MessageBox.Show($"Erro ao editar conta: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            finally
+            {
+                _isProcessingClick = false;
+            }
         }
 
         private void BtnExcluirConta_Click(object sender, EventArgs e)
         {
+            // Prevenir múltiplos cliques
+            if (_isProcessingClick)
+                return;
+
+            _isProcessingClick = true;
+
             try
             {
                 if (dgvContas.SelectedRows.Count > 0)
@@ -372,11 +586,16 @@ namespace DigiBank.views.Admin
             {
                 MessageBox.Show($"Erro ao excluir conta: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            finally
+            {
+                _isProcessingClick = false;
+            }
         }
 
         private void DgvContas_SelectionChanged(object sender, EventArgs e)
         {
             bool temSelecao = dgvContas.SelectedRows.Count > 0;
+            btnAdicionarSaldo.Enabled = temSelecao;
             bntEditarConta.Enabled = temSelecao;
             btnExcluirConta.Enabled = temSelecao;
         }

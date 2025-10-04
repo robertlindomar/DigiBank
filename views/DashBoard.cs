@@ -896,6 +896,308 @@ namespace DigiBank.views
             }
         }
 
+        private void btnDepositar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Verificar se há pelo menos 1 conta para depositar
+                if (_listaContas.Count < 1)
+                {
+                    MessageBox.Show("É necessário ter pelo menos 1 conta para realizar depósitos.", "Aviso",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Criar formulário para depósito
+                using (var form = new Form())
+                {
+                    form.Text = "Realizar Depósito";
+                    form.Size = new Size(450, 350);
+                    form.StartPosition = FormStartPosition.CenterParent;
+                    form.FormBorderStyle = FormBorderStyle.FixedDialog;
+                    form.MaximizeBox = false;
+                    form.MinimizeBox = false;
+
+                    // Título
+                    var lblTitulo = new Label
+                    {
+                        Text = "Depósito",
+                        Location = new Point(20, 20),
+                        AutoSize = true,
+                        Font = new Font("Segoe UI", 12, FontStyle.Bold)
+                    };
+
+                    // Conta de destino
+                    var lblConta = new Label { Text = "Conta de Destino:", Location = new Point(20, 60), AutoSize = true };
+                    var cmbConta = new ComboBox
+                    {
+                        Location = new Point(20, 85),
+                        Size = new Size(350, 25),
+                        DropDownStyle = ComboBoxStyle.DropDownList
+                    };
+
+                    // Valor
+                    var lblValor = new Label { Text = "Valor:", Location = new Point(20, 120), AutoSize = true };
+                    var txtValor = new TextBox
+                    {
+                        Location = new Point(20, 145),
+                        Size = new Size(350, 25)
+                    };
+
+                    // Descrição
+                    var lblDescricao = new Label { Text = "Descrição (opcional):", Location = new Point(20, 180), AutoSize = true };
+                    var txtDescricao = new TextBox
+                    {
+                        Location = new Point(20, 205),
+                        Size = new Size(350, 25)
+                    };
+
+                    // Botões
+                    var btnConfirmar = new Button
+                    {
+                        Text = "Confirmar Depósito",
+                        Location = new Point(200, 240),
+                        Size = new Size(120, 35),
+                        DialogResult = DialogResult.OK,
+                        BackColor = Color.FromArgb(34, 197, 94),
+                        ForeColor = Color.White,
+                        Font = new Font("Segoe UI", 9, FontStyle.Bold)
+                    };
+                    var btnCancelar = new Button
+                    {
+                        Text = "Cancelar",
+                        Location = new Point(330, 240),
+                        Size = new Size(80, 35),
+                        DialogResult = DialogResult.Cancel
+                    };
+
+                    // Preencher combo de contas
+                    foreach (var conta in _listaContas)
+                    {
+                        var texto = $"{conta.NumeroConta} - {conta.Tipo} (Saldo: {conta.Saldo:C})";
+                        cmbConta.Items.Add(new { Conta = conta, Texto = texto });
+                    }
+
+                    cmbConta.DisplayMember = "Texto";
+
+                    if (cmbConta.Items.Count > 0)
+                        cmbConta.SelectedIndex = 0;
+
+                    // Adicionar controles
+                    form.Controls.AddRange(new Control[]
+                    {
+                        lblTitulo, lblConta, cmbConta, lblValor, txtValor,
+                        lblDescricao, txtDescricao, btnConfirmar, btnCancelar
+                    });
+
+                    if (form.ShowDialog() == DialogResult.OK)
+                    {
+                        // Validar seleções
+                        if (cmbConta.SelectedItem == null)
+                        {
+                            MessageBox.Show("Selecione a conta de destino.", "Erro",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+
+                        if (!decimal.TryParse(txtValor.Text, out decimal valor) || valor <= 0)
+                        {
+                            MessageBox.Show("Digite um valor válido maior que zero.", "Erro",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+
+                        var contaDestino = ((dynamic)cmbConta.SelectedItem).Conta;
+                        var descricao = string.IsNullOrWhiteSpace(txtDescricao.Text) ?
+                            "Depósito" : txtDescricao.Text;
+
+                        // Confirmar depósito
+                        var resultado = MessageBox.Show(
+                            $"Confirmar depósito de {valor:C} na conta {contaDestino.NumeroConta}?",
+                            "Confirmar Depósito",
+                            MessageBoxButtons.YesNo,
+                            MessageBoxIcon.Question);
+
+                        if (resultado == DialogResult.Yes)
+                        {
+                            // Realizar depósito
+                            var transacaoId = _transacaoController.RealizarDeposito(
+                                contaDestino.Id,
+                                valor,
+                                descricao
+                            );
+
+                            MessageBox.Show($"Depósito realizado com sucesso!\nID da transação: {transacaoId}", "Sucesso",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                            // Recarregar dados
+                            RefreshDados();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao realizar depósito: {ex.Message}", "Erro",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnSacar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Verificar se há pelo menos 1 conta para sacar
+                if (_listaContas.Count < 1)
+                {
+                    MessageBox.Show("É necessário ter pelo menos 1 conta para realizar saques.", "Aviso",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Criar formulário para saque
+                using (var form = new Form())
+                {
+                    form.Text = "Realizar Saque";
+                    form.Size = new Size(450, 350);
+                    form.StartPosition = FormStartPosition.CenterParent;
+                    form.FormBorderStyle = FormBorderStyle.FixedDialog;
+                    form.MaximizeBox = false;
+                    form.MinimizeBox = false;
+
+                    // Título
+                    var lblTitulo = new Label
+                    {
+                        Text = "Saque",
+                        Location = new Point(20, 20),
+                        AutoSize = true,
+                        Font = new Font("Segoe UI", 12, FontStyle.Bold)
+                    };
+
+                    // Conta de origem
+                    var lblConta = new Label { Text = "Conta de Origem:", Location = new Point(20, 60), AutoSize = true };
+                    var cmbConta = new ComboBox
+                    {
+                        Location = new Point(20, 85),
+                        Size = new Size(350, 25),
+                        DropDownStyle = ComboBoxStyle.DropDownList
+                    };
+
+                    // Valor
+                    var lblValor = new Label { Text = "Valor:", Location = new Point(20, 120), AutoSize = true };
+                    var txtValor = new TextBox
+                    {
+                        Location = new Point(20, 145),
+                        Size = new Size(350, 25)
+                    };
+
+                    // Descrição
+                    var lblDescricao = new Label { Text = "Descrição (opcional):", Location = new Point(20, 180), AutoSize = true };
+                    var txtDescricao = new TextBox
+                    {
+                        Location = new Point(20, 205),
+                        Size = new Size(350, 25)
+                    };
+
+                    // Botões
+                    var btnConfirmar = new Button
+                    {
+                        Text = "Confirmar Saque",
+                        Location = new Point(200, 240),
+                        Size = new Size(120, 35),
+                        DialogResult = DialogResult.OK,
+                        BackColor = Color.FromArgb(239, 68, 68),
+                        ForeColor = Color.White,
+                        Font = new Font("Segoe UI", 9, FontStyle.Bold)
+                    };
+                    var btnCancelar = new Button
+                    {
+                        Text = "Cancelar",
+                        Location = new Point(330, 240),
+                        Size = new Size(80, 35),
+                        DialogResult = DialogResult.Cancel
+                    };
+
+                    // Preencher combo de contas
+                    foreach (var conta in _listaContas)
+                    {
+                        var texto = $"{conta.NumeroConta} - {conta.Tipo} (Saldo: {conta.Saldo:C})";
+                        cmbConta.Items.Add(new { Conta = conta, Texto = texto });
+                    }
+
+                    cmbConta.DisplayMember = "Texto";
+
+                    if (cmbConta.Items.Count > 0)
+                        cmbConta.SelectedIndex = 0;
+
+                    // Adicionar controles
+                    form.Controls.AddRange(new Control[]
+                    {
+                        lblTitulo, lblConta, cmbConta, lblValor, txtValor,
+                        lblDescricao, txtDescricao, btnConfirmar, btnCancelar
+                    });
+
+                    if (form.ShowDialog() == DialogResult.OK)
+                    {
+                        // Validar seleções
+                        if (cmbConta.SelectedItem == null)
+                        {
+                            MessageBox.Show("Selecione a conta de origem.", "Erro",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+
+                        if (!decimal.TryParse(txtValor.Text, out decimal valor) || valor <= 0)
+                        {
+                            MessageBox.Show("Digite um valor válido maior que zero.", "Erro",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+
+                        var contaOrigem = ((dynamic)cmbConta.SelectedItem).Conta;
+                        var descricao = string.IsNullOrWhiteSpace(txtDescricao.Text) ?
+                            "Saque" : txtDescricao.Text;
+
+                        // Verificar se tem saldo suficiente
+                        if (contaOrigem.Saldo < valor)
+                        {
+                            MessageBox.Show($"Saldo insuficiente. Saldo atual: {contaOrigem.Saldo:C}", "Erro",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+
+                        // Confirmar saque
+                        var resultado = MessageBox.Show(
+                            $"Confirmar saque de {valor:C} da conta {contaOrigem.NumeroConta}?",
+                            "Confirmar Saque",
+                            MessageBoxButtons.YesNo,
+                            MessageBoxIcon.Question);
+
+                        if (resultado == DialogResult.Yes)
+                        {
+                            // Realizar saque
+                            var transacaoId = _transacaoController.RealizarSaque(
+                                contaOrigem.Id,
+                                valor,
+                                descricao
+                            );
+
+                            MessageBox.Show($"Saque realizado com sucesso!\nID da transação: {transacaoId}", "Sucesso",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                            // Recarregar dados
+                            RefreshDados();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao realizar saque: {ex.Message}", "Erro",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         // Event handlers vazios podem ser removidos se não forem necessários
         // ou implementados conforme necessário
         #endregion

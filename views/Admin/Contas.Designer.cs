@@ -39,6 +39,7 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.panelFiltros = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.btnAdicionarSaldo = new System.Windows.Forms.Button();
             this.bntEditarConta = new System.Windows.Forms.Button();
             this.btnExcluirConta = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
@@ -102,8 +103,8 @@
             // 
             this.dgvContas.AllowUserToAddRows = false;
             this.dgvContas.AllowUserToDeleteRows = false;
-            this.dgvContas.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.dgvContas.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvContas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvContas.BackgroundColor = System.Drawing.Color.White;
@@ -184,6 +185,7 @@
             // panel4
             // 
             this.panel4.BackColor = System.Drawing.Color.White;
+            this.panel4.Controls.Add(this.btnAdicionarSaldo);
             this.panel4.Controls.Add(this.bntEditarConta);
             this.panel4.Controls.Add(this.btnExcluirConta);
             this.panel4.Controls.Add(this.dgvContas);
@@ -191,6 +193,22 @@
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(886, 563);
             this.panel4.TabIndex = 0;
+            // 
+            // btnAdicionarSaldo
+            // 
+            this.btnAdicionarSaldo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAdicionarSaldo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(197)))), ((int)(((byte)(94)))));
+            this.btnAdicionarSaldo.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(197)))), ((int)(((byte)(94)))));
+            this.btnAdicionarSaldo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAdicionarSaldo.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAdicionarSaldo.ForeColor = System.Drawing.Color.White;
+            this.btnAdicionarSaldo.Location = new System.Drawing.Point(452, 520);
+            this.btnAdicionarSaldo.Name = "btnAdicionarSaldo";
+            this.btnAdicionarSaldo.Size = new System.Drawing.Size(100, 40);
+            this.btnAdicionarSaldo.TabIndex = 7;
+            this.btnAdicionarSaldo.Text = "+ Adicionar Saldo";
+            this.btnAdicionarSaldo.UseVisualStyleBackColor = false;
+            this.btnAdicionarSaldo.Click += new System.EventHandler(this.BtnAdicionarSaldo_Click);
             // 
             // bntEditarConta
             // 
@@ -255,6 +273,7 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panelFiltros;
         private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Button btnAdicionarSaldo;
         private System.Windows.Forms.Button bntEditarConta;
         private System.Windows.Forms.Button btnExcluirConta;
     }

@@ -102,20 +102,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 2,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "AdminMain.cs",
-              "DocumentMoniker": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\Admin\\AdminMain.cs",
-              "RelativeDocumentMoniker": "views\\Admin\\AdminMain.cs",
-              "ToolTip": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\Admin\\AdminMain.cs",
-              "RelativeToolTip": "views\\Admin\\AdminMain.cs",
-              "ViewState": "AgIAAGYAAAAAAAAAAAAhwKMAAAArAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-24T22:39:59.81Z"
-            },
             {
               "$type": "Document",
               "DocumentIndex": 4,
@@ -141,6 +129,31 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Transacoes.cs",
+              "DocumentMoniker": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\Transacoes.cs",
+              "RelativeDocumentMoniker": "views\\Transacoes.cs",
+              "ToolTip": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\Transacoes.cs",
+              "RelativeToolTip": "views\\Transacoes.cs",
+              "ViewState": "AgIAAE4GAAAAAAAAAAAYwGAGAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-28T01:06:11.803Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AdminMain.cs",
+              "DocumentMoniker": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\Admin\\AdminMain.cs",
+              "RelativeDocumentMoniker": "views\\Admin\\AdminMain.cs",
+              "ToolTip": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\Admin\\AdminMain.cs",
+              "RelativeToolTip": "views\\Admin\\AdminMain.cs",
+              "ViewState": "AgIAAGYAAAAAAAAAAAAhwKMAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-24T22:39:59.81Z"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 1,
               "Title": "AdminMain.cs [Design]",
               "DocumentMoniker": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\Admin\\AdminMain.cs",
@@ -149,19 +162,6 @@
               "RelativeToolTip": "views\\Admin\\AdminMain.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-21T22:04:55.265Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Transacoes.cs",
-              "DocumentMoniker": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\Transacoes.cs",
-              "RelativeDocumentMoniker": "views\\Transacoes.cs",
-              "ToolTip": "C:\\Users\\robertlindomar\\Desktop\\trabalho c#\\DigiBank\\views\\Transacoes.cs",
-              "RelativeToolTip": "views\\Transacoes.cs",
-              "ViewState": "AgIAAFQGAAAAAAAAAAAAAGAGAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-28T01:06:11.803Z",
-              "EditorCaption": ""
             },
             {
               "$type": "Document",

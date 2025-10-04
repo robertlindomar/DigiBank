@@ -379,31 +379,35 @@
             // 
             // btnSacar
             // 
-            this.btnSacar.BackColor = System.Drawing.Color.White;
-            this.btnSacar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(213)))), ((int)(((byte)(219)))));
+            this.btnSacar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
+            this.btnSacar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(68)))), ((int)(((byte)(68)))));
             this.btnSacar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSacar.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSacar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(65)))), ((int)(((byte)(81)))));
+            this.btnSacar.ForeColor = System.Drawing.Color.White;
             this.btnSacar.Location = new System.Drawing.Point(256, 160);
+            this.btnSacar.Visible = true;
             this.btnSacar.Name = "btnSacar";
             this.btnSacar.Size = new System.Drawing.Size(100, 32);
             this.btnSacar.TabIndex = 5;
             this.btnSacar.Text = "Sacar";
             this.btnSacar.UseVisualStyleBackColor = false;
+            this.btnSacar.Click += new System.EventHandler(this.btnSacar_Click);
             // 
             // btnDepositar
             // 
-            this.btnDepositar.BackColor = System.Drawing.Color.White;
-            this.btnDepositar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(213)))), ((int)(((byte)(219)))));
+            this.btnDepositar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(197)))), ((int)(((byte)(94)))));
+            this.btnDepositar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(197)))), ((int)(((byte)(94)))));
             this.btnDepositar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDepositar.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDepositar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(65)))), ((int)(((byte)(81)))));
+            this.btnDepositar.ForeColor = System.Drawing.Color.White;
             this.btnDepositar.Location = new System.Drawing.Point(140, 160);
+            this.btnDepositar.Visible = true;
             this.btnDepositar.Name = "btnDepositar";
             this.btnDepositar.Size = new System.Drawing.Size(100, 32);
             this.btnDepositar.TabIndex = 4;
             this.btnDepositar.Text = "Depositar";
             this.btnDepositar.UseVisualStyleBackColor = false;
+            this.btnDepositar.Click += new System.EventHandler(this.btnDepositar_Click);
             // 
             // btnTransferir
             // 
